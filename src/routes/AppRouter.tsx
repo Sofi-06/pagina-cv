@@ -16,7 +16,7 @@ const AppRouter = () => {
         }
       />
       <Route
-        path="/about"
+        path="/campus"
         element={
           <MainLayout>
             <AboutUs />
@@ -24,7 +24,7 @@ const AppRouter = () => {
         }
       />
       <Route
-        path="/contact"
+        path="/contacto"
         element={
           <MainLayout>
             <Contact />
