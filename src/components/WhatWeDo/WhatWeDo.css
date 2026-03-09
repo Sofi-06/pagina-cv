@@ -1,0 +1,75 @@
+.what-we-do-container {
+    width: 100%;
+    height: 350vh;
+    /* Extra height to allow scrolling for the animation */
+    position: relative;
+    background-color: transparent;
+    margin-top: -85vh;
+    /* Shift up to cover the carousel area */
+    z-index: 20;
+    /* Overlay the carousel (z-index 10) */
+    pointer-events: none;
+}
+
+/* Background wrapping the blue circle - Sticky Overlay */
+.what-we-do-circle-wrapper {
+    background-color: #1a1548;
+    width: 100%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    will-change: clip-path;
+    z-index: 20;
+    /* Overlays the carousel (z-index 10) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass through until fully expanded */
+}
+
+.what-we-do-circle-wrapper.expanded {
+    pointer-events: auto;
+}
+
+/* Content inside the circle */
+.what-we-do-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px;
+    z-index: 21;
+    transition: opacity 0.5s ease;
+}
+
+.what-we-do-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    margin-top: 0;
+    letter-spacing: -0.5px;
+}
+
+.what-we-do-content p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin: 0;
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .what-we-do-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .what-we-do-content p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+}

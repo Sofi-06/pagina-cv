@@ -1,63 +1,137 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
 import "./Navbar.css";
 
 function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isExternalOpen, setIsExternalOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // For mobile: toggle on click instead of hover
+    const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
+    const [mobileExternalOpen, setMobileExternalOpen] = useState(false);
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+        setMobileProgramsOpen(false);
+        setMobileExternalOpen(false);
+    };
 
     return (
         <nav className="navbar">
             <div className="navbar-container">
+                {/* Logo */}
                 <div className="navbar-logo">
-                    <Link to="/">
+                    <Link to="/" onClick={closeMobileMenu}>
                         <img src={logo} alt="Campus Virtual Logo" className="logo-img" />
                     </Link>
                 </div>
 
-                <ul className="navbar-links">
-                    <li><Link to="/" className="active">Home</Link></li>
-                    <li><Link to="/campus">Nuestro Campus</Link></li>
+                {/* Desktop nav links / Mobile sidebar */}
+                <ul className={`navbar-links ${isMobileMenuOpen ? "mobile-active" : ""}`}>
+                    {/* Header inside the sidebar with Close Button */}
+                    <div className="sidebar-header">
+                        <button className="sidebar-close-btn" onClick={closeMobileMenu}>
+                            <X size={28} />
+                        </button>
+                    </div>
+
+                    <li><Link to="/" onClick={closeMobileMenu}>Home</Link></li>
+                    <li><Link to="/campus" onClick={closeMobileMenu}>Nuestro Campus</Link></li>
+
+                    {/* Programas Virtuales - desktop hover, mobile click */}
                     <li
                         className="dropdown-trigger"
                         onMouseEnter={() => setIsDropdownOpen(true)}
-                        onMouseLeave={() => setIsDropdownOpen(false)}
+                        onMouseLeave={() => { setIsDropdownOpen(false); setMobileProgramsOpen(false); }}
                     >
-                        <span className="nav-link-with-icon">
-                            Programas Virtuales <ChevronDown size={16} className={isDropdownOpen ? 'rotate' : ''} />
+                        <span
+                            className="nav-link-with-icon"
+                            onClick={() => setMobileProgramsOpen(!mobileProgramsOpen)}
+                        >
+                            Programas Virtuales{" "}
+                            <ChevronDown size={15} className={(isDropdownOpen || mobileProgramsOpen) ? "rotate" : ""} />
                         </span>
 
-                        {isDropdownOpen && (
+                        {(isDropdownOpen || mobileProgramsOpen) && (
                             <div className="mega-menu">
                                 <div className="mega-menu-grid">
                                     <div className="mega-menu-column">
                                         <ul className="column-links">
-                                            <li><Link to="#">Doctorado en Derecho Público</Link></li>
-                                            <li><Link to="#">Especialización en Estructuras</Link></li>
-                                            <li><Link to="#">Gerencia de la Cadena de Valor y Productividad</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Doctorado en Derecho Público</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Especialización en Estructuras</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia de la Cadena de Valor y Productividad</Link></li>
                                         </ul>
                                     </div>
                                     <div className="mega-menu-column">
                                         <ul className="column-links">
-                                            <li><Link to="#">Gerencia de Mantenimiento y Gestión de Activos</Link></li>
-                                            <li><Link to="#">Gerencia Estratégica de Costos</Link></li>
-                                            <li><Link to="#">Gestión de Nuevas Tecnologías de Telecomunicaciones</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia de Mantenimiento y Gestión de Activos</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia Estratégica de Costos</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Gestión de Nuevas Tecnologías de Telecomunicaciones</Link></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="mega-menu-footer">
-                                    <Link to="#">Ver todos nuestros posgrados →</Link>
+                                    <Link to="#" onClick={closeMobileMenu}>Ver todos nuestros posgrados →</Link>
                                 </div>
                             </div>
                         )}
                     </li>
-                    <li><Link to="/tutoriales">Tutoriales</Link></li>
-                    <li><Link to="/contacto">Contacto</Link></li>
-                    <li><a href="https://campusvirtual.santototunja.edu.co/app/metaverso/" target="_blank" rel="noopener noreferrer">Metaverso</a></li>
+
+                    <li><Link to="/tutoriales" onClick={closeMobileMenu}>Tutoriales</Link></li>
+                    <li><Link to="/contacto" onClick={closeMobileMenu}>Contacto</Link></li>
+                    <li>
+                        <a
+                            href="https://campusvirtual.santototunja.edu.co/app/metaverso/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={closeMobileMenu}
+                        >
+                            Metaverso
+                        </a>
+                    </li>
+
+                    {/* Enlaces Externos - desktop hover, mobile click */}
+                    <li
+                        className="dropdown-trigger"
+                        onMouseEnter={() => setIsExternalOpen(true)}
+                        onMouseLeave={() => { setIsExternalOpen(false); setMobileExternalOpen(false); }}
+                    >
+                        <span
+                            className="nav-link-with-icon"
+                            onClick={() => setMobileExternalOpen(!mobileExternalOpen)}
+                        >
+                            Enlaces Externos{" "}
+                            <ChevronDown size={15} className={(isExternalOpen || mobileExternalOpen) ? "rotate" : ""} />
+                        </span>
+
+                        {(isExternalOpen || mobileExternalOpen) && (
+                            <div className="external-dropdown">
+                                <ul className="external-links">
+                                    <li><a href="https://www.santototunja.edu.co/" target="_blank" rel="noopener noreferrer">santototunja.edu.co</a></li>
+                                    <li><a href="https://santotoservices.com/" target="_blank" rel="noopener noreferrer">santoto-service</a></li>
+                                    <li><a href="https://santototunja.co/" target="_blank" rel="noopener noreferrer">santotoNews</a></li>
+                                    <li><a href="https://campusvirtual.santototunja.edu.co/virtual-challenge/" target="_blank" rel="noopener noreferrer">Virtual Challenge</a></li>
+                                    <li><a href="https://bienestarintegral.santototunja.co/" target="_blank" rel="noopener noreferrer">Bienestar integral virtual</a></li>
+                                </ul>
+                            </div>
+                        )}
+                    </li>
                 </ul>
 
+                {/* Hamburger button */}
+                <button
+                    className="mobile-menu-btn"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+                </button>
+
+                {/* Desktop auth button */}
                 <div className="navbar-auth">
                     <div
                         className="login-dropdown-container"
@@ -65,7 +139,7 @@ function Navbar() {
                         onMouseLeave={() => setIsLoginOpen(false)}
                     >
                         <button className="login-btn">
-                            Iniciar sesión <ChevronDown size={18} className={isLoginOpen ? 'rotate' : ''} />
+                            Iniciar Sesión
                         </button>
 
                         {isLoginOpen && (
@@ -73,33 +147,25 @@ function Navbar() {
                                 <ul className="login-options">
                                     <li>
                                         <a href="https://plataformalms.ustatunja.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
-                                            <div className="location-icon">
-                                                <MapPin size={16} />
-                                            </div>
+                                            <div className="location-icon"><MapPin size={15} /></div>
                                             Tunja
                                         </a>
                                     </li>
                                     <li>
                                         <a href="https://aulavirtual.usantotomas.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
-                                            <div className="location-icon">
-                                                <MapPin size={16} />
-                                            </div>
+                                            <div className="location-icon"><MapPin size={15} /></div>
                                             Bogotá
                                         </a>
                                     </li>
                                     <li>
                                         <a href="https://campusvirtual.ustabuca.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
-                                            <div className="location-icon">
-                                                <MapPin size={16} />
-                                            </div>
+                                            <div className="location-icon"><MapPin size={15} /></div>
                                             Bucaramanga
                                         </a>
                                     </li>
                                     <li>
                                         <a href="https://campusvirtual.ustavillavicencio.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
-                                            <div className="location-icon">
-                                                <MapPin size={16} />
-                                            </div>
+                                            <div className="location-icon"><MapPin size={15} /></div>
                                             Villavicencio
                                         </a>
                                     </li>
@@ -114,4 +180,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
