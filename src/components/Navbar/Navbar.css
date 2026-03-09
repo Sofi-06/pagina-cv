@@ -77,7 +77,7 @@
     text-decoration: none;
     color: #24292e;
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -285,7 +285,7 @@
     padding: 8px 24px;
     border-radius: 8px;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -335,7 +335,7 @@
     padding: 0.7rem 1.2rem;
     color: #24292e;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     transition: background 0.15s;
     gap: 0.7rem;
 }
@@ -448,7 +448,7 @@ svg {
 
     .login-btn {
         padding: 6px 14px;
-        font-size: 0.85rem;
+        font-size: 0.90rem;
     }
 
     .mobile-menu-btn {
