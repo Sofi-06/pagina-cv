@@ -257,8 +257,8 @@
 }
 
 .external-links li a:hover {
-    background: #f0f3ff;
-    color: #201670;
+    text-decoration: underline;
+    color: #2d368e;
 }
 
 /* =============================

@@ -1,0 +1,269 @@
+/* ===== Section wrapper ===== */
+.mooc-tutorials-section {
+    position: relative;
+    width: 100%;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    z-index: 25;
+}
+
+/* ===== Blue semicircle arc at the top ===== */
+.mooc-tutorials-blue-arc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    line-height: 0;
+}
+
+.mooc-tutorials-blue-arc svg {
+    width: 100%;
+    height: 120px;
+    display: block;
+}
+
+/* ===== MOOC Block ===== */
+.mooc-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 120px 40px 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.mooc-text {
+    flex: 1;
+    max-width: 480px;
+}
+
+.mooc-text h2,
+.tutoriales-text h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1a1548;
+    margin-bottom: 16px;
+    margin-top: 0;
+}
+
+.mooc-text p,
+.tutoriales-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 28px;
+}
+
+/* ===== Shared button style ===== */
+.mooc-tutorials-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    border: 1.5px solid #1a1548;
+    border-radius: 6px;
+    color: #1a1548;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.mooc-tutorials-btn:hover {
+    background-color: #1a1548;
+    color: #fff;
+}
+
+/* ===== MOOC Image wrapper ===== */
+.mooc-image-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 480px;
+    min-height: 380px;
+}
+
+.mooc-img {
+    position: relative;
+    z-index: 3;
+    width: 320px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* ===== Decorative shapes – MOOC ===== */
+.deco-pink-circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f7a8b8;
+    top: 15%;
+    left: 25%;
+    z-index: 2;
+}
+
+.deco-cyan-splash.top-right {
+    position: absolute;
+    width: 180px;
+    height: 120px;
+    background: #5ccce4;
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    top: 10%;
+    right: 0;
+    z-index: 1;
+    opacity: 0.85;
+}
+
+.deco-yellow-blob {
+    position: absolute;
+    width: 200px;
+    height: 140px;
+    background: #f5c842;
+    border-radius: 50% 40% 60% 40% / 45% 55% 45% 55%;
+    bottom: 5%;
+    right: 10%;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.deco-pink-small {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #f7a8b8;
+    top: 40%;
+    left: 15%;
+    z-index: 2;
+}
+
+/* ===== Curved separator ===== */
+.curved-separator {
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    margin: -250px 0 0 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.curved-separator svg {
+    width: 100%;
+    height: 400px;
+    display: block;
+    overflow: visible;
+}
+
+/* ===== Tutoriales Block ===== */
+.tutoriales-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px 100px;
+    position: relative;
+    z-index: 2;
+    margin-top: -180px;
+}
+
+.tutoriales-text {
+    flex: 1;
+    max-width: 480px;
+}
+
+/* ===== Tutoriales Image wrapper ===== */
+.tutoriales-image-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 480px;
+    min-height: 380px;
+}
+
+.tutoriales-img {
+    position: relative;
+    z-index: 3;
+    width: 300px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* ===== Decorative shapes – Tutoriales ===== */
+.deco-yellow-blob-tut {
+    position: absolute;
+    width: 180px;
+    height: 130px;
+    background: #f5c842;
+    border-radius: 55% 45% 50% 50% / 50% 55% 45% 50%;
+    top: 15%;
+    left: 10%;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.deco-cyan-splash-tut {
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    background: #5ccce4;
+    border-radius: 50% 60% 40% 55% / 55% 45% 55% 45%;
+    bottom: 10%;
+    left: 5%;
+    z-index: 1;
+    opacity: 0.85;
+}
+
+.deco-orange-circle {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f07b52;
+    top: 45%;
+    right: 10%;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 820px) {
+    .mooc-block,
+    .tutoriales-block {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 24px 40px;
+    }
+
+    .tutoriales-block {
+        flex-direction: column-reverse;
+    }
+
+    .mooc-text,
+    .tutoriales-text {
+        max-width: 100%;
+    }
+
+    .mooc-image-wrapper,
+    .tutoriales-image-wrapper {
+        max-width: 340px;
+        min-height: 300px;
+    }
+
+    .mooc-img,
+    .tutoriales-img {
+        width: 260px;
+    }
+}
