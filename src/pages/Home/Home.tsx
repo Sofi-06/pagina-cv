@@ -2,6 +2,7 @@ import "./Home.css";
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
 import WhatWeDo from '../../components/WhatWeDo/WhatWeDo';
 import MoocTutorials from '../../components/MoocTutorials/MoocTutorials';
+import Innovation from '../../components/Innovation/Innovation';
 
 function Home() {
     return (
@@ -9,6 +10,7 @@ function Home() {
             <HomeCarousel />
             <WhatWeDo />
             <MoocTutorials />
+            <Innovation />
         </div>
     )
 
