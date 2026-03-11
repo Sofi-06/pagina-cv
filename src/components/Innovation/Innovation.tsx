@@ -3,7 +3,7 @@ import './Innovation.css';
 import card1Img from '../../assets/carrusel_1_Carrusel.png';
 import card2Img from '../../assets/carrusel_2_Carrusel.png';
 import card3Img from '../../assets/carrusel_3_Carrusel.png';
-import arrowImg from '../../assets/flechaCampus-2-01.png';
+import botonNextImg from '../../assets/boton_next-03.png';
 
 interface CardData {
     id: number;
@@ -14,13 +14,12 @@ interface CardData {
 }
 
 const cards: CardData[] = [
-    { id: 1, image: card1Img, title: 'ORGANÍZATE MEJOR',       subtitle: 'Herramientas para la Administración de Tareas', link: '#' },
     { id: 2, image: card2Img, title: 'CLASE INVERTIDA',         subtitle: 'Flipped Classroom',                            link: '#' },
+    { id: 1, image: card1Img, title: 'ORGANÍZATE MEJOR',       subtitle: 'Herramientas para la Administración de Tareas', link: '#' },
     { id: 3, image: card3Img, title: 'INTELIGENCIA ARTIFICIAL', subtitle: 'Inteligencia Artificial',                      link: '#' },
 ];
 
-const POSITIONS = ['pos-left', 'pos-center', 'pos-right'] as const;
-type Pos = typeof POSITIONS[number];
+type Pos = 'pos-left' | 'pos-center' | 'pos-right';
 
 const Innovation = () => {
     const [centerIndex, setCenterIndex] = useState(1);
@@ -74,12 +73,26 @@ const Innovation = () => {
             <div className="innovation-arrows">
                 <button type="button" className="innovation-arrow innovation-arrow-left"
                     onClick={() => rotate('left')} aria-label="Anterior">
-                    <img src={arrowImg} alt="Anterior" />
+                    <img src={botonNextImg} alt="Anterior" style={{ transform: 'scaleX(-1)' }} />
                 </button>
                 <button type="button" className="innovation-arrow innovation-arrow-right"
                     onClick={() => rotate('right')} aria-label="Siguiente">
-                    <img src={arrowImg} alt="Siguiente" />
+                    <img src={botonNextImg} alt="Siguiente" />
                 </button>
+            </div>
+
+            <div className="innovation-circles-row">
+                <div className="innovation-circle"></div>
+                <div className="innovation-circle"></div>
+                <div className="innovation-circle"></div>
+                <div className="innovation-circle"></div>
+            </div>
+
+            <div className="innovation-rects-row">
+                <div className="innovation-rect"></div>
+                <div className="innovation-rect"></div>
+                <div className="innovation-rect"></div>
+                <div className="innovation-rect"></div>
             </div>
         </section>
     );

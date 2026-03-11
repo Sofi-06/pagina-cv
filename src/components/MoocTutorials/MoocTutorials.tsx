@@ -4,6 +4,7 @@ import moocImg from '../../assets/Home_estu1.png';
 import tutorialesImg from '../../assets/Home_estu2.png';
 import formaAzul08 from '../../assets/Formas-azul-08.png';
 import formaAzul11 from '../../assets/Formas-azul-11.png';
+import punticosAzul from '../../assets/Formas-Azul1-10.png';
 import lineaAzul05 from '../../assets/Formas-Azul1-05.png';
 import lineaAzul06 from '../../assets/Formas-Azul1-06.png';
 import lineaAzul03 from '../../assets/Formas-Azul1-03.png';
@@ -26,7 +27,7 @@ const MoocTutorials = () => {
                     if (entry.target === tutRef.current) setTutScrolled(entry.isIntersecting);
                 });
             },
-            { threshold: 0.1, rootMargin: '0px 0px 150px 0px' }
+            { threshold: 0.5, rootMargin: '0px 0px -20% 0px' } // threshold más alto y rootMargin para mejor efecto
         );
         if (moocRef.current) obs.observe(moocRef.current);
         if (tutRef.current) obs.observe(tutRef.current);
@@ -90,6 +91,7 @@ const MoocTutorials = () => {
                     <img src={rosado02} alt="" className="deco-rosado tut-rosado" />
                     <img src={lineaAzul03} alt="" className="deco-linea tut-linea-1" />
                     <img src={lineaAzul04} alt="" className="deco-linea tut-linea-2" />
+                    <img src={punticosAzul} alt="Punticos azules" className="deco-punticos-chico" />
                     <img src={tutorialesImg} alt="Estudiante Tutoriales" className="tutoriales-img" />
                 </div>
                 <div className="tutoriales-text">

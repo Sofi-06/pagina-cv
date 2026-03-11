@@ -1,3 +1,19 @@
+/* Punticos azules en el brazo del chico */
+.deco-punticos-chico {
+    position: absolute;
+    z-index: 4;
+    width: 60px;
+    bottom: 38%;
+    left: 64%;
+    pointer-events: none;
+    opacity: 0;
+    transform: rotate(65deg);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.tut-scrolled .deco-punticos-chico {
+    opacity: 1;
+    transition-delay: 0.2s;
+}
 /* ===== Outer wrapper – holds sticky section + scroll room ===== */
 .mooc-tutorials-wrapper {
     position: relative;
@@ -128,18 +144,19 @@
     top: 35%;
     right: 5%;
     z-index: 2;
-    opacity: 0;
-    transition: opacity 0.6s ease;
+    opacity: 1;
+    transition: opacity 0.6s ease, top 0.6s ease, right 0.6s ease;
 }
 
 /* ===== Rosada decorations (appear on scroll) ===== */
+
 .deco-rosado {
     position: absolute;
     z-index: 2;
     pointer-events: none;
     object-fit: contain;
     opacity: 0;
-    transition: opacity 0.6s ease, top 0.6s ease, bottom 0.6s ease, left 0.6s ease, right 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), top 0.7s, bottom 0.7s, left 0.7s, right 0.7s, transform 0.7s;
 }
 
 .mooc-rosado {
@@ -161,7 +178,7 @@
     pointer-events: none;
     object-fit: contain;
     opacity: 0;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s;
 }
 
 .mooc-linea-1 {
@@ -178,28 +195,30 @@
 
 .tut-linea-1 {
     width: 78px;
-    bottom: 15%;
-    left: 8%;
+    bottom: 16%;
+    left: 26%; 
 }
 
 .tut-linea-2 {
     width: 64px;
-    top: 40%;
-    left: 19%;
+    top: 39%;
+    left: 22.5%;
 }
 
 /* ===== Scroll state: MOOC (.mooc-scrolled) ===== */
+
 .mooc-scrolled .mooc-rosado {
-    opacity: 1;
+    opacity: 1 !important;
     top: 4%;
     left: 22%;
     transition-delay: 0s;
 }
 
+
 .mooc-scrolled .mooc-linea-1,
 .mooc-scrolled .mooc-linea-2 {
-    opacity: 1;
-    transition-delay: 3s;
+    opacity: 1 !important;
+    transition-delay: 0.2s;
 }
 
 .mooc-scrolled .mooc-linea-1 {
@@ -216,18 +235,20 @@
 }
 
 /* ===== Scroll state: Tutoriales (.tut-scrolled) ===== */
+
 .tut-scrolled .tut-rosado {
-    opacity: 1;
+    opacity: 1 !important;
     top: 45%;
     right: 5%;
     transform: rotate(5deg);
     transition-delay: 0s;
 }
 
+
 .tut-scrolled .tut-linea-1,
 .tut-scrolled .tut-linea-2 {
-    opacity: 1;
-    transition-delay: 3s;
+    opacity: 1 !important;
+    transition-delay: 0.2s;
 }
 
 .tut-scrolled .tut-linea-1 {
@@ -239,9 +260,10 @@
 }
 
 .tut-scrolled .tut-blue-form {
+    opacity: 0;
     top: 30%;
     right: 8%;
-    transition: top 0.6s ease, right 0.6s ease;
+    transition: opacity 0.6s ease, top 0.6s ease, right 0.6s ease;
 }
 
 /* Cyan splash grows on scroll for tutoriales */
