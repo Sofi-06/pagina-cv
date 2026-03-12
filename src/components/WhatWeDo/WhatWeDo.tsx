@@ -1,41 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './WhatWeDo.css';
+
+const COLORS = ['#FFD84D', '#F07040', '#EC8C6F', '#F0A896', '#67E8F9', '#3BB8F0'];
+const CELL_SIZE = 60;
 
 const WhatWeDo: React.FC = () => {
     const [circleSize, setCircleSize] = useState(0);
     const [isExpanded, setIsExpanded] = useState(false);
     const [opacity, setOpacity] = useState(0);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const cellsRef = useRef<Map<string, { color: string; opacity: number }>>(new Map());
+    const animFrameRef = useRef<number>(0);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
-
-            // Grow the circle as soon as scroll starts
-            // We adjust the speed so it covers the 70vh carousel quickly
             const maxScroll = viewportHeight * 1.5;
             const progress = Math.min(scrollY / maxScroll, 1);
-
-            // Radius needed to cover the entire screen from the center
             const maxRadius = Math.sqrt(Math.pow(viewportWidth, 2) + Math.pow(viewportHeight, 2));
-
             setCircleSize(progress * maxRadius);
-
-            // Content starts appearing when circle is large
             if (progress > 0.6) {
                 setOpacity(Math.min((progress - 0.6) / 0.3, 1));
             } else {
                 setOpacity(0);
             }
-
             setIsExpanded(progress > 0.9);
         };
-
         window.addEventListener('scroll', handleScroll, { passive: true });
         handleScroll();
-
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const resize = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            cellsRef.current.forEach((cell, key) => {
+                const [cx, cy] = key.split(',').map(Number);
+                ctx.globalAlpha = cell.opacity;
+                ctx.fillStyle = cell.color;
+                ctx.fillRect(cx * CELL_SIZE, cy * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
+                cell.opacity -= 0.02;
+                if (cell.opacity <= 0) cellsRef.current.delete(key);
+            });
+            ctx.globalAlpha = 1;
+            animFrameRef.current = requestAnimationFrame(draw);
+        };
+        draw();
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            const cx = Math.floor((e.clientX - rect.left) / CELL_SIZE);
+            const cy = Math.floor((e.clientY - rect.top) / CELL_SIZE);
+            const key = `${cx},${cy}`;
+            if (!cellsRef.current.has(key)) {
+                cellsRef.current.set(key, { color: COLORS[Math.floor(Math.random() * COLORS.length)], opacity: 1 });
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('resize', resize);
+            window.removeEventListener('mousemove', handleMouseMove);
+            cancelAnimationFrame(animFrameRef.current);
+        };
     }, []);
 
     return (
@@ -47,7 +88,17 @@ const WhatWeDo: React.FC = () => {
                     WebkitClipPath: `circle(${circleSize}px at 50% 50%)`
                 }}
             >
-                <div className="what-we-do-content" style={{ opacity }}>
+                {/* Canvas de cuadraditos */}
+                <canvas ref={canvasRef} style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                    pointerEvents: 'none'
+                }} />
+
+                <div className="what-we-do-content" style={{ opacity, position: 'relative', zIndex: 1 }}>
                     <h2>¿Qué Hacemos?</h2>
                     <p>
                         Trabajamos en el fortalecimiento de los procesos de enseñanza y aprendizaje de modalidad virtual con la incorporación de estrategias didácticas y evaluativas, y recursos educativos creativos e innovadores que permitan el desarrollo y el crecimiento del estudiante en todo su proceso de formación integral.

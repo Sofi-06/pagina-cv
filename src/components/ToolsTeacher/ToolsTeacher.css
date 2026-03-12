@@ -1,135 +1,171 @@
-/* Tools Component Styles */
-.tools-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 40px;
-  background: #ededed;
-  padding: 40px 0;
-}
-
-.tools-list {
-  display: flex;
-  gap: 48px;
-}
-
-.tool-circle {
-  width: 110px;
-  height: 110px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 18px 0 #0002, 0 0 0 8px #fff, 0 0 0 12px #e5e5e5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #222;
-  cursor: pointer;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-.tool-circle.selected, .tool-circle:hover {
-  box-shadow: 0 8px 32px 0 #0003, 0 0 0 8px #fff, 0 0 0 12px #63eee0;
-  transform: scale(1.06);
-}
-.tool-circle img {
-  width: 54px;
-  height: 54px;
-  object-fit: contain;
-}
-
-.tool-detail {
-  background: #f7f7f7;
-  border-radius: 24px;
-  box-shadow: 0 4px 18px 0 #0001;
-  padding: 36px 32px 28px 32px;
-  min-width: 260px;
-  max-width: 320px;
+/* ===== Section ===== */
+.tools-section {
+  width: 100%;
+  background: #ebebeb;
+  padding: 70px 40px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.tool-detail-img {
+
+/* ===== Header ===== */
+.tools-header {
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: 60px;
+}
+
+.tools-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+}
+
+.tools-subtitle {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ===== Grid de tarjetas ===== */
+.tools-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+/* ===== Tarjeta individual ===== */
+.tool-card {
   width: 140px;
+  /* Tamaño colapsado (ligeramente mayor al círculo para márgenes de sombra) */
   height: 140px;
-  background: #fff;
+  background: transparent;
+  /* Fondo transparente inicialmente para que parezca solo un círculo */
+  border-radius: 70px;
+  /* Completamente redondo al inicio */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  overflow: hidden;
+  /* Oculta el texto superior */
+}
+
+/* Hover: Se expande hacia abajo, revelando contenido y fondo gris claro */
+.tool-card:hover {
+  width: 260px;
+  height: 380px;
+  /* Altura suficiente para el contenido */
+  background: #f4f4f4;
+  border-radius: 20px;
+  padding: 30px 20px;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado Activo: solo mantengo el estado de menor estiramiento si la tarjeta ESTÁ siendo hovereada y tbn está activa. */
+.tool-card.active:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Contenedor del ícono dentro de la tarjeta ===== */
+.tool-card-icon-wrapper {
+  margin-bottom: 25px;
+}
+
+.tool-icon {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  box-shadow: 0 4px 18px 0 #0002, 0 0 0 8px #fff, 0 0 0 12px #e5e5e5;
+  background: #ffffff;
+  /* El círculo blanco siempre tiene la misma sombra base */
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 0 0 10px #f4f4f4,
+    0 0 0 12px #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  transition: all 0.3s ease;
 }
-.tool-detail-img img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+
+/* Al hacer hover a la tarjeta, la sombra interna del icono crece ligeramente y quito el color cyan */
+.tool-card:hover .tool-icon {
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.12),
+    0 0 0 10px #f4f4f4,
+    0 0 0 12px #ffffff;
 }
-.tool-detail h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
+
+/* Cuando la tarjeta está activa (cambia color) Y ES HOVEREADA, las sombras del icono cambian para coincidir con el fondo blanco */
+.tool-card.active:hover .tool-icon {
+  /* Aquí la idea es que la tarjeta cambia de color (ej. amarillo). El anillo debe transparentar ese color o ser blanco. */
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.12),
+    0 0 0 10px rgba(255, 255, 255, 0.4),
+    0 0 0 12px #ffffff;
 }
-.tool-detail p {
+
+.tool-icon img {
+  width: 100%; /* Ocupa todo el círculo */
+  height: 100%; /* Ocupa todo el círculo */
+  object-fit: cover; /* Para asegurar que lo llene sin deformar */
+  border-radius: 50%; /* Se asegura de que la imagen en sí sea redonda */
+}
+
+/* ===== Textos de la tarjeta ===== */
+.tool-card-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  transition-delay: 0s;
+  /* Oculta rápido al quitar hover */
+  pointer-events: none;
+  /* Evita interacciones mientras está invisible */
+}
+
+/* Revela el texto cuando se expande la tarjeta (solo en hover) */
+.tool-card:hover .tool-card-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
+  /* Aparece después de que la tarjeta empiece a abrirse */
+  pointer-events: auto;
+}
+
+.tool-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.tool-card-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #444;
   margin: 0;
-  font-size: 1rem;
-  color: #222;
-  text-align: center;
 }
 
-.tools-circles-row {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 48px;
-  background: #ededed;
-  padding: 40px 0;
-  flex-wrap: wrap;
-}
+/* Responsive */
+@media (max-width: 700px) {
+  .tools-grid {
+    gap: 20px;
+  }
 
-@media (max-width: 900px) {
-  .tools-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-  .tools-list {
-    gap: 24px;
-  }
-}
-@media (max-width: 600px) {
-  .tools-container {
-    padding: 18px 0;
-  }
-  .tool-circle {
-    width: 110px;
-    height: 110px;
-  }
-  .tool-circle img {
-    width: 54px;
-    height: 54px;
-  }
-  .tool-detail {
-    min-width: 0;
-    max-width: 98vw;
-    padding: 18px 8px 14px 8px;
-    border-radius: 14px;
-  }
-  .tool-detail-img {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 10px;
-  }
-  .tool-detail-img img {
-    width: 38px;
-    height: 38px;
-  }
-  .tool-detail h3 {
-    font-size: 1rem;
-  }
-  .tool-detail p {
-    font-size: 0.85rem;
+  .tool-card {
+    width: 100%;
+    max-width: 300px;
   }
 }

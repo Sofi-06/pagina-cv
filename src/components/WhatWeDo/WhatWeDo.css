@@ -27,6 +27,7 @@
     align-items: center;
     pointer-events: none;
     /* Let clicks pass through until fully expanded */
+    overflow: hidden;
 }
 
 .what-we-do-circle-wrapper.expanded {

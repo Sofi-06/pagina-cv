@@ -139,7 +139,7 @@
 
 .mega-menu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 1.5rem 2rem;
     gap: 1.5rem;
 }
@@ -172,11 +172,20 @@
     color: #24292e;
     font-weight: 400;
     white-space: normal;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    transition: background 0.2s, color 0.2s;
 }
 
 .column-links a:hover {
-    text-decoration: underline;
-    color: #2d368e;
+    background: #201670;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    padding: 6px 12px;
+    display: block;
 }
 
 .mega-menu-footer {
@@ -196,7 +205,10 @@
 }
 
 .mega-menu-footer a:hover {
-    color: #2d368e;
+    background: #201670;
+    color: #fff;
+    border-radius: 16px;
+    text-decoration: none;
 }
 
 /* =============================
@@ -246,19 +258,21 @@
 }
 
 .external-links li a {
-    display: flex;
-    align-items: center;
+    display: block;
+    width: 100%;
     padding: 0.55rem 1rem;
     color: #24292e;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 400;
-    transition: background 0.15s, color 0.15s;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
 }
 
 .external-links li a:hover {
-    text-decoration: underline;
-    color: #2d368e;
+    background: #201670;
+    color: #fff;
+    text-decoration: none;
 }
 
 /* =============================

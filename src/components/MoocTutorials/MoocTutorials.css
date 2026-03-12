@@ -114,7 +114,6 @@
     max-width: 480px;
     min-height: 380px;
 }
-
 .mooc-img {
     position: relative;
     z-index: 3;
@@ -180,6 +179,7 @@
     opacity: 0;
     transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s;
 }
+
 
 .mooc-linea-1 {
     width: 90px;

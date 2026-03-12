@@ -11,8 +11,12 @@ function Home() {
             <HomeCarousel />
             <WhatWeDo />
             <MoocTutorials />
-            <Innovation />
-            <ToolsTeacher />
+            <div style={{ position: "relative", zIndex: 1, isolation: "isolate" }}>
+                <Innovation />
+            </div>
+            <div style={{ position: "relative", zIndex: 2, isolation: "isolate" }}>
+                <ToolsTeacher />
+            </div>
         </div>
     )
 

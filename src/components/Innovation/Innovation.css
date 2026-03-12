@@ -1,40 +1,60 @@
 /* ===== Section ===== */
 .innovation-section {
-  position: relative;
+  position: sticky;
+  top: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 120vh;
+  height: 120vh;
   background-color: #1a1548;
-  padding: 80px 40px 60px;
+  padding: 10px 40px 0;
   text-align: center;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 26;
+  z-index: 30;
+}
+
+/* El fondo queda siempre visible; solo el contenido anima */
+.innovation-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.innovation-section.visible .innovation-inner {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== Title ===== */
 .innovation-title {
   color: #ffffff;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin: 0 0 50px;
+  margin: 0 0 30px;
 }
 
 /* ===== Cards container ===== */
 .innovation-cards {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  height: 600px;
+  max-width: 1000px;
+  height: 450px;
   margin: 0 auto;
 }
 
 /* ===== Individual card ===== */
 .innovation-card {
   position: absolute;
-  width: 280px;
+  width: 240px;
   left: 50%;
   top: 50%;
 
@@ -46,6 +66,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
   /* Botón circular, sin fondo ni borde */
   .innovation-arrow {
     background: none !important;
@@ -64,11 +85,11 @@
     cursor: pointer;
   }
 
-  will-change: transform, opacity;
+  will-change: transform,
+  opacity;
   backface-visibility: hidden;
 
-  transition:
-    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
     opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -113,7 +134,7 @@
 /* ===== Card image — ocupa toda la parte superior ===== */
 .innovation-card-img-wrapper {
   width: 100%;
-  height: 260px;
+  height: 200px;
   flex-shrink: 0;
   overflow: hidden;
   background: linear-gradient(135deg, #0d0b2a 0%, #1a1060 50%, #0d0b2a 100%);
@@ -139,12 +160,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.06) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(115deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 70%);
   pointer-events: none;
 }
 
@@ -216,8 +235,9 @@
 .innovation-arrows {
   display: flex;
   justify-content: center;
-  gap: px;
-  margin-top: 8px;
+  gap: 24px;
+  margin-top: 50px;
+  margin-bottom: 0px;
 }
 
 .innovation-arrow {
@@ -235,7 +255,7 @@
 
 .innovation-arrow:hover {
   transform: scale(1.1);
-  
+
 }
 
 
@@ -243,7 +263,7 @@
   width: 52px;
   height: 52px;
   object-fit: contain;
-  filter: brightness(0) invert(1); 
+  filter: brightness(0) invert(1);
   transform: none;
 }
 
@@ -253,7 +273,7 @@
 }
 
 .innovation-arrow-right {
-  margin-left: -10px;
+  margin-left: -35px;
 }
 
 .innovation-arrow-left img {
@@ -301,7 +321,7 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0 0 40px 0; 
+  padding: 0 0 40px 0;
   position: absolute;
   left: 0;
   right: 0;
@@ -312,9 +332,42 @@
 .innovation-rect {
   width: 160px;
   min-width: 100px;
-  height: 140px;
-  background: #236495;
-  border: 2px solid #63eee0;
-  border-radius: 8px;
+  height: 80px;
+  background: transparent;
+  /* Changed to transparent */
+  border-radius: 18px 18px 0 0;
   margin: 0;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.innovation-rect:hover {
+  background: #fff;
+  border-color: #fff;
+  cursor: pointer;
+}
+
+/* ===== Colores para rectángulos activos ===== */
+.innovation-rect.active-orange {
+  background: #FFD84D;
+  box-shadow: 0 8px 32px 0 rgba(255, 216, 77, 0.25);
+  border: 2px solid #FFD84D;
+}
+
+.innovation-rect.active-pink {
+  background: #F07040;
+  box-shadow: 0 8px 32px 0 rgba(240, 112, 64, 0.25);
+  border: 2px solid #F07040;
+}
+
+.innovation-rect.active-cyan {
+  background: #8B7FE8;
+  box-shadow: 0 8px 32px 0 rgba(139, 127, 232, 0.25);
+  border: 2px solid #8B7FE8;
+}
+
+.innovation-rect.active-green {
+  background: #3BB8F0;
+  box-shadow: 0 8px 32px 0 rgba(59, 184, 240, 0.25);
+  border: 2px solid #3BB8F0;
 }

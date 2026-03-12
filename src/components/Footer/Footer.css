@@ -1,12 +1,107 @@
+/* ===== Contenedor Principal ===== */
 .footer {
-    padding: 1rem;
-    text-align: center;
-    background: #f8f9fa;
-    border-top: 1px solid #ddd;
-    color: #666;
+  background-color: #170f54; /* Color solicitado por el usuario */
+  color: #ffffff;
+  padding: 40px 20px 25px; /* Reduje padding top y bottom */
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
 }
 
-.footer p {
-    margin: 0;
-    font-size: 0.9rem;
+.footer-container {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 25px; /* Reduje el gap principal */
+}
+
+/* ===== Logo ===== */
+.footer-logo img {
+  height: 100px; /* Ajuste ligero de tamaño de logo */
+  object-fit: contain;
+}
+
+/* ===== Direcciones ===== */
+.footer-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Reduje gap entre direcciones */
+}
+
+.address-item {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #f0f0f0;
+}
+
+.address-item strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.address-item p {
+  margin: 0;
+  color: #cccccc;
+}
+
+/* ===== Redes Sociales ===== */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Más espacio entre los iconos como tal por ser más grandes */
+  margin: 5px 0; /* Menos margen vertical */
+}
+
+.social-icon {
+  color: #ffffff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* ===== Textos Legales ===== */
+.footer-legal {
+  font-size: 0.75rem;
+  color: #999999; /* Texto más tenue */
+  line-height: 1.4;
+  margin-top: 5px; /* Reduje espacio arriba */
+}
+
+.footer-legal p {
+  margin: 3px 0;
+}
+
+.legal-link {
+  color: #cccccc;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.legal-link:hover {
+  color: #ffffff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .footer-logo img {
+    height: 45px;
+  }
+  
+  .address-item {
+    font-size: 0.85rem;
+  }
+  
+  .footer-legal {
+    font-size: 0.65rem;
+  }
 }

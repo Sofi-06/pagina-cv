@@ -60,22 +60,30 @@ function Navbar() {
                             <div className="mega-menu">
                                 <div className="mega-menu-grid">
                                     <div className="mega-menu-column">
+                                        <h4 className="column-title">Especializaciones</h4>
                                         <ul className="column-links">
-                                            <li><Link to="#" onClick={closeMobileMenu}>Doctorado en Derecho Público</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Especialización en Estructuras</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Estructuras</Link></li>
                                             <li><Link to="#" onClick={closeMobileMenu}>Gerencia de la Cadena de Valor y Productividad</Link></li>
-                                        </ul>
-                                    </div>
-                                    <div className="mega-menu-column">
-                                        <ul className="column-links">
                                             <li><Link to="#" onClick={closeMobileMenu}>Gerencia de Mantenimiento y Gestión de Activos</Link></li>
                                             <li><Link to="#" onClick={closeMobileMenu}>Gerencia Estratégica de Costos</Link></li>
                                             <li><Link to="#" onClick={closeMobileMenu}>Gestión de Nuevas Tecnologías de Telecomunicaciones</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Liderazgo e Innovación Educativa</Link></li>
                                         </ul>
                                     </div>
-                                </div>
-                                <div className="mega-menu-footer">
-                                    <Link to="#" onClick={closeMobileMenu}>Ver todos nuestros posgrados →</Link>
+                                    <div className="mega-menu-column">
+                                        <h4 className="column-title">Maestrías</h4>
+                                        <ul className="column-links">
+                                            <li><Link to="#" onClick={closeMobileMenu}>Geotecnia Vial y Pavimentos</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Inclusión, Educación y Diversidad</Link></li>
+                                            <li><Link to="#" onClick={closeMobileMenu}>Marketing Internacional y Negocios</Link></li>
+                                        </ul>
+                                    </div>
+                                    <div className="mega-menu-column">
+                                        <h4 className="column-title">Doctorados</h4>
+                                        <ul className="column-links">
+                                            <li><Link to="#" onClick={closeMobileMenu}>Derecho Público</Link></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         )}

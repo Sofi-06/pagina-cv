@@ -104,7 +104,7 @@ const MoocTutorials = () => {
             </div>
         </section>
         {/* Scroll room – same bg, invisible to user */}
-        <div className="mooc-tutorials-scroll-room" style={{ height: '60vh' }} />
+        {/* Eliminado scroll-room para permitir sticky de Innovation */}
         </div>
     );
 };
