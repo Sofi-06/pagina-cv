@@ -1,4 +1,23 @@
-.home{
-    color: red;
+.reveal-wrapper {
+    position: relative;
+    width: 100%;
+    /* 180vh ensures that a 100vh sticky section stays for 80vh of scroll 
+       before being pulled away by the wrapper's end. */
+    height: 180vh;
+    pointer-events: none;
 }
 
+.reveal-wrapper>* {
+    pointer-events: auto;
+}
+
+.home-page-container {
+    width: 100%;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.reveal-wrapper-tools {
+    height: 145vh;
+    background-color: #ebebeb;
+}

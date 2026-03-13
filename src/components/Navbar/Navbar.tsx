@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
 import "./Navbar.css";
 
 function Navbar() {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isExternalOpen, setIsExternalOpen] = useState(false);
@@ -20,12 +22,27 @@ function Navbar() {
         setMobileExternalOpen(false);
     };
 
+    const goToHomeTop = () => {
+        closeMobileMenu();
+
+        if (location.pathname !== "/") {
+            navigate("/");
+        }
+
+        window.requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    };
+
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 {/* Logo */}
                 <div className="navbar-logo">
-                    <Link to="/" onClick={closeMobileMenu}>
+                    <Link to="/" onClick={(event) => {
+                        event.preventDefault();
+                        goToHomeTop();
+                    }}>
                         <img src={logo} alt="Campus Virtual Logo" className="logo-img" />
                     </Link>
                 </div>
@@ -62,26 +79,26 @@ function Navbar() {
                                     <div className="mega-menu-column">
                                         <h4 className="column-title">Especializaciones</h4>
                                         <ul className="column-links">
-                                            <li><Link to="#" onClick={closeMobileMenu}>Estructuras</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia de la Cadena de Valor y Productividad</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia de Mantenimiento y Gestión de Activos</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Gerencia Estratégica de Costos</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Gestión de Nuevas Tecnologías de Telecomunicaciones</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Liderazgo e Innovación Educativa</Link></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-estructuras/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Estructuras</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-gerencia-de-la-cadena-de-valor-y-productividad/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Gerencia de la Cadena de Valor y Productividad</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-gerencia-de-mantenimiento-y-gestion-de-activos/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Gerencia de Mantenimiento y Gestión de Activos</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-gerencia-estrategica-de-costos/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Gerencia Estratégica de Costos</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-gestion-de-las-nuevas-tecnologias-de-las-telecomunicaciones/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Gestión de Nuevas Tecnologías de Telecomunicaciones</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/especializacion-en-liderazgo-e-innovacion-educativa/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Liderazgo e Innovación Educativa</a></li>
                                         </ul>
                                     </div>
                                     <div className="mega-menu-column">
                                         <h4 className="column-title">Maestrías</h4>
                                         <ul className="column-links">
-                                            <li><Link to="#" onClick={closeMobileMenu}>Geotecnia Vial y Pavimentos</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Inclusión, Educación y Diversidad</Link></li>
-                                            <li><Link to="#" onClick={closeMobileMenu}>Marketing Internacional y Negocios</Link></li>
+                                            <li><a href="https://santotovirtual.edu.co/maestria-en-geotecnia-vial-y-pavimentos/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Geotecnia Vial y Pavimentos</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/maestria-en-inclusion-educacion-y-diversidad/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Inclusión, Educación y Diversidad</a></li>
+                                            <li><a href="https://santotovirtual.edu.co/maestria-en-marketing-internacional-y-negocios/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Marketing Internacional y Negocios</a></li>
                                         </ul>
                                     </div>
                                     <div className="mega-menu-column">
                                         <h4 className="column-title">Doctorados</h4>
                                         <ul className="column-links">
-                                            <li><Link to="#" onClick={closeMobileMenu}>Derecho Público</Link></li>
+                                            <li><a href="https://santotovirtual.edu.co/doctorado-en-derecho-publico/" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Derecho Público</a></li>
                                         </ul>
                                     </div>
                                 </div>

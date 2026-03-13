@@ -10,11 +10,19 @@ function Home() {
         <div className="home-page-container">
             <HomeCarousel />
             <WhatWeDo />
-            <MoocTutorials />
-            <div style={{ position: "relative", zIndex: 1, isolation: "isolate" }}>
+
+            {/* Transition: Mooc -> Innovation -> Tools -> Footer 
+                We use reveal-wrappers to provide scroll distance for each sticky layer. */}
+
+            <div className="reveal-wrapper" style={{ zIndex: 40 }}>
+                <MoocTutorials />
+            </div>
+
+            <div className="reveal-wrapper" style={{ zIndex: 30, marginTop: "-80vh" }}>
                 <Innovation />
             </div>
-            <div style={{ position: "relative", zIndex: 2, isolation: "isolate" }}>
+
+            <div className="reveal-wrapper reveal-wrapper-tools" style={{ zIndex: 20, marginTop: "-74vh" }}>
                 <ToolsTeacher />
             </div>
         </div>

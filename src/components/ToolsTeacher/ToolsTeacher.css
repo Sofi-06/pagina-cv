@@ -1,18 +1,37 @@
-/* ===== Section ===== */
 .tools-section {
   width: 100%;
   background: #ebebeb;
-  padding: 70px 40px 80px;
+  padding: 200px 40px 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-height: 84vh;
 }
 
-/* ===== Header ===== */
+.tools-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tools-section.visible .tools-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .tools-header {
   text-align: center;
   max-width: 680px;
-  margin-bottom: 60px;
+  margin-bottom: 56px;
 }
 
 .tools-title {
@@ -29,25 +48,20 @@
   margin: 0;
 }
 
-/* ===== Grid de tarjetas ===== */
 .tools-grid {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 28px;
   flex-wrap: wrap;
   max-width: 1200px;
 }
 
-/* ===== Tarjeta individual ===== */
 .tool-card {
-  width: 140px;
-  /* Tamaño colapsado (ligeramente mayor al círculo para márgenes de sombra) */
-  height: 140px;
+  width: 136px;
+  height: 136px;
   background: transparent;
-  /* Fondo transparente inicialmente para que parezca solo un círculo */
-  border-radius: 70px;
-  /* Completamente redondo al inicio */
-  padding: 15px;
+  border-radius: 68px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,38 +71,30 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
   overflow: hidden;
-  /* Oculta el texto superior */
+  text-decoration: none;
+  color: inherit;
 }
 
-/* Hover: Se expande hacia abajo, revelando contenido y fondo gris claro */
-.tool-card:hover {
-  width: 260px;
-  height: 380px;
-  /* Altura suficiente para el contenido */
-  background: #f4f4f4;
+.tool-card:is(:hover, :focus-visible) {
+  width: 248px;
+  height: 304px;
+  background: var(--tool-hover-color, #f4f4f4);
+  border-color: var(--tool-hover-color, transparent);
   border-radius: 20px;
-  padding: 30px 20px;
+  padding: 22px 18px;
   transform: translateY(-8px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Estado Activo: solo mantengo el estado de menor estiramiento si la tarjeta ESTÁ siendo hovereada y tbn está activa. */
-.tool-card.active:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* ===== Contenedor del ícono dentro de la tarjeta ===== */
 .tool-card-icon-wrapper {
-  margin-bottom: 25px;
+  margin-bottom: 16px;
 }
 
 .tool-icon {
-  width: 110px;
-  height: 110px;
+  width: 106px;
+  height: 106px;
   border-radius: 50%;
   background: #ffffff;
-  /* El círculo blanco siempre tiene la misma sombra base */
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.08),
     0 0 0 10px #f4f4f4,
@@ -99,17 +105,7 @@
   transition: all 0.3s ease;
 }
 
-/* Al hacer hover a la tarjeta, la sombra interna del icono crece ligeramente y quito el color cyan */
-.tool-card:hover .tool-icon {
-  box-shadow:
-    0 15px 30px rgba(0, 0, 0, 0.12),
-    0 0 0 10px #f4f4f4,
-    0 0 0 12px #ffffff;
-}
-
-/* Cuando la tarjeta está activa (cambia color) Y ES HOVEREADA, las sombras del icono cambian para coincidir con el fondo blanco */
-.tool-card.active:hover .tool-icon {
-  /* Aquí la idea es que la tarjeta cambia de color (ej. amarillo). El anillo debe transparentar ese color o ser blanco. */
+.tool-card:is(:hover, :focus-visible) .tool-icon {
   box-shadow:
     0 15px 30px rgba(0, 0, 0, 0.12),
     0 0 0 10px rgba(255, 255, 255, 0.4),
@@ -117,51 +113,45 @@
 }
 
 .tool-icon img {
-  width: 100%; /* Ocupa todo el círculo */
-  height: 100%; /* Ocupa todo el círculo */
-  object-fit: cover; /* Para asegurar que lo llene sin deformar */
-  border-radius: 50%; /* Se asegura de que la imagen en sí sea redonda */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-/* ===== Textos de la tarjeta ===== */
 .tool-card-content {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.3s ease;
   transition-delay: 0s;
-  /* Oculta rápido al quitar hover */
   pointer-events: none;
-  /* Evita interacciones mientras está invisible */
 }
 
-/* Revela el texto cuando se expande la tarjeta (solo en hover) */
-.tool-card:hover .tool-card-content {
+.tool-card:is(:hover, :focus-visible) .tool-card-content {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 0.15s;
-  /* Aparece después de que la tarjeta empiece a abrirse */
   pointer-events: auto;
 }
 
 .tool-card-title {
-  font-size: 1.25rem;
+  font-size: 1.18rem;
   font-weight: 800;
   color: #111;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   text-transform: uppercase;
 }
 
 .tool-card-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.83rem;
+  line-height: 1.45;
   color: #444;
   margin: 0;
 }
 
-/* Responsive */
 @media (max-width: 700px) {
   .tools-grid {
-    gap: 20px;
+    gap: 16px;
   }
 
   .tool-card {
