@@ -25,7 +25,9 @@
     display: flex;
     align-items: center;
     height: 78px;
-    padding: 0 32px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 32px);
     gap: 1rem;
 }
 
@@ -430,6 +432,36 @@ svg {
     }
 }
 
+@media (min-width: 1100px) and (max-width: 1450px) {
+    .navbar-container {
+        height: 74px;
+        padding: 0 18px;
+        gap: 0.8rem;
+    }
+
+    .logo-img {
+        height: 46px;
+    }
+
+    .navbar-links {
+        gap: 0.95rem;
+    }
+
+    .navbar-links a,
+    .nav-link-with-icon {
+        font-size: 0.84rem;
+    }
+
+    .navbar-auth {
+        margin-left: 0.8rem;
+    }
+
+    .login-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
 /* =============================
    RESPONSIVE - 1024px  (tablet & below)
    Menu becomes hamburger sidebar
@@ -461,8 +493,8 @@ svg {
     }
 
     .login-btn {
-        padding: 6px 14px;
-        font-size: 0.90rem;
+        padding: 7px 14px;
+        font-size: 0.88rem;
     }
 
     .mobile-menu-btn {
@@ -476,6 +508,11 @@ svg {
         border: none;
         color: #24292e;
         order: 3;
+    }
+
+    .login-menu {
+        right: 0;
+        min-width: 220px;
     }
 
     /* Sidebar Header (mobile only) */
@@ -571,6 +608,42 @@ svg {
     }
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-container {
+        padding: 0 20px;
+        height: 72px;
+    }
+
+    .logo-img {
+        max-height: 42px;
+    }
+
+    .mobile-menu-btn {
+        padding: 10px;
+    }
+
+    .login-btn {
+        padding: 8px 16px;
+        font-size: 0.92rem;
+    }
+
+    .navbar-links {
+        width: min(52vw, 420px);
+        max-width: 420px;
+        padding: 24px 24px 40px;
+    }
+
+    .navbar-links a,
+    .nav-link-with-icon {
+        font-size: 1.04rem;
+    }
+
+    .column-links a,
+    .external-links li a {
+        font-size: 0.95rem;
+    }
+}
+
 /* =============================
    RESPONSIVE - 640px (mobile)
    ============================= */
@@ -581,15 +654,20 @@ svg {
     }
 
     .logo-img {
-        height: 38px;
+        height: 34px;
     }
 
     .navbar-links {
-        width: 85vw;
+        width: min(88vw, 320px);
     }
 
     .login-btn {
-        padding: 8px 14px;
-        font-size: 0.82rem;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .login-menu {
+        right: -8px;
+        min-width: 200px;
     }
 }

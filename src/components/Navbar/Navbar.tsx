@@ -22,6 +22,10 @@ function Navbar() {
         setMobileExternalOpen(false);
     };
 
+    const toggleLoginMenu = () => {
+        setIsLoginOpen((prev) => !prev);
+    };
+
     const goToHomeTop = () => {
         closeMobileMenu();
 
@@ -56,7 +60,7 @@ function Navbar() {
                         </button>
                     </div>
 
-                    <li><Link to="/" onClick={closeMobileMenu}>Home</Link></li>
+                    <li><Link to="/" onClick={closeMobileMenu}>Inicio</Link></li>
                     <li><Link to="/campus" onClick={closeMobileMenu}>Nuestro Campus</Link></li>
 
                     {/* Programas Virtuales - desktop hover, mobile click */}
@@ -163,7 +167,7 @@ function Navbar() {
                         onMouseEnter={() => setIsLoginOpen(true)}
                         onMouseLeave={() => setIsLoginOpen(false)}
                     >
-                        <button className="login-btn">
+                        <button className="login-btn" type="button" onClick={toggleLoginMenu}>
                             Iniciar Sesión
                         </button>
 

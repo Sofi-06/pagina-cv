@@ -22,6 +22,11 @@
     z-index: 1;
 }
 
+.mooc-tutorials-wrapper::before {
+    content: "";
+    display: none;
+}
+
 /* ===== Section wrapper (sticky) ===== */
 .mooc-tutorials-section {
     position: sticky;
@@ -36,18 +41,70 @@
 /* ===== Blue semicircle arc at the top ===== */
 .mooc-tutorials-blue-arc {
     position: absolute;
-    top: 0;
+    top: -2px;
     left: 0;
     width: 100%;
     z-index: 1;
     pointer-events: none;
     line-height: 0;
+    overflow: hidden;
 }
 
 .mooc-tutorials-blue-arc svg {
     width: 100%;
-    height: 120px;
+    height: 150px;
     display: block;
+    transform: translateY(-1px);
+}
+
+.mooc-tutorials-blue-arc::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    background: #1a1548;
+}
+
+@media (min-width: 1025px) {
+    .mooc-tutorials-wrapper::before {
+        display: block;
+        position: absolute;
+        top: -26px;
+        left: 0;
+        width: 100%;
+        height: 42px;
+        background: #1a1548;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .mooc-tutorials-blue-arc {
+        top: -4px;
+    }
+
+    .mooc-tutorials-blue-arc svg {
+        height: 170px;
+    }
+
+    .mooc-block {
+        padding-top: clamp(128px, 15vw, 160px);
+    }
+}
+
+@media (max-width: 560px) {
+    .mooc-tutorials-wrapper::before {
+        display: block;
+        position: absolute;
+        top: -18px;
+        left: 0;
+        width: 100%;
+        height: 28px;
+        background: #1a1548;
+        z-index: 2;
+        pointer-events: none;
+    }
 }
 
 /* ===== MOOC Block ===== */
@@ -58,7 +115,7 @@
     gap: 40px;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 120px 40px 60px;
+    padding: clamp(100px, 12vw, 120px) clamp(24px, 5vw, 40px) 60px;
     position: relative;
     z-index: 2;
 }
@@ -172,6 +229,11 @@
     right: 8%;
 }
 
+.deco-rosado-mobile {
+    display: none;
+    opacity: 0;
+}
+
 /* ===== Blue line decorations (appear on scroll) ===== */
 .deco-linea {
     position: absolute;
@@ -236,6 +298,12 @@
     transition: opacity 0.6s ease, top 0.6s ease, left 0.6s ease;
 }
 
+.mooc-scrolled .mooc-rosado-mobile {
+    opacity: 1 !important;
+    transform: translateY(0) rotate(-10deg);
+    transition-delay: 0.15s;
+}
+
 /* ===== Scroll state: Tutoriales (.tut-scrolled) ===== */
 
 .tut-scrolled .tut-rosado {
@@ -266,6 +334,12 @@
     top: 30%;
     right: 8%;
     transition: opacity 0.6s ease, top 0.6s ease, right 0.6s ease;
+}
+
+.tut-scrolled .tut-rosado-mobile {
+    opacity: 1 !important;
+    transform: translateY(0) rotate(12deg);
+    transition-delay: 0.15s;
 }
 
 /* Cyan splash grows on scroll for tutoriales */
@@ -328,7 +402,7 @@
     gap: 40px;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 40px 40px 100px;
+    padding: 40px clamp(24px, 5vw, 40px) 100px;
     position: relative;
     z-index: 2;
     margin-top: -180px;
@@ -393,9 +467,90 @@
 @media (max-height: 820px), (max-width: 1024px) {
     .mooc-tutorials-section {
         position: relative;
+        min-height: auto;
     }
     .mooc-tutorials-scroll-room {
         display: none;
+    }
+}
+
+@media (min-width: 821px) and (max-width: 1024px) {
+    .mooc-block,
+    .tutoriales-block {
+        gap: 24px;
+        max-width: 920px;
+    }
+
+    .mooc-block {
+        padding-top: 132px;
+    }
+
+    .tutoriales-block {
+        margin-top: -90px;
+        padding-bottom: 80px;
+    }
+
+    .mooc-text h2,
+    .tutoriales-text h2 {
+        font-size: 1.7rem;
+    }
+
+    .mooc-text p,
+    .tutoriales-text p {
+        font-size: 0.98rem;
+        line-height: 1.65;
+    }
+
+    .mooc-image-wrapper,
+    .tutoriales-image-wrapper {
+        max-width: 360px;
+        min-height: 300px;
+    }
+
+    .mooc-img,
+    .tutoriales-img {
+        width: 240px;
+    }
+
+    .deco-linea {
+        display: none;
+    }
+
+    .deco-rosado-mobile {
+        display: block;
+    }
+
+    .mooc-rosado-mobile {
+        width: 76px;
+        top: 60%;
+        left: -2%;
+        transform: translateY(18px) rotate(-18deg);
+    }
+
+    .mooc-rosado {
+        width: 84px;
+        top: 10%;
+        left: 8%;
+    }
+
+    .mooc-scrolled .mooc-rosado {
+        top: 10%;
+        left: 8%;
+    }
+
+    .tut-rosado-mobile {
+        width: 72px;
+        top: 48%;
+        left: -4%;
+        transform: translateY(18px) rotate(20deg);
+    }
+
+    .curved-separator {
+        margin-top: -150px;
+    }
+
+    .curved-separator svg {
+        height: 280px;
     }
 }
 
@@ -404,11 +559,15 @@
     .tutoriales-block {
         flex-direction: column;
         text-align: center;
-        padding: 80px 24px 40px;
+        gap: 28px;
+        padding: 80px 24px 48px;
     }
 
     .tutoriales-block {
         flex-direction: column-reverse;
+        margin-top: 0;
+        padding-top: 24px;
+        padding-bottom: 72px;
     }
 
     .mooc-text,
@@ -425,5 +584,304 @@
     .mooc-img,
     .tutoriales-img {
         width: 260px;
+    }
+
+    .mooc-blue-form {
+        width: 74px;
+        top: 4%;
+        left: 10%;
+    }
+
+    .mooc-rosado {
+        width: 82px;
+        top: 2%;
+        left: 10%;
+    }
+
+    .mooc-scrolled .mooc-rosado {
+        top: 2%;
+        left: 10%;
+    }
+
+    .deco-linea {
+        display: none;
+    }
+
+    .deco-rosado-mobile {
+        display: block;
+    }
+
+    .mooc-rosado-mobile {
+        width: 68px;
+        top: 58%;
+        left: 0%;
+        transform: translateY(16px) rotate(-18deg);
+    }
+
+    .deco-cyan-splash.top-right {
+        width: 136px;
+        height: 92px;
+        top: 12%;
+        right: 4%;
+    }
+
+    .deco-yellow-blob {
+        width: 150px;
+        height: 110px;
+        bottom: 9%;
+        right: 8%;
+    }
+
+    .tut-blue-form {
+        width: 68px;
+        top: 24%;
+        right: 9%;
+    }
+
+    .tut-rosado {
+        width: 72px;
+        top: 42%;
+        right: -2%;
+    }
+
+    .tut-scrolled .tut-rosado {
+        top: 42%;
+        right: -2%;
+    }
+
+    .tut-rosado-mobile {
+        width: 64px;
+        top: 50%;
+        left: -2%;
+        transform: translateY(16px) rotate(20deg);
+    }
+
+    .deco-yellow-blob-tut {
+        width: 132px;
+        height: 100px;
+        top: 14%;
+        left: 8%;
+    }
+
+    .deco-cyan-splash-tut {
+        width: 118px;
+        height: 82px;
+        bottom: 10%;
+        left: 4%;
+    }
+
+    .deco-punticos-chico {
+        width: 42px;
+        bottom: 35%;
+        left: 67%;
+    }
+
+    .curved-separator {
+        margin-top: -110px;
+    }
+
+    .curved-separator svg {
+        height: 220px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 820px) {
+    .mooc-block {
+        padding-top: 112px;
+    }
+
+    .tutoriales-image-wrapper {
+        max-width: 360px;
+        min-height: 340px;
+    }
+
+    .mooc-image-wrapper {
+        max-width: 360px;
+        min-height: 340px;
+    }
+
+    .mooc-img,
+    .tutoriales-img {
+        width: 272px;
+    }
+
+    .mooc-rosado {
+        width: 78px;
+        top: 8%;
+        left: 6%;
+    }
+
+    .mooc-scrolled .mooc-rosado {
+        top: 8%;
+        left: 6%;
+    }
+
+    .mooc-rosado-mobile {
+        width: 74px;
+        top: 64%;
+        left: -6%;
+        transform: translateY(16px) rotate(-16deg);
+    }
+
+    .deco-cyan-splash.top-right {
+        width: 140px;
+        height: 96px;
+        top: 6%;
+        right: -2%;
+    }
+
+    .deco-yellow-blob {
+        width: 154px;
+        height: 114px;
+        bottom: 4%;
+        right: 2%;
+    }
+
+    .tut-rosado {
+        width: 72px;
+        top: 58%;
+        right: -6%;
+    }
+
+    .tut-scrolled .tut-rosado {
+        top: 58%;
+        right: -6%;
+    }
+
+    .tut-rosado-mobile {
+        width: 78px;
+        top: 66%;
+        left: -8%;
+        transform: translateY(16px) rotate(8deg);
+    }
+
+    .deco-yellow-blob-tut {
+        width: 154px;
+        height: 114px;
+        top: 10%;
+        left: 0%;
+    }
+
+    .deco-cyan-splash-tut {
+        width: 136px;
+        height: 94px;
+        bottom: 4%;
+        left: -2%;
+    }
+}
+
+@media (max-width: 560px) {
+    .mooc-tutorials-blue-arc svg {
+        height: 88px;
+    }
+
+    .mooc-text h2,
+    .tutoriales-text h2 {
+        font-size: 1.6rem;
+    }
+
+    .mooc-text p,
+    .tutoriales-text p {
+        font-size: 0.98rem;
+        line-height: 1.6;
+    }
+
+    .mooc-image-wrapper,
+    .tutoriales-image-wrapper {
+        max-width: 280px;
+        min-height: 240px;
+    }
+
+    .mooc-img,
+    .tutoriales-img {
+        width: min(100%, 220px);
+    }
+
+    .mooc-image-wrapper,
+    .tutoriales-image-wrapper {
+        overflow: visible;
+    }
+
+    .mooc-blue-form {
+        width: 58px;
+        top: 8%;
+        left: 12%;
+    }
+
+    .mooc-rosado {
+        width: 68px;
+        top: 7%;
+        left: 20%;
+    }
+
+    .mooc-scrolled .mooc-rosado {
+        top: 7%;
+        left: 20%;
+    }
+
+    .mooc-rosado-mobile {
+        width: 56px;
+        top: 56%;
+        left: 2%;
+        transform: translateY(14px) rotate(-16deg);
+    }
+
+    .deco-cyan-splash.top-right {
+        width: 108px;
+        height: 72px;
+        top: 14%;
+        right: 2%;
+    }
+
+    .deco-yellow-blob {
+        width: 122px;
+        height: 92px;
+        bottom: 11%;
+        right: 10%;
+    }
+
+    .tut-blue-form {
+        width: 68px;
+        top: 26%;
+        right: -8%;
+        transform: translateX(-42px);
+    }
+
+    .tut-rosado {
+        width: 58px;
+        top: 37%;
+        right: 4%;
+    }
+
+    .tut-scrolled .tut-rosado {
+        top: 37%;
+        right: 4%;
+    }
+
+    .tut-rosado-mobile {
+        width: 52px;
+        top: 50%;
+        left: 10%;
+        transform: translateY(14px) rotate(18deg);
+    }
+
+    .deco-yellow-blob-tut {
+        width: 110px;
+        height: 84px;
+        top: 17%;
+        left: 6%;
+    }
+
+    .deco-cyan-splash-tut {
+        width: 94px;
+        height: 68px;
+        bottom: 11%;
+        left: 22%;
+    }
+
+    .deco-punticos-chico {
+        width: 34px;
+        bottom: 33%;
+        left: 68%;
     }
 }

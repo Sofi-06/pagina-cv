@@ -1,8 +1,6 @@
 .reveal-wrapper {
     position: relative;
     width: 100%;
-    /* 180vh ensures that a 100vh sticky section stays for 80vh of scroll 
-       before being pulled away by the wrapper's end. */
     height: 180vh;
     pointer-events: none;
 }
@@ -15,9 +13,63 @@
     width: 100%;
     background-color: #ffffff;
     position: relative;
+    overflow-x: clip;
+}
+
+.reveal-wrapper-mooc {
+    z-index: 40;
+}
+
+.reveal-wrapper-innovation {
+    z-index: 30;
+    margin-top: -80vh;
 }
 
 .reveal-wrapper-tools {
     height: 145vh;
     background-color: #ebebeb;
+    z-index: 20;
+    margin-top: -74vh;
+}
+
+@media (min-width: 1600px) {
+    .reveal-wrapper {
+        height: 160vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -68vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: 125vh;
+        margin-top: -56vh;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1450px) {
+    .reveal-wrapper {
+        height: 165vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -72vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: 132vh;
+        margin-top: -52vh;
+    }
+}
+
+@media (max-width: 1024px) {
+    .reveal-wrapper,
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+
+    .reveal-wrapper {
+        pointer-events: auto;
+    }
 }

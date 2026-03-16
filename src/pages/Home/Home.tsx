@@ -14,15 +14,15 @@ function Home() {
             {/* Transition: Mooc -> Innovation -> Tools -> Footer 
                 We use reveal-wrappers to provide scroll distance for each sticky layer. */}
 
-            <div className="reveal-wrapper" style={{ zIndex: 40 }}>
+            <div className="reveal-wrapper reveal-wrapper-mooc">
                 <MoocTutorials />
             </div>
 
-            <div className="reveal-wrapper" style={{ zIndex: 30, marginTop: "-80vh" }}>
+            <div className="reveal-wrapper reveal-wrapper-innovation">
                 <Innovation />
             </div>
 
-            <div className="reveal-wrapper reveal-wrapper-tools" style={{ zIndex: 20, marginTop: "-74vh" }}>
+            <div className="reveal-wrapper reveal-wrapper-tools">
                 <ToolsTeacher />
             </div>
         </div>

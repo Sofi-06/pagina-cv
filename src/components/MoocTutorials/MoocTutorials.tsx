@@ -39,8 +39,8 @@ const MoocTutorials = () => {
         <section className="mooc-tutorials-section">
             {/* Blue semicircle arc from previous section */}
             <div className="mooc-tutorials-blue-arc">
-                <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0,0 L1440,0 L1440,40 Q720,140 0,40 Z" fill="#1a1548" />
+                <svg viewBox="0 0 1440 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,0 L1440,0 L1440,34 Q720,170 0,34 Z" fill="#1a1548" />
                 </svg>
             </div>
 
@@ -56,6 +56,7 @@ const MoocTutorials = () => {
                 <div className="mooc-image-wrapper">
                     <img src={formaAzul08} alt="" className="deco-blue-form mooc-blue-form" />
                     <img src={rosado01} alt="" className="deco-rosado mooc-rosado" />
+                    <img src={rosado02} alt="" className="deco-rosado deco-rosado-mobile mooc-rosado-mobile" />
                     <img src={lineaAzul05} alt="" className="deco-linea mooc-linea-1" />
                     <img src={lineaAzul06} alt="" className="deco-linea mooc-linea-2" />
                     <div className="deco-cyan-splash top-right" />
@@ -89,6 +90,7 @@ const MoocTutorials = () => {
                     <div className="deco-cyan-splash-tut" />
                     <img src={formaAzul11} alt="" className="deco-blue-form tut-blue-form" />
                     <img src={rosado02} alt="" className="deco-rosado tut-rosado" />
+                    <img src={formaAzul08} alt="" className="deco-rosado deco-rosado-mobile tut-rosado-mobile" />
                     <img src={lineaAzul03} alt="" className="deco-linea tut-linea-1" />
                     <img src={lineaAzul04} alt="" className="deco-linea tut-linea-2" />
                     <img src={punticosAzul} alt="Punticos azules" className="deco-punticos-chico" />
