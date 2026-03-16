@@ -1,6 +1,6 @@
 .what-we-do-container {
     width: 100%;
-    height: 200vh;
+    height: 220vh;
     position: relative;
     background-color: transparent;
     margin-top: -85vh;
@@ -61,7 +61,7 @@
 
 @media (min-width: 1600px) {
     .what-we-do-container {
-        height: 170vh;
+        height: 185vh;
         margin-top: -78vh;
     }
 }

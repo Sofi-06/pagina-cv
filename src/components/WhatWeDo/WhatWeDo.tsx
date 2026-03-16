@@ -17,7 +17,7 @@ const WhatWeDo: React.FC = () => {
             const scrollY = window.scrollY;
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
-            const maxScroll = viewportHeight * 1.5;
+            const maxScroll = viewportHeight * 1.7;
             const progress = Math.min(scrollY / maxScroll, 1);
             const maxRadius = Math.sqrt(Math.pow(viewportWidth, 2) + Math.pow(viewportHeight, 2));
             setCircleSize(progress * maxRadius);

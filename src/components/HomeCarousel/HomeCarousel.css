@@ -4,9 +4,9 @@
 .home-carousel-wrapper {
     position: relative;
     width: 100%;
-    height: min(85vh, 900px);
-    min-height: 420px;
-    background-color: #035b8f;
+    height: min(95vh, 1080px);
+    min-height: 540px;
+    background-color: #ffffff;
     overflow: hidden;
     margin-top: 0;
     z-index: 10;
@@ -22,8 +22,9 @@
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: center 35%;
     background-repeat: no-repeat;
+    background-color: #ffffff;
     position: relative;
     display: flex;
     justify-content: center;
@@ -66,11 +67,11 @@
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: clamp(84px, 10vw, 120px);
+    height: clamp(96px, 12vw, 136px);
 }
 
 .custom-shape-divider-bottom .shape-fill {
-    fill: #f6f8fa;
+    fill: #ffffff;
     /* Should match the background color of the next section! */
 }
 
@@ -119,14 +120,15 @@
 
 @media (min-width: 1600px) {
     .home-carousel-wrapper {
-        height: min(78vh, 860px);
+        height: min(89vh, 1040px);
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .home-carousel-wrapper {
-        height: min(58vw, 620px);
-        min-height: 360px;
+        height: min(72vw, 820px);
+        min-height: 480px;
+        margin-top: 0;
     }
 
     .custom-shape-divider-bottom svg {
@@ -147,9 +149,10 @@
 @media (max-width: 768px) {
     .home-carousel-wrapper {
         height: auto;
-        min-height: 220px;
+        min-height: 290px;
         aspect-ratio: 16 / 9;
         max-height: none;
+        margin-top: 0;
     }
 
     .carousel-slide {

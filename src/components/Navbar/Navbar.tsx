@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
@@ -7,6 +7,7 @@ import "./Navbar.css";
 function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
+    const loginMenuRef = useRef<HTMLDivElement | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isExternalOpen, setIsExternalOpen] = useState(false);
@@ -25,6 +26,28 @@ function Navbar() {
     const toggleLoginMenu = () => {
         setIsLoginOpen((prev) => !prev);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (!loginMenuRef.current?.contains(event.target as Node)) {
+                setIsLoginOpen(false);
+            }
+        };
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsLoginOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEscape);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, []);
 
     const goToHomeTop = () => {
         closeMobileMenu();
@@ -162,11 +185,7 @@ function Navbar() {
 
                 {/* Desktop auth button */}
                 <div className="navbar-auth">
-                    <div
-                        className="login-dropdown-container"
-                        onMouseEnter={() => setIsLoginOpen(true)}
-                        onMouseLeave={() => setIsLoginOpen(false)}
-                    >
+                    <div className="login-dropdown-container" ref={loginMenuRef}>
                         <button className="login-btn" type="button" onClick={toggleLoginMenu}>
                             Iniciar Sesión
                         </button>
@@ -175,25 +194,25 @@ function Navbar() {
                             <div className="login-menu">
                                 <ul className="login-options">
                                     <li>
-                                        <a href="https://plataformalms.ustatunja.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://plataformalms.ustatunja.edu.co/login/index.php" target="_blank" rel="noopener noreferrer" onClick={() => setIsLoginOpen(false)}>
                                             <div className="location-icon"><MapPin size={15} /></div>
                                             Tunja
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://aulavirtual.usantotomas.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://aulavirtual.usantotomas.edu.co/login/index.php" target="_blank" rel="noopener noreferrer" onClick={() => setIsLoginOpen(false)}>
                                             <div className="location-icon"><MapPin size={15} /></div>
                                             Bogotá
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://campusvirtual.ustabuca.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://campusvirtual.ustabuca.edu.co/login/index.php" target="_blank" rel="noopener noreferrer" onClick={() => setIsLoginOpen(false)}>
                                             <div className="location-icon"><MapPin size={15} /></div>
                                             Bucaramanga
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://campusvirtual.ustavillavicencio.edu.co/login/index.php" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://campusvirtual.ustavillavicencio.edu.co/login/index.php" target="_blank" rel="noopener noreferrer" onClick={() => setIsLoginOpen(false)}>
                                             <div className="location-icon"><MapPin size={15} /></div>
                                             Villavicencio
                                         </a>

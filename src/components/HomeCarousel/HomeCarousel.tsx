@@ -77,7 +77,7 @@ const HomeCarousel: React.FC = () => {
             {/* Custom SVG Bottom Curve with Arrow */}
             <div className="custom-shape-divider-bottom">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M0,0 Q0,40 40,40 L480,40 C530,40 540,110 600,110 C660,110 670,40 720,40 L1160,40 Q1200,40 1200,0 L1200,120 L0,120 Z" fill="#f6f8fa"></path>
+                    <path d="M0,0 Q0,40 40,40 L480,40 C530,40 540,110 600,110 C660,110 670,40 720,40 L1160,40 Q1200,40 1200,0 L1200,120 L0,120 Z" fill="#ffffff"></path>
                 </svg>
                 <div className="chevron-down-icon">
                     <img src={flechaCampus} alt="Flecha hacia abajo" className="chevron-down-image" />
