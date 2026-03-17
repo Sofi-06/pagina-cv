@@ -26,10 +26,10 @@
 }
 
 .reveal-wrapper-tools {
-    height: 145vh;
+    height: auto;
     background-color: #ebebeb;
     z-index: 20;
-    margin-top: -74vh;
+    margin-top: 0;
 }
 
 @media (min-width: 1600px) {
@@ -42,8 +42,38 @@
     }
 
     .reveal-wrapper-tools {
-        height: 125vh;
-        margin-top: -56vh;
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 1920px) and (min-height: 1080px) {
+    .reveal-wrapper {
+        height: 120vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -52vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+    .reveal-wrapper {
+        height: 112vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -50vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
     }
 }
 
@@ -57,8 +87,8 @@
     }
 
     .reveal-wrapper-tools {
-        height: 132vh;
-        margin-top: -52vh;
+        height: auto;
+        margin-top: 0;
     }
 }
 

@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import './Innovation.css';
 import card1Img from '../../assets/carrusel_1_Carrusel.png';
 import card2Img from '../../assets/carrusel_2_Carrusel.png';
@@ -24,24 +25,56 @@ type Pos = 'pos-left' | 'pos-center' | 'pos-right';
 const Innovation = () => {
     const [centerIndex, setCenterIndex] = useState(1);
     const [locked, setLocked] = useState(false);
-    // Animación de barrido sticky
-    const sectionRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
-
-
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
+        const largeDesktop = window.innerWidth >= 2560;
+        const desktop1920 = window.innerWidth >= 1920;
         const obs = new window.IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    obs.disconnect(); // se desconecta: nunca más vuelve a false
+                    obs.disconnect();
                 }
             },
-            { threshold: 0.15 }
+            {
+                threshold: largeDesktop ? 0.03 : desktop1920 ? 0.06 : 0.15,
+                rootMargin: largeDesktop ? '0px 0px -2% 0px' : desktop1920 ? '0px 0px -4% 0px' : '0px',
+            }
         );
+
         if (sectionRef.current) obs.observe(sectionRef.current);
         return () => obs.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const updateScrollProgress = () => {
+            const section = sectionRef.current;
+            if (!section) return;
+
+            if (window.innerWidth <= 1024) {
+                setScrollProgress(1);
+                return;
+            }
+
+            const rect = section.getBoundingClientRect();
+            const baseTravel = Math.max(section.offsetHeight - window.innerHeight, 1);
+            const travelFactor = window.innerWidth >= 2560 ? 0.34 : window.innerWidth >= 1920 ? 0.44 : 1;
+            const totalTravel = Math.max(baseTravel * travelFactor, 1);
+            const progress = Math.min(Math.max(-rect.top / totalTravel, 0), 1);
+            setScrollProgress(progress);
+        };
+
+        updateScrollProgress();
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        window.addEventListener('resize', updateScrollProgress);
+
+        return () => {
+            window.removeEventListener('scroll', updateScrollProgress);
+            window.removeEventListener('resize', updateScrollProgress);
+        };
     }, []);
 
     const rotate = (dir: 'left' | 'right') => {
@@ -64,6 +97,11 @@ const Innovation = () => {
         return 'pos-right';
     };
 
+    const entranceProgress = Math.min(scrollProgress / 0.3, 1);
+    const easedEntrance = 1 - Math.pow(1 - entranceProgress, 3);
+    const arrowOffset = (1 - easedEntrance) * 96;
+    const arrowLift = (1 - easedEntrance) * 18;
+
     return (
         <section className={`innovation-section sticky-sweep${isVisible ? ' visible' : ''}`} ref={sectionRef}>
             <div className="innovation-inner">
@@ -72,31 +110,43 @@ const Innovation = () => {
                 <div className="innovation-cards">
                     {cards.map((card, i) => (
                         <div key={card.id} className={`innovation-card ${getPos(i)}`}>
-
-                            {/* Imagen ocupa toda la parte superior */}
                             <div className="innovation-card-img-wrapper">
                                 <img src={card.image} alt={card.title} />
                             </div>
 
-                            {/* Contenido con padding */}
                             <div className="innovation-card-body">
                                 <h3>{card.title}</h3>
                                 <span className="innovation-card-divider" />
                                 <p>{card.subtitle}</p>
                                 <a href={card.link} className="innovation-card-btn">Ver más</a>
                             </div>
-
                         </div>
                     ))}
                 </div>
 
-                <div className="innovation-arrows">
-                    <button type="button" className="innovation-arrow innovation-arrow-left"
-                        onClick={() => rotate('left')} aria-label="Anterior">
+                <div
+                    className="innovation-arrows"
+                    style={
+                        {
+                            '--arrow-entrance': `${arrowOffset}px`,
+                            '--arrow-lift': `${arrowLift}px`,
+                        } as CSSProperties
+                    }
+                >
+                    <button
+                        type="button"
+                        className="innovation-arrow innovation-arrow-left"
+                        onClick={() => rotate('left')}
+                        aria-label="Anterior"
+                    >
                         <img src={botonNextImg} alt="Anterior" style={{ transform: 'scaleX(-1)' }} />
                     </button>
-                    <button type="button" className="innovation-arrow innovation-arrow-right"
-                        onClick={() => rotate('right')} aria-label="Siguiente">
+                    <button
+                        type="button"
+                        className="innovation-arrow innovation-arrow-right"
+                        onClick={() => rotate('right')}
+                        aria-label="Siguiente"
+                    >
                         <img src={botonNextImg} alt="Siguiente" />
                     </button>
                 </div>

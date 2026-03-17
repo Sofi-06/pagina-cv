@@ -1,14 +1,12 @@
 .tools-section {
   width: 100%;
   background: #ebebeb;
-  padding: clamp(120px, 14vw, 200px) clamp(20px, 4vw, 40px) 52px;
+  padding: clamp(32px, 5vw, 72px) clamp(20px, 4vw, 40px) 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 1;
-  min-height: 84vh;
 }
 
 .tools-inner {
@@ -18,6 +16,7 @@
   align-items: center;
   width: 100%;
   height: auto;
+  margin-top: 0;
   opacity: 0;
   transform: translateY(100px);
   transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -31,14 +30,14 @@
 .tools-header {
   text-align: center;
   max-width: 680px;
-  margin-bottom: 56px;
+  margin-bottom: 34px;
 }
 
 .tools-title {
-  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-size: clamp(1.8rem, 2.6vw, 2.25rem);
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 
 .tools-subtitle {
@@ -54,11 +53,13 @@
   gap: 28px;
   max-width: min(1200px, 100%);
   width: 100%;
+  align-items: start;
 }
 
 .tool-card {
+  position: relative;
   width: 100%;
-  min-height: 136px;
+  min-height: 120px;
   background: transparent;
   border-radius: 68px;
   padding: 14px;
@@ -73,16 +74,18 @@
   overflow: hidden;
   text-decoration: none;
   color: inherit;
+  z-index: 1;
 }
 
 .tool-card:is(:hover, :focus-visible) {
-  min-height: 304px;
+  min-height: 286px;
   background: var(--tool-hover-color, #f4f4f4);
   border-color: var(--tool-hover-color, transparent);
   border-radius: 20px;
   padding: 22px 18px;
   transform: translateY(-8px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  z-index: 3;
 }
 
 .tool-card-icon-wrapper {
@@ -90,14 +93,14 @@
 }
 
 .tool-icon {
-  width: 106px;
-  height: 106px;
+  width: 132px;
+  height: 132px;
   border-radius: 50%;
   background: #ffffff;
   box-shadow:
     0 10px 25px rgba(0, 0, 0, 0.08),
-    0 0 0 10px #f4f4f4,
-    0 0 0 12px #ffffff;
+    0 0 0 12px #f4f4f4,
+    0 0 0 15px #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,8 +110,8 @@
 .tool-card:is(:hover, :focus-visible) .tool-icon {
   box-shadow:
     0 15px 30px rgba(0, 0, 0, 0.12),
-    0 0 0 10px rgba(255, 255, 255, 0.4),
-    0 0 0 12px #ffffff;
+    0 0 0 12px rgba(255, 255, 255, 0.4),
+    0 0 0 15px #ffffff;
 }
 
 .tool-icon img {
@@ -150,17 +153,119 @@
 
 @media (min-width: 1100px) and (max-width: 1450px) {
   .tools-section {
-    padding-top: 190px;
+    padding-top: 64px;
   }
 
   .tools-header {
-    margin-top: 18px;
-    margin-bottom: 44px;
+    margin-top: 0;
+    margin-bottom: 38px;
   }
 
   .tools-title {
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1920px) and (min-height: 1080px) {
+  .tools-section {
+    padding: 52px 56px 6px;
+  }
+
+  .tools-header {
+    max-width: 920px;
+    margin-bottom: 46px;
+  }
+
+  .tools-title {
+    font-size: 3.15rem;
+  }
+
+  .tools-subtitle {
+    font-size: 1.26rem;
+    line-height: 1.82;
+  }
+
+  .tools-grid {
+    max-width: 1440px;
+    gap: 34px;
+  }
+
+  .tool-card {
+    min-height: 150px;
+    padding: 18px;
+  }
+
+  .tool-card:is(:hover, :focus-visible) {
+    min-height: 360px;
+    padding: 30px 24px;
+    transform: translateY(-14px) scale(1.03);
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.16);
+  }
+
+  .tool-icon {
+    width: 156px;
+    height: 156px;
+  }
+
+  .tool-card-title {
+    font-size: 1.34rem;
+  }
+
+  .tool-card-desc {
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+}
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+  .tools-section {
+    padding: 58px 72px 0;
+  }
+
+  .tools-header {
+    max-width: 1040px;
+    margin-bottom: 56px;
+  }
+
+  .tools-title {
+    font-size: 3.65rem;
+  }
+
+  .tools-subtitle {
+    font-size: 1.4rem;
+    line-height: 1.9;
+  }
+
+  .tools-grid {
+    max-width: 1640px;
+    gap: 42px;
+  }
+
+  .tool-card {
+    min-height: 162px;
+    padding: 20px;
+  }
+
+  .tool-card:is(:hover, :focus-visible) {
+    min-height: 408px;
+    padding: 34px 28px;
+    transform: translateY(-16px) scale(1.035);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  .tool-icon {
+    width: 178px;
+    height: 178px;
+  }
+
+  .tool-card-title {
+    font-size: 1.52rem;
+  }
+
+  .tool-card-desc {
+    font-size: 1.12rem;
+    line-height: 1.72;
   }
 }
 
@@ -183,7 +288,7 @@
   .tools-section {
     position: relative;
     min-height: auto;
-    padding: 72px 16px 40px;
+    padding: 56px 16px 24px;
   }
 
   .tools-inner {
@@ -212,8 +317,8 @@
   }
 
   .tool-icon {
-    width: 88px;
-    height: 88px;
+    width: 104px;
+    height: 104px;
     margin: 0 auto;
   }
 
@@ -230,7 +335,7 @@
   .tools-section {
     position: relative;
     min-height: auto;
-    padding: 84px 24px 48px;
+    padding: 64px 24px 28px;
   }
 
   .tools-inner {
@@ -277,8 +382,8 @@
   }
 
   .tool-icon {
-    width: 92px;
-    height: 92px;
+    width: 112px;
+    height: 112px;
     margin: 0 auto;
   }
 

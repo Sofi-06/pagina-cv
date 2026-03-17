@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 
 
 import 'swiper/css';
@@ -14,6 +15,9 @@ import banner3 from '../../assets/4-Mesa-de-ayuda-Soporte-programas-virtuales_We
 import flechaCampus from '../../assets/flechaCampus-2-01.png';
 
 const HomeCarousel: React.FC = () => {
+    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+    const [activeSlide, setActiveSlide] = useState(0);
+
     return (
         <div className="home-carousel-wrapper">
             <Swiper
@@ -22,10 +26,12 @@ const HomeCarousel: React.FC = () => {
                 slidesPerView={1}
                 loop={true}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
-                pagination={{ clickable: true }}
+                pagination={false}
                 preventClicks={false}
                 preventClicksPropagation={false}
                 className="main-hero-swiper"
+                onSwiper={setSwiperInstance}
+                onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
             >
                 {/* Slide 1 - Bienvenidos Tomasinos */}
                 <SwiperSlide>
@@ -73,6 +79,19 @@ const HomeCarousel: React.FC = () => {
                     </a>
                 </SwiperSlide>
             </Swiper>
+
+            <div className="carousel-pagination" aria-label="Navegacion del carrusel">
+                {[0, 1, 2].map((index) => (
+                    <button
+                        key={index}
+                        type="button"
+                        className={`carousel-pagination-bullet${activeSlide === index ? ' is-active' : ''}`}
+                        aria-label={`Ir a la imagen ${index + 1}`}
+                        aria-pressed={activeSlide === index}
+                        onClick={() => swiperInstance?.slideToLoop(index)}
+                    />
+                ))}
+            </div>
 
             {/* Custom SVG Bottom Curve with Arrow */}
             <div className="custom-shape-divider-bottom">

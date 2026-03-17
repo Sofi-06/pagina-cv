@@ -31,6 +31,122 @@
     gap: 1rem;
 }
 
+@media (min-width: 1500px) {
+    .navbar-container {
+        max-width: 1640px;
+        height: 84px;
+        padding: 0 36px;
+    }
+
+    .logo-img {
+        height: 56px;
+    }
+
+    .navbar-links {
+        gap: 1.9rem;
+    }
+
+    .navbar-links a,
+    .nav-link-with-icon {
+        font-size: 1.06rem;
+    }
+
+    .login-btn {
+        padding: 10px 28px;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1920px) and (min-height: 1080px) {
+    .navbar-container {
+        max-width: 1820px;
+        height: 98px;
+        padding: 0 44px;
+        gap: 1.25rem;
+    }
+
+    .logo-img {
+        height: 66px;
+    }
+
+    .navbar-links {
+        gap: 2.1rem;
+    }
+
+    .navbar-links a,
+    .nav-link-with-icon {
+        font-size: 1.18rem;
+    }
+
+    .login-btn {
+        padding: 12px 32px;
+        font-size: 1.12rem;
+    }
+
+    .column-title {
+        font-size: 0.82rem;
+    }
+
+    .column-links a,
+    .external-links li a,
+    .mega-menu-footer a,
+    .login-options li a {
+        font-size: 1rem;
+    }
+
+    .mega-menu {
+        width: min(920px, 88vw);
+    }
+}
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+    .navbar-container {
+        max-width: 2140px;
+        height: 118px;
+        padding: 0 56px;
+        gap: 1.6rem;
+    }
+
+    .logo-img {
+        height: 82px;
+    }
+
+    .navbar-links {
+        gap: 2.9rem;
+    }
+
+    .navbar-links a,
+    .nav-link-with-icon {
+        font-size: 1.52rem;
+        font-weight: 600;
+    }
+
+    .login-btn {
+        padding: 15px 40px;
+        font-size: 1.36rem;
+    }
+
+    .column-title {
+        font-size: 0.98rem;
+    }
+
+    .column-links a,
+    .external-links li a,
+    .mega-menu-footer a,
+    .login-options li a {
+        font-size: 1.24rem;
+    }
+
+    .mega-menu {
+        width: min(980px, 84vw);
+    }
+
+    .mega-menu-grid {
+        padding: 1.75rem 2.25rem;
+        gap: 1.75rem;
+    }
+}
+
 /* =============================
    LOGO
    ============================= */

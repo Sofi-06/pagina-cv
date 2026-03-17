@@ -17,16 +17,20 @@ const WhatWeDo: React.FC = () => {
             const scrollY = window.scrollY;
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
-            const maxScroll = viewportHeight * 1.7;
+            const maxScroll = viewportHeight * 2.05;
             const progress = Math.min(scrollY / maxScroll, 1);
             const maxRadius = Math.sqrt(Math.pow(viewportWidth, 2) + Math.pow(viewportHeight, 2));
+            const isLargeDesktop = viewportWidth >= 1920;
+            const fadeStart = isLargeDesktop ? 0.32 : 0.45;
+            const fadeSpan = isLargeDesktop ? 0.22 : 0.3;
+            const expandThreshold = isLargeDesktop ? 0.82 : 0.9;
             setCircleSize(progress * maxRadius);
-            if (progress > 0.6) {
-                setOpacity(Math.min((progress - 0.6) / 0.3, 1));
+            if (progress > fadeStart) {
+                setOpacity(Math.min((progress - fadeStart) / fadeSpan, 1));
             } else {
                 setOpacity(0);
             }
-            setIsExpanded(progress > 0.9);
+            setIsExpanded(progress > expandThreshold);
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
         handleScroll();
