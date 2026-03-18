@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './WhatWeDo.css';
 
-const COLORS = ['#FFD84D', '#F07040', '#EC8C6F', '#F0A896', '#67E8F9', '#3BB8F0'];
+const COLORS = ['#63eee0', '#ffd610', '#f5ccce', '#ffffff'];
 const CELL_SIZE = 60;
 
 const WhatWeDo: React.FC = () => {

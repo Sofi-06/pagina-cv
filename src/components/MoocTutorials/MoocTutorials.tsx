@@ -57,8 +57,6 @@ const MoocTutorials = () => {
                         <img src={rosado02} alt="" className="deco-rosado deco-rosado-mobile mooc-rosado-mobile" />
                         <img src={lineaAzul05} alt="" className="deco-linea mooc-linea-1" />
                         <img src={lineaAzul06} alt="" className="deco-linea mooc-linea-2" />
-                        <div className="deco-cyan-splash top-right" />
-                        <div className="deco-yellow-blob" />
                         <img src={moocImg} alt="Estudiante MOOC" className="mooc-img" />
                     </div>
                 </div>
