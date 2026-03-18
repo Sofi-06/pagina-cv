@@ -59,7 +59,7 @@
 .tool-card {
   position: relative;
   width: 100%;
-  min-height: 120px;
+  min-height: 156px;
   background: transparent;
   border-radius: 68px;
   padding: 14px;
@@ -78,7 +78,7 @@
 }
 
 .tool-card:is(:hover, :focus-visible) {
-  min-height: 286px;
+  min-height: 336px;
   background: var(--tool-hover-color, #f4f4f4);
   border-color: var(--tool-hover-color, transparent);
   border-radius: 20px;
@@ -127,6 +127,7 @@
   transition: all 0.3s ease;
   transition-delay: 0s;
   pointer-events: none;
+  margin-top: 14px;
 }
 
 .tool-card:is(:hover, :focus-visible) .tool-card-content {
@@ -192,12 +193,12 @@
   }
 
   .tool-card {
-    min-height: 150px;
+    min-height: 186px;
     padding: 18px;
   }
 
   .tool-card:is(:hover, :focus-visible) {
-    min-height: 360px;
+    min-height: 408px;
     padding: 30px 24px;
     transform: translateY(-14px) scale(1.03);
     box-shadow: 0 20px 42px rgba(0, 0, 0, 0.16);
@@ -243,12 +244,12 @@
   }
 
   .tool-card {
-    min-height: 162px;
+    min-height: 198px;
     padding: 20px;
   }
 
   .tool-card:is(:hover, :focus-visible) {
-    min-height: 408px;
+    min-height: 456px;
     padding: 34px 28px;
     transform: translateY(-16px) scale(1.035);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);

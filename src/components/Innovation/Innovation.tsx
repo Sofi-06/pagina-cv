@@ -28,16 +28,14 @@ const Innovation = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [isCompactViewport, setIsCompactViewport] = useState(() => window.innerWidth <= 1024);
 
     useEffect(() => {
         const largeDesktop = window.innerWidth >= 2560;
         const desktop1920 = window.innerWidth >= 1920;
         const obs = new window.IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    obs.disconnect();
-                }
+                setIsVisible(entry.isIntersecting);
             },
             {
                 threshold: largeDesktop ? 0.03 : desktop1920 ? 0.06 : 0.15,
@@ -47,6 +45,15 @@ const Innovation = () => {
 
         if (sectionRef.current) obs.observe(sectionRef.current);
         return () => obs.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const updateViewportMode = () => setIsCompactViewport(window.innerWidth <= 1024);
+
+        updateViewportMode();
+        window.addEventListener('resize', updateViewportMode);
+
+        return () => window.removeEventListener('resize', updateViewportMode);
     }, []);
 
     useEffect(() => {
@@ -61,7 +68,7 @@ const Innovation = () => {
 
             const rect = section.getBoundingClientRect();
             const baseTravel = Math.max(section.offsetHeight - window.innerHeight, 1);
-            const travelFactor = window.innerWidth >= 2560 ? 0.34 : window.innerWidth >= 1920 ? 0.44 : 1;
+            const travelFactor = window.innerWidth >= 2560 ? 0.34 : window.innerWidth >= 1920 ? 0.52 : 1;
             const totalTravel = Math.max(baseTravel * travelFactor, 1);
             const progress = Math.min(Math.max(-rect.top / totalTravel, 0), 1);
             setScrollProgress(progress);
@@ -97,7 +104,7 @@ const Innovation = () => {
         return 'pos-right';
     };
 
-    const entranceProgress = Math.min(scrollProgress / 0.3, 1);
+    const entranceProgress = Math.min(scrollProgress / 0.34, 1);
     const easedEntrance = 1 - Math.pow(1 - entranceProgress, 3);
     const arrowOffset = (1 - easedEntrance) * 96;
     const arrowLift = (1 - easedEntrance) * 18;
@@ -125,7 +132,7 @@ const Innovation = () => {
                 </div>
 
                 <div
-                    className="innovation-arrows"
+                    className={`innovation-arrows${isCompactViewport ? ' innovation-arrows-compact' : ''}`}
                     style={
                         {
                             '--arrow-entrance': `${arrowOffset}px`,

@@ -49,11 +49,11 @@
 
 @media (min-width: 1920px) and (min-height: 1080px) {
     .reveal-wrapper {
-        height: 120vh;
+        height: 138vh;
     }
 
     .reveal-wrapper-innovation {
-        margin-top: -52vh;
+        margin-top: -62vh;
     }
 
     .reveal-wrapper-tools {
@@ -93,6 +93,7 @@
 }
 
 @media (max-width: 1024px) {
+
     .reveal-wrapper,
     .reveal-wrapper-tools {
         height: auto;
