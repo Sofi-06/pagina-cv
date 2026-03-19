@@ -19,13 +19,14 @@
 .innovation-inner {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; 
   align-items: center;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transform: translateY(100px);
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 🔥 PRO LEVEL */
+  padding-top: clamp(60px, 10vh, 140px);
+  gap: clamp(30px, 5vh, 70px);
 }
 
 .innovation-section.visible .innovation-inner {
@@ -38,6 +39,9 @@
   font-size: clamp(2rem, 3vw, 2.6rem);
   font-weight: 700;
   margin: 0 0 30px;
+}
+.innovation-title h2{
+  bottom: 50px;
 }
 
 .innovation-cards {
