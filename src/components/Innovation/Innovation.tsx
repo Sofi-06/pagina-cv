@@ -15,15 +15,15 @@ interface CardData {
 }
 
 const cards: CardData[] = [
+    { id: 3, image: card3Img, title: 'INTELIGENCIA ARTIFICIAL', subtitle: 'Inteligencia Artificial', link: '#' },
     { id: 2, image: card2Img, title: 'CLASE INVERTIDA', subtitle: 'Flipped Classroom', link: '#' },
     { id: 1, image: card1Img, title: 'ORGANÍZATE MEJOR', subtitle: 'Herramientas para la Administración de Tareas', link: '#' },
-    { id: 3, image: card3Img, title: 'INTELIGENCIA ARTIFICIAL', subtitle: 'Inteligencia Artificial', link: '#' },
 ];
 
 type Pos = 'pos-left' | 'pos-center' | 'pos-right';
 
 const Innovation = () => {
-    const [centerIndex, setCenterIndex] = useState(1);
+    const [centerIndex, setCenterIndex] = useState(0);
     const [locked, setLocked] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);

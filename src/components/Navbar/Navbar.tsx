@@ -163,9 +163,9 @@ function Navbar() {
                         {(isExternalOpen || mobileExternalOpen) && (
                             <div className="external-dropdown">
                                 <ul className="external-links">
-                                    <li><a href="https://www.santototunja.edu.co/" target="_blank" rel="noopener noreferrer">santototunja.edu.co</a></li>
-                                    <li><a href="https://santotoservices.com/" target="_blank" rel="noopener noreferrer">santoto-service</a></li>
-                                    <li><a href="https://santototunja.co/" target="_blank" rel="noopener noreferrer">santotoNews</a></li>
+                                    <li><a href="https://www.santototunja.edu.co/" target="_blank" rel="noopener noreferrer">Santototunja</a></li>
+                                    <li><a href="https://santotoservices.com/" target="_blank" rel="noopener noreferrer">Santoto-service</a></li>
+                                    <li><a href="https://santotoup.edu.co/" target="_blank" rel="noopener noreferrer">SantotoUp</a></li>
                                     <li><a href="https://campusvirtual.santototunja.edu.co/virtual-challenge/" target="_blank" rel="noopener noreferrer">Virtual Challenge</a></li>
                                     <li><a href="https://bienestarintegral.santototunja.co/" target="_blank" rel="noopener noreferrer">Bienestar integral virtual</a></li>
                                 </ul>
