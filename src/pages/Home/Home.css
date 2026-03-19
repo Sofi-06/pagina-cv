@@ -1,4 +1,106 @@
-.home{
-    color: red;
+.reveal-wrapper {
+    position: relative;
+    width: 100%;
+    height: 180vh;
+    pointer-events: none;
 }
 
+.reveal-wrapper>* {
+    pointer-events: auto;
+}
+
+.home-page-container {
+    width: 100%;
+    background-color: #ffffff;
+    position: relative;
+    overflow-x: clip;
+}
+
+.reveal-wrapper-mooc {
+    z-index: 40;
+}
+
+.reveal-wrapper-innovation {
+    z-index: 30;
+    margin-top: -80vh;
+}
+
+.reveal-wrapper-tools {
+    height: auto;
+    background-color: #ebebeb;
+    z-index: 20;
+    margin-top: 0;
+}
+
+@media (min-width: 1600px) {
+    .reveal-wrapper {
+        height: 160vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -68vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 1920px) and (min-height: 1080px) {
+    .reveal-wrapper {
+        height: 138vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -62vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 2560px) and (min-height: 1440px) {
+    .reveal-wrapper {
+        height: 112vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -50vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1450px) {
+    .reveal-wrapper {
+        height: 165vh;
+    }
+
+    .reveal-wrapper-innovation {
+        margin-top: -72vh;
+    }
+
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .reveal-wrapper,
+    .reveal-wrapper-tools {
+        height: auto;
+        margin-top: 0;
+    }
+
+    .reveal-wrapper {
+        pointer-events: auto;
+    }
+}
