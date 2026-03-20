@@ -1,0 +1,119 @@
+.about-transition {
+    --transition-progress: 0;
+    position: relative;
+    height: 210vh;
+    background: #ffcd22;
+}
+
+.about-transition__sticky {
+    position: sticky;
+    top: 78px;
+    height: calc(100vh - 78px);
+    overflow: hidden;
+}
+
+.about-transition__scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #ffcd22;
+}
+
+.about-transition__scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #08bad5;
+    opacity: calc(1 - (var(--transition-progress) * 1.05));
+    transition: opacity 0.12s linear;
+}
+
+.about-transition__wash,
+.about-transition__dome {
+    position: absolute;
+    pointer-events: none;
+}
+
+.about-transition__wash {
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 82%, rgba(255, 244, 186, 0.34), transparent 30%),
+        linear-gradient(180deg, rgba(255, 212, 51, 0.08), rgba(255, 205, 34, 0.52));
+    opacity: clamp(0, calc((var(--transition-progress) - 0.18) * 1.15), 0.92);
+    transition: opacity 0.12s linear;
+}
+
+.about-transition__dome {
+    left: 50%;
+    bottom: -8%;
+    width: min(88vw, 980px);
+    height: min(58vw, 620px);
+    transform:
+        translateX(-50%)
+        translateY(calc(18% - (var(--transition-progress) * 14%)))
+        scale(calc(0.3 + (var(--transition-progress) * 1.7)));
+    transform-origin: center bottom;
+    transition:
+        transform 0.12s linear,
+        opacity 0.12s linear;
+}
+
+.about-transition__dome svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.about-transition__dome--glass {
+    z-index: 1;
+    opacity: calc(0.52 - (var(--transition-progress) * 0.12));
+}
+
+.about-transition__dome--glass path {
+    fill: rgba(255, 255, 255, 0.42);
+}
+
+.about-transition__dome--yellow {
+    z-index: 2;
+    opacity: calc(var(--transition-progress) * 0.96);
+    filter: drop-shadow(0 0 140px rgba(255, 220, 84, 0.32));
+}
+
+.about-transition__dome--yellow path {
+    fill: #ffcd22;
+}
+
+.about-transition__yellow-section {
+    min-height: 100vh;
+    background: #ffcd22;
+}
+
+@media (max-width: 1024px) {
+    .about-transition {
+        height: 190vh;
+    }
+
+    .about-transition__sticky {
+        top: 64px;
+        height: calc(100vh - 64px);
+    }
+
+    .about-transition__dome {
+        width: min(96vw, 820px);
+        height: min(74vw, 520px);
+        bottom: -6%;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-transition {
+        height: 175vh;
+    }
+
+    .about-transition__dome {
+        width: 110vw;
+        height: min(88vw, 440px);
+        bottom: -3%;
+    }
+}

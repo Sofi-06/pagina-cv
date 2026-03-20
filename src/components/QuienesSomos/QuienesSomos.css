@@ -1,0 +1,648 @@
+.quienes-somos-section {
+    width: 100%;
+    min-height: calc(100vh - 78px);
+    background: #08bad5;
+    overflow: hidden;
+}
+
+.quienes-somos-card {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 78px);
+    overflow: hidden;
+    isolation: isolate;
+    outline: none;
+    background: #08bad5;
+}
+
+.quienes-somos-card__image,
+.quienes-somos-card__overlay,
+.quienes-somos-card__decor,
+.quienes-somos-card__content {
+    position: absolute;
+    inset: 0;
+}
+
+.quienes-somos-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: scale(1);
+    transition:
+        transform 1.6s ease,
+        filter 1.2s ease;
+}
+
+.quienes-somos-card__overlay {
+    background:
+        radial-gradient(circle at 8% 80%, rgba(255, 255, 255, 0.2), transparent 18%),
+        radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.12), transparent 16%),
+        linear-gradient(180deg, rgba(5, 133, 158, 0.08), rgba(5, 133, 158, 0.16));
+    opacity: 0.9;
+    transition: opacity 0.9s ease;
+}
+
+.quienes-somos-card__content {
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 4rem);
+}
+
+.quienes-somos-card__title {
+    margin: 0;
+    max-width: min(90vw, 1180px);
+    text-align: center;
+    font-size: clamp(3.2rem, 7.5vw, 8rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 0 12px 30px rgba(6, 88, 110, 0.18);
+}
+
+.quienes-somos-card__letter {
+    display: inline-block;
+    --letter-delay: calc(var(--index) * 42ms);
+    opacity: 0;
+    transform: translateY(54px) scale(0.92);
+    filter: blur(12px);
+    transition:
+        opacity 0.7s ease,
+        transform 1s cubic-bezier(0.2, 1, 0.2, 1),
+        filter 1s ease;
+    transition-delay: var(--letter-delay);
+}
+
+.quienes-somos-card__letter.is-space {
+    width: 0.24em;
+}
+
+.quienes-somos-card__decor {
+    z-index: 2;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(30px) scale(0.88);
+    transition:
+        opacity 0.85s ease,
+        transform 1.1s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.shape::before,
+.shape::after {
+    content: "";
+    position: absolute;
+}
+
+.shape--striped-circle {
+    --shape-delay: 80ms;
+    top: 0;
+    left: 7.5%;
+    width: clamp(8rem, 16vw, 15rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.22) 0 7px,
+            rgba(255, 255, 255, 0) 7px 14px
+        ),
+        rgba(255, 255, 255, 0.12);
+    transition-delay: var(--shape-delay);
+}
+
+.shape--line-vertical,
+.shape--line-horizontal {
+    border-color: rgba(255, 255, 255, 0.92);
+    border-style: solid;
+}
+
+.shape--line-vertical::after,
+.shape--line-horizontal::before,
+.shape--line-horizontal::after {
+    width: 18px;
+    height: 18px;
+    border: 4px solid rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    background: #08bad5;
+    box-sizing: border-box;
+}
+
+.shape--line-vertical-left {
+    --shape-delay: 150ms;
+    top: -1%;
+    left: 57.5%;
+    width: 0;
+    height: clamp(9rem, 26vh, 16rem);
+    border-width: 0 0 0 4px;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--line-vertical-left::after {
+    bottom: -10px;
+    left: -11px;
+}
+
+.shape--line-vertical-right {
+    --shape-delay: 200ms;
+    top: -1%;
+    left: 59.5%;
+    width: 0;
+    height: clamp(4rem, 11vh, 7rem);
+    border-width: 0 0 0 4px;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--line-vertical-right::after {
+    bottom: -10px;
+    left: -11px;
+}
+
+.shape--line-horizontal-top {
+    --shape-delay: 240ms;
+    left: -2%;
+    bottom: 8.6%;
+    width: clamp(10rem, 19vw, 17rem);
+    height: 0;
+    border-width: 4px 0 0 0;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--line-horizontal-top::before {
+    top: -11px;
+    right: -11px;
+}
+
+.shape--line-horizontal-bottom {
+    --shape-delay: 300ms;
+    left: -2%;
+    bottom: 5.3%;
+    width: clamp(8rem, 13vw, 12rem);
+    height: 0;
+    border-width: 4px 0 0 0;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--line-horizontal-bottom::before {
+    top: -11px;
+    left: 22%;
+}
+
+.shape--circle-outline {
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+}
+
+.shape--circle-outline-top {
+    --shape-delay: 210ms;
+    top: 10.8%;
+    left: 59.1%;
+    width: clamp(0.85rem, 1.4vw, 1.25rem);
+    aspect-ratio: 1;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--circle-outline-top-right {
+    --shape-delay: 260ms;
+    top: 14.8%;
+    right: 21.2%;
+    width: clamp(1rem, 1.8vw, 1.55rem);
+    aspect-ratio: 1;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--circle-outline-center {
+    --shape-delay: 340ms;
+    top: 58.2%;
+    right: 31.7%;
+    width: clamp(2rem, 3vw, 2.9rem);
+    aspect-ratio: 1;
+    border-color: #f93458;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--circle-outline-large {
+    --shape-delay: 400ms;
+    right: 5.6%;
+    bottom: -4.6%;
+    width: clamp(10rem, 17vw, 16rem);
+    aspect-ratio: 1;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--circle-fill {
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.shape--circle-fill-right {
+    --shape-delay: 450ms;
+    right: -1.6%;
+    bottom: -0.8%;
+    width: clamp(7rem, 12vw, 10rem);
+    aspect-ratio: 1;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--circle-fill-bottom {
+    --shape-delay: 500ms;
+    left: 39.6%;
+    bottom: -18%;
+    width: clamp(9rem, 18vw, 15rem);
+    aspect-ratio: 1;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle {
+    width: 0;
+    height: 0;
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 1.8rem solid rgba(255, 255, 255, 0.94);
+}
+
+.shape--triangle::before {
+    top: 4px;
+    left: -0.82rem;
+    width: 0;
+    height: 0;
+    border-left: 0.82rem solid transparent;
+    border-right: 0.82rem solid transparent;
+    border-bottom: 1.42rem solid #08bad5;
+}
+
+.shape--triangle-far-left {
+    --shape-delay: 120ms;
+    top: 24.6%;
+    left: 0.2%;
+    transform: translateY(30px) scale(0.88) rotate(-14deg);
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-far-left::before {
+    border-bottom-color: #08bad5;
+}
+
+.shape--triangle-left {
+    --shape-delay: 220ms;
+    top: 30.6%;
+    left: 39.4%;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-top {
+    --shape-delay: 360ms;
+    bottom: 15.6%;
+    left: 50%;
+    transform: translateY(30px) scale(0.88) rotate(28deg);
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-top::before {
+    border-bottom-color: #08bad5;
+}
+
+.shape--triangle-bottom {
+    --shape-delay: 420ms;
+    right: 14.4%;
+    bottom: 28%;
+    transform: translateY(30px) scale(0.88) rotate(28deg);
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-right {
+    --shape-delay: 480ms;
+    top: 31.8%;
+    right: 6.8%;
+    transform: translateY(30px) scale(0.88) rotate(180deg);
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-right::before {
+    border-bottom-color: #08bad5;
+}
+
+.shape--triangle-fill {
+    width: 0;
+    height: 0;
+    border-top: 1.05rem solid transparent;
+    border-bottom: 1.05rem solid transparent;
+    border-left: 1.8rem solid #f93458;
+}
+
+.shape--triangle-fill::before {
+    top: -0.85rem;
+    left: -1.75rem;
+    width: 0;
+    height: 0;
+    border-top: 0.85rem solid transparent;
+    border-bottom: 0.85rem solid transparent;
+    border-left: 1.4rem solid #08bad5;
+}
+
+.shape--triangle-fill-left {
+    --shape-delay: 390ms;
+    left: 18%;
+    bottom: 28.6%;
+    transition-delay: var(--shape-delay);
+}
+
+.shape--triangle-fill-right {
+    --shape-delay: 540ms;
+    right: 5.8%;
+    top: 27%;
+    transform: translateY(30px) scale(0.88) rotate(90deg);
+    transition-delay: var(--shape-delay);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__image {
+    transform: scale(1.02);
+    filter: saturate(1.04);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__overlay {
+    opacity: 0.12;
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__letter,
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-far-left {
+    transform: translateY(0) scale(1) rotate(-14deg);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-top {
+    transform: translateY(0) scale(1) rotate(28deg);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-bottom {
+    transform: translateY(0) scale(1) rotate(28deg);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-right {
+    transform: translateY(0) scale(1) rotate(180deg);
+}
+
+.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-fill-right {
+    transform: translateY(0) scale(1) rotate(90deg);
+}
+
+@keyframes quienes-somos-mobile-reveal {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px) scale(0.88);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes quienes-somos-mobile-reveal-tilt-left {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px) scale(0.88) rotate(-14deg);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1) rotate(-14deg);
+    }
+}
+
+@keyframes quienes-somos-mobile-reveal-tilt {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px) scale(0.88) rotate(28deg);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1) rotate(28deg);
+    }
+}
+
+@keyframes quienes-somos-mobile-reveal-flip {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px) scale(0.88) rotate(180deg);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1) rotate(180deg);
+    }
+}
+
+@keyframes quienes-somos-mobile-reveal-side {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px) scale(0.88) rotate(90deg);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1) rotate(90deg);
+    }
+}
+
+.quienes-somos-card.is-touch-layout .quienes-somos-card__overlay {
+    opacity: 0.12;
+}
+
+.quienes-somos-card.is-mobile-reveal .quienes-somos-card__letter {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    animation: quienes-somos-mobile-reveal 0.9s cubic-bezier(0.2, 1, 0.2, 1) both;
+    animation-delay: var(--letter-delay);
+}
+
+.quienes-somos-card.is-mobile-reveal .shape {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    animation: quienes-somos-mobile-reveal 1s cubic-bezier(0.2, 1, 0.2, 1) both;
+    animation-delay: var(--shape-delay, 0ms);
+}
+
+.quienes-somos-card.is-mobile-reveal .shape--triangle-far-left {
+    transform: translateY(0) scale(1) rotate(-14deg);
+    animation-name: quienes-somos-mobile-reveal-tilt-left;
+}
+
+.quienes-somos-card.is-mobile-reveal .shape--triangle-top,
+.quienes-somos-card.is-mobile-reveal .shape--triangle-bottom {
+    transform: translateY(0) scale(1) rotate(28deg);
+    animation-name: quienes-somos-mobile-reveal-tilt;
+}
+
+.quienes-somos-card.is-mobile-reveal .shape--triangle-right {
+    transform: translateY(0) scale(1) rotate(180deg);
+    animation-name: quienes-somos-mobile-reveal-flip;
+}
+
+.quienes-somos-card.is-mobile-reveal .shape--triangle-fill-right {
+    transform: translateY(0) scale(1) rotate(90deg);
+    animation-name: quienes-somos-mobile-reveal-side;
+}
+
+@media (hover: none) {
+    .quienes-somos-card__overlay {
+        opacity: 0.12;
+    }
+
+    .quienes-somos-card__letter,
+    .shape {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+    }
+
+    .shape--triangle-far-left {
+        transform: translateY(0) scale(1) rotate(-14deg);
+    }
+
+    .shape--triangle-top,
+    .shape--triangle-bottom {
+        transform: translateY(0) scale(1) rotate(28deg);
+    }
+
+    .shape--triangle-right {
+        transform: translateY(0) scale(1) rotate(180deg);
+    }
+
+    .shape--triangle-fill-right {
+        transform: translateY(0) scale(1) rotate(90deg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .quienes-somos-section,
+    .quienes-somos-card {
+        min-height: calc(100vh - 64px);
+    }
+
+    .quienes-somos-card__title {
+        max-width: 92vw;
+        font-size: clamp(2.8rem, 9.2vw, 5.4rem);
+    }
+
+    .shape--striped-circle {
+        left: 5%;
+        width: clamp(7rem, 20vw, 12rem);
+    }
+
+    .shape--line-vertical-left {
+        left: 57%;
+    }
+
+    .shape--line-vertical-right {
+        left: 59.6%;
+    }
+}
+
+@media (max-width: 768px) {
+    .quienes-somos-card__title {
+        font-size: clamp(2.4rem, 10vw, 4.6rem);
+        line-height: 0.96;
+    }
+
+    .shape--circle-fill-bottom {
+        left: 35%;
+        bottom: -12%;
+    }
+
+    .shape--triangle-fill-left {
+        left: 13%;
+        bottom: 27%;
+    }
+
+    .shape--circle-outline-center {
+        right: 28%;
+    }
+}
+
+@media (max-width: 640px) {
+    .quienes-somos-section,
+    .quienes-somos-card {
+        min-height: calc(100vh - 64px);
+    }
+
+    .quienes-somos-card__content {
+        padding: 1.5rem;
+    }
+
+    .quienes-somos-card__title {
+        max-width: 94vw;
+        font-size: clamp(2.1rem, 12vw, 3.7rem);
+    }
+
+    .shape--striped-circle {
+        top: 2%;
+        left: 4%;
+        width: 6.6rem;
+    }
+
+    .shape--line-vertical-left {
+        left: 57%;
+        height: 7.2rem;
+    }
+
+    .shape--line-vertical-right {
+        left: 60%;
+        height: 3.6rem;
+    }
+
+    .shape--line-horizontal-top {
+        width: 8rem;
+    }
+
+    .shape--line-horizontal-bottom {
+        width: 6rem;
+    }
+
+    .shape--triangle-far-left {
+        left: -0.5%;
+    }
+
+    .shape--triangle-left {
+        left: 39%;
+    }
+
+    .shape--triangle-right {
+        right: 4%;
+    }
+
+    .shape--circle-outline-large {
+        right: 4%;
+        bottom: -3%;
+    }
+
+    .shape--circle-fill-right {
+        right: -4%;
+        bottom: 0;
+    }
+}
