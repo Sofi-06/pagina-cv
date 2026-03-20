@@ -9,11 +9,11 @@ function QuienesSomos() {
     const [mobileReveal, setMobileReveal] = useState(false);
 
     useEffect(() => {
-        const touchMedia = window.matchMedia("(pointer: coarse), (max-width: 1024px)");
+        const compactLayoutMedia = window.matchMedia("(max-width: 1024px)");
         let timeoutId: number | undefined;
 
         const updateTouchLayout = () => {
-            const nextIsTouchLayout = touchMedia.matches || "ontouchstart" in window;
+            const nextIsTouchLayout = compactLayoutMedia.matches;
 
             if (timeoutId) {
                 window.clearTimeout(timeoutId);
@@ -30,7 +30,7 @@ function QuienesSomos() {
         };
 
         updateTouchLayout();
-        touchMedia.addEventListener("change", updateTouchLayout);
+        compactLayoutMedia.addEventListener("change", updateTouchLayout);
         window.addEventListener("resize", updateTouchLayout);
 
         return () => {
@@ -38,7 +38,7 @@ function QuienesSomos() {
                 window.clearTimeout(timeoutId);
             }
 
-            touchMedia.removeEventListener("change", updateTouchLayout);
+            compactLayoutMedia.removeEventListener("change", updateTouchLayout);
             window.removeEventListener("resize", updateTouchLayout);
         };
     }, []);

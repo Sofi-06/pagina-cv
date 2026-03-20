@@ -6,12 +6,17 @@ import "./MainLayout.css";
 
 interface Props {
     children: React.ReactNode;
+    showChatbot?: boolean;
 }
 
-const MainLayout = ({ children }: Props) => {
+const MainLayout = ({ children, showChatbot = false }: Props) => {
     const [showDesktopChatbot, setShowDesktopChatbot] = useState(false);
 
     useEffect(() => {
+        if (!showChatbot) {
+            return;
+        }
+
         const updateChatbotVisibility = () => {
             if (window.innerWidth <= 1024) {
                 setShowDesktopChatbot(true);
@@ -36,20 +41,22 @@ const MainLayout = ({ children }: Props) => {
             window.removeEventListener("scroll", updateChatbotVisibility);
             window.removeEventListener("resize", updateChatbotVisibility);
         };
-    }, []);
+    }, [showChatbot]);
 
     return (
         <div className="layout-container">
             <Navbar />
-            <a
-                href="https://campusvirtual.santototunja.edu.co/app/ChatIA/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`chatbot-fab${showDesktopChatbot ? " is-visible" : ""}`}
-                aria-label="Abrir chatbot Campus Virtual"
-            >
-                <img src={robotImage} alt="Chatbot Campus Virtual" className="chatbot-fab-image" />
-            </a>
+            {showChatbot && (
+                <a
+                    href="https://campusvirtual.santototunja.edu.co/app/ChatIA/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`chatbot-fab${showDesktopChatbot ? " is-visible" : ""}`}
+                    aria-label="Abrir chatbot Campus Virtual"
+                >
+                    <img src={robotImage} alt="Chatbot Campus Virtual" className="chatbot-fab-image" />
+                </a>
+            )}
             <main className="main-content">{children}</main>
             <Footer />
         </div>

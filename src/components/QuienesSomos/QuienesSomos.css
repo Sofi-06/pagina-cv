@@ -1,4 +1,6 @@
 .quienes-somos-section {
+    position: relative;
+    z-index: 1;
     width: 100%;
     min-height: calc(100vh - 78px);
     background: #08bad5;
@@ -539,6 +541,94 @@
     }
 }
 
+@media (min-width: 1600px) {
+    .quienes-somos-card__content {
+        padding: clamp(3rem, 4vw, 5rem);
+    }
+
+    .quienes-somos-card__title {
+        max-width: min(88vw, 1440px);
+        font-size: clamp(5rem, 6.2vw, 8.8rem);
+    }
+
+    .shape--striped-circle {
+        left: 6%;
+        width: clamp(11rem, 14vw, 17rem);
+    }
+
+    .shape--line-vertical-left {
+        height: clamp(12rem, 24vh, 18rem);
+    }
+
+    .shape--line-vertical-right {
+        height: clamp(5rem, 10vh, 8rem);
+    }
+
+    .shape--line-horizontal-top {
+        width: clamp(14rem, 18vw, 22rem);
+    }
+
+    .shape--line-horizontal-bottom {
+        width: clamp(10rem, 13vw, 15rem);
+    }
+
+    .shape--circle-outline-large {
+        width: clamp(12rem, 15vw, 18rem);
+    }
+
+    .shape--circle-fill-right {
+        width: clamp(8rem, 11vw, 12rem);
+    }
+
+    .shape--circle-fill-bottom {
+        left: 41%;
+        width: clamp(11rem, 15vw, 18rem);
+    }
+}
+
+@media (min-width: 2200px) {
+    .quienes-somos-card__content {
+        padding: 5rem 6rem;
+    }
+
+    .quienes-somos-card__title {
+        max-width: min(84vw, 1760px);
+        font-size: clamp(6rem, 5.6vw, 10rem);
+    }
+
+    .shape--striped-circle {
+        width: 19rem;
+    }
+
+    .shape--line-vertical-left {
+        height: 19rem;
+    }
+
+    .shape--line-vertical-right {
+        height: 8.5rem;
+    }
+
+    .shape--line-horizontal-top {
+        width: 24rem;
+    }
+
+    .shape--line-horizontal-bottom {
+        width: 16rem;
+    }
+
+    .shape--circle-outline-large {
+        width: 20rem;
+    }
+
+    .shape--circle-fill-right {
+        width: 13rem;
+    }
+
+    .shape--circle-fill-bottom {
+        width: 20rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .quienes-somos-section,
     .quienes-somos-card {
@@ -597,7 +687,7 @@
 
     .quienes-somos-card__title {
         max-width: 94vw;
-        font-size: clamp(2.1rem, 12vw, 3.7rem);
+        font-size: clamp(1.7rem, 9vw, 3rem);
     }
 
     .shape--striped-circle {

@@ -1,5 +1,17 @@
 .about-us-page {
+    position: relative;
     width: 100%;
     min-height: 100%;
-    background: #ffffff;
+    background-color: #9ad8e8;
+    background-image: url("../../assets/Captura de pantalla 2026-03-19 161159.png");
+    background-repeat: no-repeat;
+    background-size: 100% clamp(1800px, 210vh, 2800px);
+    background-position: center top;
+}
+
+@media (max-width: 768px) {
+    .about-us-page {
+        background-image: none;
+        background-color: #ffffff;
+    }
 }

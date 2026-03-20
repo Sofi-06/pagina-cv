@@ -10,7 +10,7 @@ const AppRouter = () => {
       <Route
         path="/"
         element={
-          <MainLayout>
+          <MainLayout showChatbot>
             <Home />
           </MainLayout>
         }
