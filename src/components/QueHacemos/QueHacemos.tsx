@@ -1,10 +1,36 @@
+import { useEffect, useRef, useState } from 'react';
 import boyImg from '../../assets/Home_estu1.png';
 import backgroundImg from '../../assets/Captura de pantalla 2026-03-19 161159.png';
 import './QueHacemos.css';
 
 function QueHacemos() {
+    const sectionRef = useRef<HTMLDivElement | null>(null);
+    const [exit, setExit] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const valuesSection = document.querySelector('.values-section');
+            if (!sectionRef.current || !valuesSection) return;
+            const rect = valuesSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            // Si la sección Values entra en pantalla, activar salida
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                setExit(true);
+            } else {
+                setExit(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <section className="que-hacemos" aria-labelledby="que-hacemos-title">
+        <section
+            className={`que-hacemos${exit ? ' que-hacemos--exit' : ''}`}
+            aria-labelledby="que-hacemos-title"
+            ref={sectionRef}
+        >
             <div
                 className="que-hacemos__bg"
                 aria-hidden="true"

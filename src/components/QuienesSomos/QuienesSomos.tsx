@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import imagenInicial from "../../assets/Captura de pantalla 2026-03-19 161159.png";
 import "./QuienesSomos.css";
 
@@ -7,6 +7,24 @@ const titulo = "\u00bfQUI\u00c9NES SOMOS?";
 function QuienesSomos() {
     const [isTouchLayout, setIsTouchLayout] = useState(false);
     const [mobileReveal, setMobileReveal] = useState(false);
+    const [circleScale, setCircleScale] = useState(1.0);
+    const sectionRef = useRef<HTMLDivElement | null>(null);
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!sectionRef.current) return;
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            let scale = 1.0;
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                const percentScrolled = 1 - Math.max(0, Math.min(windowHeight, rect.bottom) - Math.max(0, rect.top)) / Math.min(windowHeight, rect.height);
+                scale = 1.0 + percentScrolled * 80.0;
+            }
+            setCircleScale(scale);
+        };
+        window.addEventListener("scroll", handleScroll);
+        handleScroll();
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         const compactLayoutMedia = window.matchMedia("(max-width: 1024px)");
@@ -46,6 +64,7 @@ function QuienesSomos() {
     return (
         <section className="quienes-somos-section" aria-labelledby="quienes-somos-title">
             <div
+                ref={sectionRef}
                 className={`quienes-somos-card${isTouchLayout ? " is-touch-layout" : ""}${mobileReveal ? " is-mobile-reveal" : ""}`}
                 tabIndex={0}
                 aria-label="Seccion interactiva Quienes Somos"
@@ -69,7 +88,14 @@ function QuienesSomos() {
                     <span className="shape shape--circle-outline shape--circle-outline-center" />
                     <span className="shape shape--circle-outline shape--circle-outline-large" />
                     <span className="shape shape--circle-fill shape--circle-fill-right" />
-                    <span className="shape shape--circle-fill shape--circle-fill-bottom" />
+                    {/* Círculo inferior central animado */}
+                    <span
+                        className="shape shape--circle-fill shape--circle-fill-bottom"
+                        style={{
+                            transform: `scale(${circleScale})`,
+                            transition: 'transform 0.8s cubic-bezier(0.2,1,0.2,1)',
+                        }}
+                    />
                     <span className="shape shape--triangle shape--triangle-far-left" />
                     <span className="shape shape--triangle shape--triangle-left" />
                     <span className="shape shape--triangle shape--triangle-top" />
