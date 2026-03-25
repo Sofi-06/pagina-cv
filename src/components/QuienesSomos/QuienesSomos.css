@@ -51,6 +51,8 @@
     align-items: center;
     justify-content: center;
     padding: clamp(2rem, 5vw, 4rem);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
 .quienes-somos-card__title {

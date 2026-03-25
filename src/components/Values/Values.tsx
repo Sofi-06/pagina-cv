@@ -1,31 +1,43 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Values.css";
 
+type ValueId = "responsabilidad" | "equipo" | "cumplimiento";
+
 interface ValueItem {
+  id: ValueId;
   title: string;
   description: string;
 }
 
 const VALUES: ValueItem[] = [
   {
+    id: "responsabilidad",
     title: "Responsabilidad",
     description:
       "Porque siempre cumplimos y desarrollamos nuestro trabajo de la mejor manera",
   },
   {
+    id: "equipo",
     title: "Trabajo en equipo",
     description:
-      "Construimos resultados solidos cuando colaboramos, compartimos ideas y avanzamos juntos.",
+      "Todos aportamos un granito de arena para obtener siempre los mejores resultados",
   },
   {
+    id: "cumplimiento",
     title: "Cumplimiento",
     description:
-      "Honramos cada compromiso con orden, constancia y atencion a cada detalle.",
+      "Damos soluciones a las necesidades de toda la comunidad educativa",
   },
 ];
 
 const wrapIndex = (index: number, length: number) => {
   return (index + length) % length;
+};
+
+const ORBIT_POSITION_CLASS: Record<ValueId, string> = {
+  responsabilidad: "values-orbit__label--left",
+  equipo: "values-orbit__label--top",
+  cumplimiento: "values-orbit__label--right",
 };
 
 const Values: React.FC = () => {
@@ -60,25 +72,19 @@ const Values: React.FC = () => {
   };
 
   const activeValue = VALUES[activeIndex];
-  const orbitItems = [
-    {
-      label: activeValue.title,
-      className: "values-orbit__label values-orbit__label--left values-orbit__label--active",
-    },
-    {
-      label: VALUES[wrapIndex(activeIndex + 1, VALUES.length)].title,
-      className: "values-orbit__label values-orbit__label--top",
-    },
-    {
-      label: VALUES[wrapIndex(activeIndex + 2, VALUES.length)].title,
-      className: "values-orbit__label values-orbit__label--right",
-    },
-  ];
+  const orbitItems = VALUES.map((item) => ({
+    label: item.title,
+    className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]}${
+      item.id === activeValue.id ? " values-orbit__label--active" : ""
+    }`,
+  }));
 
   return (
     <section
       ref={sectionRef}
-      className={`values-section${isVisible ? " values-section--visible" : ""}`}
+      className={`values-section values-section--${activeValue.id}${
+        isVisible ? " values-section--visible" : ""
+      }`}
       aria-labelledby="values-title"
     >
       <span className="values-ring values-ring--top-left" aria-hidden="true" />
@@ -100,17 +106,13 @@ const Values: React.FC = () => {
 
         <div className="values-floating-card values-floating-card--left" aria-hidden="true">
           <div className="values-floating-card__target">
-            <div className="values-image-slot values-image-slot--small">
-              <span>Imagen</span>
-            </div>
+            <div className="values-image-slot values-image-slot--small" data-slot="left-image" />
           </div>
         </div>
 
         <div className="values-floating-card values-floating-card--right" aria-hidden="true">
           <div className="values-floating-card__target">
-            <div className="values-image-slot values-image-slot--medium">
-              <span>Imagen</span>
-            </div>
+            <div className="values-image-slot values-image-slot--medium" data-slot="right-image" />
           </div>
         </div>
 
@@ -135,9 +137,7 @@ const Values: React.FC = () => {
 
           <div className="values-hero" aria-hidden="true">
             <div className="values-hero__core">
-              <div className="values-image-slot values-image-slot--hero">
-                <span>Imagen principal</span>
-              </div>
+              <div className="values-image-slot values-image-slot--hero" data-slot="main-image" />
             </div>
           </div>
 

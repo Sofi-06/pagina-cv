@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import imagenInicial from "../../assets/Captura de pantalla 2026-03-19 161159.png";
+import imagenInicial from "../../assets/Quienes somos_fondo-tex.png";
 import "./QuienesSomos.css";
 
 const titulo = "\u00bfQUI\u00c9NES SOMOS?";
@@ -8,23 +8,35 @@ function QuienesSomos() {
     const [isTouchLayout, setIsTouchLayout] = useState(false);
     const [mobileReveal, setMobileReveal] = useState(false);
     const [circleScale, setCircleScale] = useState(1.0);
+    const [titleLift, setTitleLift] = useState(0);
     const sectionRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
         const handleScroll = () => {
             if (!sectionRef.current) return;
+
             const rect = sectionRef.current.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             let scale = 1.0;
+            let lift = 0;
+
             if (rect.top < windowHeight && rect.bottom > 0) {
                 const percentScrolled = 1 - Math.max(0, Math.min(windowHeight, rect.bottom) - Math.max(0, rect.top)) / Math.min(windowHeight, rect.height);
-                scale = 1.0 + percentScrolled * 80.0;
+                scale = 1.0 + percentScrolled * 60.0;
+
+                if (!isTouchLayout) {
+                    lift = percentScrolled * 1000;
+                }
             }
+
             setCircleScale(scale);
+            setTitleLift(lift);
         };
+
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [isTouchLayout]);
 
     useEffect(() => {
         const compactLayoutMedia = window.matchMedia("(max-width: 1024px)");
@@ -105,8 +117,15 @@ function QuienesSomos() {
                     <span className="shape shape--triangle-fill shape--triangle-fill-right" />
                 </div>
 
-                <div className="quienes-somos-card__content">
-                    <h1 id="quienes-somos-title" className="quienes-somos-card__title" aria-label={titulo}>
+                <div
+                    className="quienes-somos-card__content"
+                    style={{ transform: `translateY(-${titleLift}px)` }}
+                >
+                    <h1
+                        id="quienes-somos-title"
+                        className="quienes-somos-card__title"
+                        aria-label={titulo}
+                    >
                         {Array.from(titulo).map((character, index) => (
                             <span
                                 key={`${character}-${index}`}

@@ -12,7 +12,11 @@ import lineaAzul04 from '../../assets/Formas-Azul1-04.png';
 import rosado01 from '../../assets/Formas_rosado-01.png';
 import rosado02 from '../../assets/Formas_rosado-02.png';
 
-const MoocTutorials = () => {
+interface MoocTutorialsProps {
+    onOpenTutorials?: () => void;
+}
+
+const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const moocRef = useRef<HTMLDivElement>(null);
     const tutRef = useRef<HTMLDivElement>(null);
@@ -95,7 +99,7 @@ const MoocTutorials = () => {
                         <p>
                             Quieres saber mas sobre algunas herramientas digitales que pueden apoyar tu practica academica? En este espacio encontraras material de apoyo que te ayudara en tu proceso formativo.
                         </p>
-                        <button type="button" className="mooc-tutorials-btn">Ver mas</button>
+                        <button type="button" className="mooc-tutorials-btn" onClick={onOpenTutorials}>Ver mas</button>
                     </div>
                 </div>
             </section>

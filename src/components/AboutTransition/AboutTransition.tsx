@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import studentImg from "../../assets/Home_estu2.png";
+import studentImg from "../../assets/imag-02.png";
 import "./AboutTransition.css";
 
 function AboutTransition() {

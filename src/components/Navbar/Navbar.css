@@ -15,7 +15,7 @@
     border-bottom: 1px solid #e1e4e8;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1300;
     width: 100%;
     /* No overflow:hidden here — clips logo & dropdowns */
 }
@@ -47,7 +47,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.06rem;
     }
 
@@ -74,7 +75,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.18rem;
     }
 
@@ -116,7 +118,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.52rem;
         font-weight: 600;
     }
@@ -191,7 +194,8 @@
 }
 
 .navbar-links a,
-.nav-link-with-icon {
+.nav-link-with-icon,
+.navbar-link-button {
     text-decoration: none;
     color: #24292e;
     font-weight: 500;
@@ -206,7 +210,19 @@
 }
 
 .navbar-links a:hover,
-.nav-link-with-icon:hover {
+.nav-link-with-icon:hover,
+.navbar-link-button:hover {
+    color: #201670;
+}
+
+.navbar-link-button {
+    appearance: none;
+    background: none;
+    border: none;
+    font: inherit;
+}
+
+.navbar-link-button.is-active {
     color: #201670;
 }
 
@@ -542,7 +558,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 0.95rem;
         /* Slightly smaller but still readable */
     }
@@ -564,7 +581,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 0.84rem;
     }
 
@@ -687,7 +705,8 @@ svg {
 
     /* inside sidebar links bigger */
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1rem;
         font-weight: 500;
         white-space: normal;
@@ -750,7 +769,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.04rem;
     }
 

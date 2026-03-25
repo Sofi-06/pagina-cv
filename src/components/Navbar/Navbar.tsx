@@ -4,7 +4,13 @@ import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
 import "./Navbar.css";
 
-function Navbar() {
+interface NavbarProps {
+    isTutorialsOpen: boolean;
+    onOpenTutorials: () => void;
+    onCloseTutorials: () => void;
+}
+
+function Navbar({ isTutorialsOpen, onOpenTutorials, onCloseTutorials }: NavbarProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const loginMenuRef = useRef<HTMLDivElement | null>(null);
@@ -25,6 +31,12 @@ function Navbar() {
 
     const toggleLoginMenu = () => {
         setIsLoginOpen((prev) => !prev);
+    };
+
+    const handleCloseTransientUi = () => {
+        closeMobileMenu();
+        onCloseTutorials();
+        setIsLoginOpen(false);
     };
 
     useEffect(() => {
@@ -50,7 +62,7 @@ function Navbar() {
     }, []);
 
     const goToHomeTop = () => {
-        closeMobileMenu();
+        handleCloseTransientUi();
 
         if (location.pathname !== "/") {
             navigate("/");
@@ -59,6 +71,11 @@ function Navbar() {
         window.requestAnimationFrame(() => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
+    };
+
+    const handleOpenTutorials = () => {
+        closeMobileMenu();
+        onOpenTutorials();
     };
 
     return (
@@ -83,8 +100,8 @@ function Navbar() {
                         </button>
                     </div>
 
-                    <li><Link to="/" onClick={closeMobileMenu}>Inicio</Link></li>
-                    <li><Link to="/campus" onClick={closeMobileMenu}>Nuestro Campus</Link></li>
+                    <li><Link to="/" onClick={handleCloseTransientUi}>Inicio</Link></li>
+                    <li><Link to="/campus" onClick={handleCloseTransientUi}>Nuestro Campus</Link></li>
 
                     {/* Programas Virtuales - desktop hover, mobile click */}
                     <li
@@ -133,8 +150,16 @@ function Navbar() {
                         )}
                     </li>
 
-                    <li><Link to="/tutoriales" onClick={closeMobileMenu}>Tutoriales</Link></li>
-                    <li><Link to="/contacto" onClick={closeMobileMenu}>Contacto</Link></li>
+                    <li>
+                        <button
+                            type="button"
+                            className={`navbar-link-button${isTutorialsOpen ? " is-active" : ""}`}
+                            onClick={handleOpenTutorials}
+                        >
+                            Tutoriales
+                        </button>
+                    </li>
+                    <li><Link to="/contacto" onClick={handleCloseTransientUi}>Contacto</Link></li>
                     <li>
                         <a
                             href="https://campusvirtual.santototunja.edu.co/app/metaverso/"

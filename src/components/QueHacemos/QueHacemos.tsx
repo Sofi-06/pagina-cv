@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import boyImg from '../../assets/Home_estu1.png';
-import backgroundImg from '../../assets/Captura de pantalla 2026-03-19 161159.png';
+import boyImg from '../../assets/imag-01.png';
+import backgroundImg from '../../assets/Quienes somos_fondo-tex.png';
 import './QueHacemos.css';
 
 function QueHacemos() {

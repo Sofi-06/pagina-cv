@@ -1,16 +1,32 @@
-import { useEffect, useState } from "react";
+import { cloneElement, isValidElement, type ReactElement, type ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import TutorialsPopUp from "../components/TutorialsPopUp/TutorialsPopUp";
 import robotImage from "../assets/robot.png";
 import "./MainLayout.css";
 
 interface Props {
-    children: React.ReactNode;
+    children: ReactNode;
     showChatbot?: boolean;
 }
 
 const MainLayout = ({ children, showChatbot = false }: Props) => {
     const [showDesktopChatbot, setShowDesktopChatbot] = useState(false);
+    const [isTutorialsOpen, setIsTutorialsOpen] = useState(false);
+
+    const openTutorials = () => {
+        setIsTutorialsOpen(true);
+    };
+
+    const closeTutorials = () => {
+        setIsTutorialsOpen(false);
+    };
+
+    const pageContent = isValidElement(children)
+        ? cloneElement(children as ReactElement<{ onOpenTutorials?: () => void }>, {
+            onOpenTutorials: openTutorials,
+        })
+        : children;
 
     useEffect(() => {
         if (!showChatbot) {
@@ -45,8 +61,12 @@ const MainLayout = ({ children, showChatbot = false }: Props) => {
 
     return (
         <div className="layout-container">
-            <Navbar />
-            {showChatbot && (
+            <Navbar
+                isTutorialsOpen={isTutorialsOpen}
+                onOpenTutorials={openTutorials}
+                onCloseTutorials={closeTutorials}
+            />
+            {showChatbot && !isTutorialsOpen && (
                 <a
                     href="https://campusvirtual.santototunja.edu.co/app/ChatIA/"
                     target="_blank"
@@ -57,8 +77,9 @@ const MainLayout = ({ children, showChatbot = false }: Props) => {
                     <img src={robotImage} alt="Chatbot Campus Virtual" className="chatbot-fab-image" />
                 </a>
             )}
-            <main className="main-content">{children}</main>
+            <main className="main-content">{pageContent}</main>
             <Footer />
+            {isTutorialsOpen && <TutorialsPopUp onClose={closeTutorials} />}
         </div>
     );
 };
