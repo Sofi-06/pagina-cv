@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Values.css";
+import responsabilidadHero from "../../assets/Valores_ima-responsa.png";
+import trabajoHero from "../../assets/Valores_ima-traba-equipo.png";
+import cumplimientoHero from "../../assets/Valores_img-puntualidad.png";
+import responsabilidadIconSmall from "../../assets/Valores_icono1-respon.png";
+import responsabilidadIconLarge from "../../assets/Valores_icono2-respon.png";
+import trabajoIconSmall from "../../assets/Valores_icono1-tabaj-equipo.png";
+import trabajoIconLarge from "../../assets/Valores_icono2-tabaj-equipo.png";
+import cumplimientoIconSmall from "../../assets/Valores_icono1-puntuali.png";
+import cumplimientoIconLarge from "../../assets/Valores_icono2-puntuali.png";
+import nextButtonIcon from "../../assets/boton_next-03.png";
 
 type ValueId = "responsabilidad" | "equipo" | "cumplimiento";
 
@@ -7,6 +17,9 @@ interface ValueItem {
   id: ValueId;
   title: string;
   description: string;
+  heroImage: string;
+  smallIcon: string;
+  largeIcon: string;
 }
 
 const VALUES: ValueItem[] = [
@@ -15,18 +28,27 @@ const VALUES: ValueItem[] = [
     title: "Responsabilidad",
     description:
       "Porque siempre cumplimos y desarrollamos nuestro trabajo de la mejor manera",
+    heroImage: responsabilidadHero,
+    smallIcon: responsabilidadIconSmall,
+    largeIcon: responsabilidadIconLarge,
   },
   {
     id: "equipo",
     title: "Trabajo en equipo",
     description:
       "Todos aportamos un granito de arena para obtener siempre los mejores resultados",
+    heroImage: trabajoHero,
+    smallIcon: trabajoIconSmall,
+    largeIcon: trabajoIconLarge,
   },
   {
     id: "cumplimiento",
     title: "Cumplimiento",
     description:
       "Damos soluciones a las necesidades de toda la comunidad educativa",
+    heroImage: cumplimientoHero,
+    smallIcon: cumplimientoIconSmall,
+    largeIcon: cumplimientoIconLarge,
   },
 ];
 
@@ -74,7 +96,7 @@ const Values: React.FC = () => {
   const activeValue = VALUES[activeIndex];
   const orbitItems = VALUES.map((item) => ({
     label: item.title,
-    className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]}${
+    className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
       item.id === activeValue.id ? " values-orbit__label--active" : ""
     }`,
   }));
@@ -91,6 +113,8 @@ const Values: React.FC = () => {
       <span className="values-ring values-ring--top-right" aria-hidden="true" />
       <span className="values-glow values-glow--left" aria-hidden="true" />
       <span className="values-glow values-glow--right" aria-hidden="true" />
+      <span className="values-corner values-corner--left" aria-hidden="true" />
+      <span className="values-corner values-corner--right" aria-hidden="true" />
 
       <div className="values-shell">
         <header className="values-header">
@@ -105,15 +129,11 @@ const Values: React.FC = () => {
         </header>
 
         <div className="values-floating-card values-floating-card--left" aria-hidden="true">
-          <div className="values-floating-card__target">
-            <div className="values-image-slot values-image-slot--small" data-slot="left-image" />
-          </div>
+          <img src={activeValue.smallIcon} alt="" className="values-floating-card__image" />
         </div>
 
         <div className="values-floating-card values-floating-card--right" aria-hidden="true">
-          <div className="values-floating-card__target">
-            <div className="values-image-slot values-image-slot--medium" data-slot="right-image" />
-          </div>
+          <img src={activeValue.largeIcon} alt="" className="values-floating-card__image" />
         </div>
 
         <div className="values-stage">
@@ -123,7 +143,7 @@ const Values: React.FC = () => {
             aria-label="Valor anterior"
             onClick={showPrevious}
           >
-            <span aria-hidden="true">&#10094;</span>
+            <img src={nextButtonIcon} alt="" aria-hidden="true" className="values-arrow__icon values-arrow__icon--left" />
           </button>
 
           <div className="values-orbit" aria-hidden="true">
@@ -136,9 +156,7 @@ const Values: React.FC = () => {
           </div>
 
           <div className="values-hero" aria-hidden="true">
-            <div className="values-hero__core">
-              <div className="values-image-slot values-image-slot--hero" data-slot="main-image" />
-            </div>
+            <img src={activeValue.heroImage} alt="" className="values-hero__image" />
           </div>
 
           <button
@@ -147,7 +165,7 @@ const Values: React.FC = () => {
             aria-label="Valor siguiente"
             onClick={showNext}
           >
-            <span aria-hidden="true">&#10095;</span>
+            <img src={nextButtonIcon} alt="" aria-hidden="true" className="values-arrow__icon" />
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { cloneElement, isValidElement, type ReactElement, type ReactNode, useEffect, useState } from "react";
+import { cloneElement, isValidElement, type ReactElement, type ReactNode, useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import TutorialsPopUp from "../components/TutorialsPopUp/TutorialsPopUp";
@@ -11,15 +11,32 @@ interface Props {
 }
 
 const MainLayout = ({ children, showChatbot = false }: Props) => {
+    const closeAnimationTimeoutRef = useRef<number | null>(null);
     const [showDesktopChatbot, setShowDesktopChatbot] = useState(false);
     const [isTutorialsOpen, setIsTutorialsOpen] = useState(false);
+    const [isTutorialsClosing, setIsTutorialsClosing] = useState(false);
 
     const openTutorials = () => {
+        if (closeAnimationTimeoutRef.current) {
+            window.clearTimeout(closeAnimationTimeoutRef.current);
+            closeAnimationTimeoutRef.current = null;
+        }
+
+        setIsTutorialsClosing(false);
         setIsTutorialsOpen(true);
     };
 
     const closeTutorials = () => {
-        setIsTutorialsOpen(false);
+        if (!isTutorialsOpen || isTutorialsClosing) {
+            return;
+        }
+
+        setIsTutorialsClosing(true);
+        closeAnimationTimeoutRef.current = window.setTimeout(() => {
+            setIsTutorialsOpen(false);
+            setIsTutorialsClosing(false);
+            closeAnimationTimeoutRef.current = null;
+        }, 500);
     };
 
     const pageContent = isValidElement(children)
@@ -59,6 +76,14 @@ const MainLayout = ({ children, showChatbot = false }: Props) => {
         };
     }, [showChatbot]);
 
+    useEffect(() => {
+        return () => {
+            if (closeAnimationTimeoutRef.current) {
+                window.clearTimeout(closeAnimationTimeoutRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div className="layout-container">
             <Navbar
@@ -79,7 +104,12 @@ const MainLayout = ({ children, showChatbot = false }: Props) => {
             )}
             <main className="main-content">{pageContent}</main>
             <Footer />
-            {isTutorialsOpen && <TutorialsPopUp onClose={closeTutorials} />}
+            {isTutorialsOpen && (
+                <TutorialsPopUp
+                    onClose={closeTutorials}
+                    isClosing={isTutorialsClosing}
+                />
+            )}
         </div>
     );
 };

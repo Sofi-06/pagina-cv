@@ -6,6 +6,7 @@ import "./TutorialsPopUp.css";
 
 interface TutorialsPopUpProps {
     onClose: () => void;
+    isClosing?: boolean;
     studentHref?: string;
     teacherHref?: string;
 }
@@ -23,6 +24,7 @@ const DEFAULT_TEACHER_TUTORIALS_URL = "https://plataformalms.ustatunja.edu.co/lo
 
 function TutorialsPopUp({
     onClose,
+    isClosing = false,
     studentHref = DEFAULT_STUDENT_TUTORIALS_URL,
     teacherHref = DEFAULT_TEACHER_TUTORIALS_URL,
 }: TutorialsPopUpProps) {
@@ -71,7 +73,7 @@ function TutorialsPopUp({
     ];
 
     return (
-        <div className="tutorials-popup-overlay">
+        <div className={`tutorials-popup-overlay${isClosing ? " is-closing" : ""}`}>
             <button
                 type="button"
                 className="tutorials-popup-backdrop"
