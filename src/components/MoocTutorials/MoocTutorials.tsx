@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './MoocTutorials.css';
+import { useLayoutUi } from '../../context/LayoutUiContext';
 import moocImg from '../../assets/Home_estu1.png';
 import tutorialesImg from '../../assets/Home_estu2.png';
 import formaAzul08 from '../../assets/Formas-azul-08.png';
@@ -17,6 +18,7 @@ interface MoocTutorialsProps {
 }
 
 const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
+    const layoutUi = useLayoutUi();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const moocRef = useRef<HTMLDivElement>(null);
     const tutRef = useRef<HTMLDivElement>(null);
@@ -99,7 +101,13 @@ const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
                         <p>
                             Quieres saber mas sobre algunas herramientas digitales que pueden apoyar tu practica academica? En este espacio encontraras material de apoyo que te ayudara en tu proceso formativo.
                         </p>
-                        <button type="button" className="mooc-tutorials-btn" onClick={onOpenTutorials}>Ver mas</button>
+                        <button
+                            type="button"
+                            className="mooc-tutorials-btn"
+                            onClick={onOpenTutorials ?? layoutUi?.openTutorials}
+                        >
+                            Ver mas
+                        </button>
                     </div>
                 </div>
             </section>

@@ -56,6 +56,8 @@ const wrapIndex = (index: number, length: number) => {
   return (index + length) % length;
 };
 
+const VALUES_TRANSITION_MS = 560;
+
 const ORBIT_POSITION_CLASS: Record<ValueId, string> = {
   responsabilidad: "values-orbit__label--left",
   equipo: "values-orbit__label--top",
@@ -64,8 +66,10 @@ const ORBIT_POSITION_CLASS: Record<ValueId, string> = {
 
 const Values: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const transitionTimeoutRef = useRef<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,21 +89,79 @@ const Values: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current) {
+        window.clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const swapValue = (nextIndex: number) => {
+    if (nextIndex === activeIndex) {
+      return;
+    }
+
+    if (transitionTimeoutRef.current) {
+      window.clearTimeout(transitionTimeoutRef.current);
+      transitionTimeoutRef.current = null;
+    }
+
+    setPreviousIndex(activeIndex);
+    setActiveIndex(nextIndex);
+
+    transitionTimeoutRef.current = window.setTimeout(() => {
+      setPreviousIndex(null);
+      transitionTimeoutRef.current = null;
+    }, VALUES_TRANSITION_MS);
+  };
+
   const showPrevious = () => {
-    setActiveIndex((current) => wrapIndex(current - 1, VALUES.length));
+    swapValue(wrapIndex(activeIndex - 1, VALUES.length));
   };
 
   const showNext = () => {
-    setActiveIndex((current) => wrapIndex(current + 1, VALUES.length));
+    swapValue(wrapIndex(activeIndex + 1, VALUES.length));
   };
 
   const activeValue = VALUES[activeIndex];
-  const orbitItems = VALUES.map((item) => ({
-    label: item.title,
-    className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
-      item.id === activeValue.id ? " values-orbit__label--active" : ""
-    }`,
-  }));
+  const previousValue = previousIndex !== null ? VALUES[previousIndex] : null;
+
+  const getOrbitItems = (value: ValueItem) =>
+    VALUES.map((item) => ({
+      label: item.title,
+      className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
+        item.id === value.id ? " values-orbit__label--active" : ""
+      }`,
+    }));
+
+  const renderHeaderContent = (value: ValueItem, isPrimary: boolean) => (
+    <>
+      <div className="values-kicker" aria-hidden="true">
+        <span />
+        <p>NUESTROS VALORES</p>
+        <span />
+      </div>
+
+      <h2 id={isPrimary ? "values-title" : undefined}>{value.title}</h2>
+      <p className="values-description">{value.description}</p>
+    </>
+  );
+
+  const renderOrbitContent = (value: ValueItem) => {
+    const orbitItems = getOrbitItems(value);
+
+    return (
+      <>
+        <span className="values-orbit__outline" />
+        {orbitItems.map((item) => (
+          <span key={`${value.id}-${item.label}-${item.className}`} className={item.className}>
+            {item.label}
+          </span>
+        ))}
+      </>
+    );
+  };
 
   return (
     <section
@@ -118,22 +180,39 @@ const Values: React.FC = () => {
 
       <div className="values-shell">
         <header className="values-header">
-          <div className="values-kicker" aria-hidden="true">
-            <span />
-            <p>NUESTROS VALORES</p>
-            <span />
-          </div>
+          {previousValue && (
+            <div className="values-layer values-layer--exit-down" aria-hidden="true">
+              {renderHeaderContent(previousValue, false)}
+            </div>
+          )}
 
-          <h2 id="values-title">{activeValue.title}</h2>
-          <p className="values-description">{activeValue.description}</p>
+          <div className={`values-layer${previousValue ? " values-layer--enter-down" : ""}`}>
+            {renderHeaderContent(activeValue, true)}
+          </div>
         </header>
 
-        <div className="values-floating-card values-floating-card--left" aria-hidden="true">
-          <img src={activeValue.smallIcon} alt="" className="values-floating-card__image" />
+        <div className="values-floating-card values-floating-card--left values-layer-stack" aria-hidden="true">
+          {previousValue && (
+            <div className="values-layer values-layer--exit-left">
+              <img src={previousValue.smallIcon} alt="" className="values-floating-card__image" />
+            </div>
+          )}
+
+          <div className={`values-layer${previousValue ? " values-layer--enter-left" : ""}`}>
+            <img src={activeValue.smallIcon} alt="" className="values-floating-card__image" />
+          </div>
         </div>
 
-        <div className="values-floating-card values-floating-card--right" aria-hidden="true">
-          <img src={activeValue.largeIcon} alt="" className="values-floating-card__image" />
+        <div className="values-floating-card values-floating-card--right values-layer-stack" aria-hidden="true">
+          {previousValue && (
+            <div className="values-layer values-layer--exit-right">
+              <img src={previousValue.largeIcon} alt="" className="values-floating-card__image" />
+            </div>
+          )}
+
+          <div className={`values-layer${previousValue ? " values-layer--enter-right" : ""}`}>
+            <img src={activeValue.largeIcon} alt="" className="values-floating-card__image" />
+          </div>
         </div>
 
         <div className="values-stage">
@@ -147,12 +226,7 @@ const Values: React.FC = () => {
           </button>
 
           <div className="values-orbit" aria-hidden="true">
-            <span className="values-orbit__outline" />
-            {orbitItems.map((item) => (
-              <span key={`${activeValue.title}-${item.label}-${item.className}`} className={item.className}>
-                {item.label}
-              </span>
-            ))}
+            {renderOrbitContent(activeValue)}
           </div>
 
           <div className="values-hero" aria-hidden="true">

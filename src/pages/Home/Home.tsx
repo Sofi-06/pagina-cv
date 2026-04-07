@@ -5,11 +5,7 @@ import Innovation from '../../components/Innovation/Innovation';
 import ToolsTeacher from '../../components/ToolsTeacher/ToolsTeacher';
 import WhatWeDo from "../../components/WhatWeDo/WhatWeDo";
 
-interface HomeProps {
-    onOpenTutorials?: () => void;
-}
-
-function Home({ onOpenTutorials }: HomeProps) {
+function Home() {
     return (
         <div className="home-page-container">
             <HomeCarousel />
@@ -19,7 +15,7 @@ function Home({ onOpenTutorials }: HomeProps) {
                 We use reveal-wrappers to provide scroll distance for each sticky layer. */}
 
             <div className="reveal-wrapper reveal-wrapper-mooc">
-                <MoocTutorials onOpenTutorials={onOpenTutorials} />
+                <MoocTutorials />
             </div>
 
             <div className="reveal-wrapper reveal-wrapper-innovation">

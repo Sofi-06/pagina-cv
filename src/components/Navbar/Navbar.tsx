@@ -6,11 +6,21 @@ import "./Navbar.css";
 
 interface NavbarProps {
     isTutorialsOpen: boolean;
+    isContactOpen: boolean;
     onOpenTutorials: () => void;
     onCloseTutorials: () => void;
+    onOpenContact: () => void;
+    onCloseContact: () => void;
 }
 
-function Navbar({ isTutorialsOpen, onOpenTutorials, onCloseTutorials }: NavbarProps) {
+function Navbar({
+    isTutorialsOpen,
+    isContactOpen,
+    onOpenTutorials,
+    onCloseTutorials,
+    onOpenContact,
+    onCloseContact,
+}: NavbarProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const loginMenuRef = useRef<HTMLDivElement | null>(null);
@@ -36,6 +46,7 @@ function Navbar({ isTutorialsOpen, onOpenTutorials, onCloseTutorials }: NavbarPr
     const handleCloseTransientUi = () => {
         closeMobileMenu();
         onCloseTutorials();
+        onCloseContact();
         setIsLoginOpen(false);
     };
 
@@ -76,6 +87,11 @@ function Navbar({ isTutorialsOpen, onOpenTutorials, onCloseTutorials }: NavbarPr
     const handleOpenTutorials = () => {
         closeMobileMenu();
         onOpenTutorials();
+    };
+
+    const handleOpenContact = () => {
+        closeMobileMenu();
+        onOpenContact();
     };
 
     return (
@@ -159,7 +175,15 @@ function Navbar({ isTutorialsOpen, onOpenTutorials, onCloseTutorials }: NavbarPr
                             Tutoriales
                         </button>
                     </li>
-                    <li><Link to="/contacto" onClick={handleCloseTransientUi}>Contacto</Link></li>
+                    <li>
+                        <button
+                            type="button"
+                            className={`navbar-link-button${isContactOpen ? " is-active" : ""}`}
+                            onClick={handleOpenContact}
+                        >
+                            Contacto
+                        </button>
+                    </li>
                     <li>
                         <a
                             href="https://campusvirtual.santototunja.edu.co/app/metaverso/"
