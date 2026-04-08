@@ -2,6 +2,7 @@ import "./AboutUs.css";
 import AboutTransition from "../../components/AboutTransition/AboutTransition";
 import QuienesSomos from "../../components/QuienesSomos/QuienesSomos";
 import QueHacemos from "../../components/QueHacemos/QueHacemos";
+import Team from "../../components/Team/Team";
 import Values from "../../components/Values/Values";
 
 function AboutUs() {
@@ -11,6 +12,7 @@ function AboutUs() {
             <AboutTransition />
             <QueHacemos />
             <Values />
+            <Team />
         </div>
     );
 }
