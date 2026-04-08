@@ -170,6 +170,17 @@ const TEAM_MEMBERS: TeamMember[] = [
     overlayStrong: "rgba(11, 45, 51, 0.5)",
     overlaySoft: "rgba(47, 104, 114, 0.22)",
   },
+    {
+    id: "team-13",
+    name: "Nuevo",
+    role: "Auxiliar",
+    portrait: portrait12,
+    background: background12,
+    panel: "#2f6872",
+    preview: "#15345a",
+    overlayStrong: "rgba(11, 45, 51, 0.5)",
+    overlaySoft: "rgba(47, 104, 114, 0.22)",
+  },
 ];
 
 const TEAM_TRANSITION_MS = 520;
