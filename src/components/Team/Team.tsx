@@ -171,7 +171,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     overlaySoft: "rgba(47, 104, 114, 0.22)",
   },
     {
-    id: "team-13",
+    id: "team-14",
     name: "Nuevo",
     role: "Auxiliar",
     portrait: portrait12,
@@ -181,6 +181,17 @@ const TEAM_MEMBERS: TeamMember[] = [
     overlayStrong: "rgba(11, 45, 51, 0.5)",
     overlaySoft: "rgba(47, 104, 114, 0.22)",
   },
+      {
+    id: "team-13",
+    name: "Nuevo1",
+    role: "Auxiliar2",
+    portrait: portrait12,
+    background: background12,
+    panel: "#2f6872",
+    preview: "#15345a",
+    overlayStrong: "rgba(11, 45, 51, 0.5)",
+    overlaySoft: "rgba(47, 104, 114, 0.22)",
+  }
 ];
 
 const TEAM_TRANSITION_MS = 520;
@@ -220,6 +231,30 @@ function Team() {
     };
   }, []);
 
+  useEffect(() => {
+    const preloadIndexes = [
+      activeIndex,
+      wrapIndex(activeIndex + 1, TEAM_MEMBERS.length),
+      wrapIndex(activeIndex + 2, TEAM_MEMBERS.length),
+    ];
+
+    const uniqueBackgrounds = Array.from(
+      new Set(preloadIndexes.map((index) => TEAM_MEMBERS[index].background))
+    );
+
+    const preloadImages = uniqueBackgrounds.map((source) => {
+      const image = new Image();
+      image.src = source;
+      return image;
+    });
+
+    return () => {
+      preloadImages.forEach((image) => {
+        image.src = "";
+      });
+    };
+  }, [activeIndex]);
+
   const swapMember = (nextIndex: number) => {
     if (nextIndex === activeIndex) {
       return;
@@ -253,8 +288,16 @@ function Team() {
       aria-labelledby="team-title"
     >
       <div className="team-section__backgrounds" aria-hidden="true">
+        {previousMember && previousMember.background !== activeMember.background && (
+          <div
+            className="team-section__background team-section__background--previous team-layer--exit-bg"
+            style={{ backgroundImage: `url(${previousMember.background})` }}
+          />
+        )}
         <div
-          className="team-section__background team-section__background--current"
+          className={`team-section__background team-section__background--current${
+            previousMember ? " team-layer--enter-bg" : ""
+          }`}
           style={{ backgroundImage: `url(${activeMember.background})` }}
         />
       </div>

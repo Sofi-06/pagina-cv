@@ -3,6 +3,8 @@ import boyImg from '../../assets/imag-01.png';
 import backgroundImg from '../../assets/Quienes somos_fondo-tex.png';
 import './QueHacemos.css';
 
+const EXIT_TRIGGER_VIEWPORT_RATIO = 0.14;
+
 function QueHacemos() {
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [exit, setExit] = useState(false);
@@ -14,7 +16,8 @@ function QueHacemos() {
             const rect = valuesSection.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             // Si la sección Values entra en pantalla, activar salida
-            if (rect.top < windowHeight && rect.bottom > 0) {
+            const exitTriggerPoint = windowHeight * EXIT_TRIGGER_VIEWPORT_RATIO;
+            if (rect.top <= exitTriggerPoint && rect.bottom > 0) {
                 setExit(true);
             } else {
                 setExit(false);

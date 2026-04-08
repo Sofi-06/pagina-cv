@@ -495,7 +495,7 @@
 .values-hero {
   position: absolute;
   left: 50%;
-  bottom: -84px;
+  bottom: -110px;
   z-index: 1;
   width: min(760px, 68vw);
   transform: translateX(-50%);
@@ -644,8 +644,18 @@
   }
 
   .values-hero {
-    bottom: -108px;
+    bottom: -134px;
     width: min(1080px, 72vw);
+  }
+
+  .values-section--equipo .values-hero {
+    bottom: -154px;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1799px) {
+  .values-section--equipo .values-hero {
+    bottom: -126px;
   }
 }
 
@@ -660,12 +670,8 @@
   }
 
   .values-hero {
-    bottom: -64px;
+    bottom: 8px;
     width: min(660px, 62vw);
-  }
-
-  .values-section--equipo .values-hero {
-    bottom: -82px;
   }
 }
 
@@ -785,12 +791,8 @@
   }
 
   .values-hero {
-    bottom: -54px;
+    bottom: 6px;
     width: min(620px, 92vw);
-  }
-
-  .values-section--equipo .values-hero {
-    bottom: -70px;
   }
 }
 

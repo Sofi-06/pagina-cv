@@ -24,6 +24,15 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  will-change: opacity;
+}
+
+.team-section__background--current {
+  z-index: 1;
+}
+
+.team-section__background--previous {
+  z-index: 0;
 }
 
 .team-shell {
@@ -226,6 +235,7 @@
 
 .team-navigation {
   position: absolute;
+  z-index: 4;
   left: 50%;
   bottom: 18px;
   min-height: 56px;
@@ -243,6 +253,7 @@
 }
 
 .team-navigation__dot {
+  position: relative;
   width: 20px;
   height: 20px;
   padding: 0;
@@ -252,6 +263,12 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: transform 0.22s ease, background-color 0.22s ease, opacity 0.22s ease;
+}
+
+.team-navigation__dot::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
 }
 
 .team-navigation__dot:hover {
@@ -277,6 +294,15 @@
 
 .team-layer--exit-card {
   animation: team-exit-card 0.52s cubic-bezier(0.42, 0.02, 0.38, 0.98) both;
+  pointer-events: none;
+}
+
+.team-layer--enter-bg {
+  animation: team-enter-bg 0.52s ease both;
+}
+
+.team-layer--exit-bg {
+  animation: team-exit-bg 0.52s ease both;
   pointer-events: none;
 }
 
@@ -325,6 +351,26 @@
   to {
     opacity: 0;
     transform: translateX(-24px) scale(0.96);
+  }
+}
+
+@keyframes team-enter-bg {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes team-exit-bg {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 

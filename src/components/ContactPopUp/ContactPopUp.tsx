@@ -11,8 +11,8 @@ interface ContactPopUpProps {
     phoneHref?: string;
 }
 
-const DEFAULT_EMAIL = "correo@universidad.edu.co";
-const DEFAULT_PHONE_LABEL = "Extensiones";
+const DEFAULT_EMAIL = "aux.campusvirtual@ustatunja.edu.co";
+const DEFAULT_PHONE_LABEL = "PBX: (608) 7 44 04 04";
 const DEFAULT_PHONE_VALUE = "5470 - 5471 - 5473";
 const DEFAULT_PHONE_HREF = "tel:+577440404";
 
@@ -79,7 +79,7 @@ function ContactPopUp({
                 <div className="contact-popup-card">
                     <p className="contact-popup-kicker">Necesitas ayuda o tienes alguna pregunta?</p>
                     <h1 className="contact-popup-title" id="contact-popup-title">
-                        Contactanos
+                        Contáctanos
                     </h1>
 
                     <div className="contact-popup-details">

@@ -9,6 +9,33 @@
     background-position: center top;
 }
 
+@media (max-width: 1024px) {
+    .about-us-page :is(
+        .about-transition__inner,
+        .que-hacemos__inner,
+        .values-header,
+        .team-copy
+    ) {
+        position: relative;
+        z-index: 30;
+    }
+
+    .about-us-page :is(
+        .about-transition__corner,
+        .about-transition__line,
+        .about-transition__ring,
+        .about-transition__triangle,
+        .que-hacemos__corner,
+        .que-hacemos__line,
+        .que-hacemos__ring,
+        .que-hacemos__fill-circle,
+        .que-hacemos__triangle
+    ) {
+        z-index: 6 !important;
+        pointer-events: none;
+    }
+}
+
 @media (max-width: 768px) {
     .about-us-page {
         background-image: none;
