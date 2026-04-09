@@ -183,6 +183,33 @@
     }
 }
 
+@media (min-width: 901px) and (max-width: 1599px) {
+    .contact-popup {
+        width: min(100%, 760px);
+    }
+
+    .contact-popup-card {
+        padding: 44px 28px 48px;
+    }
+
+    .contact-popup-title {
+        font-size: clamp(2.5rem, 4.8vw, 3.7rem);
+    }
+
+    .contact-popup-details {
+        margin-top: 34px;
+        gap: 18px;
+    }
+
+    .contact-popup-link {
+        font-size: 1rem;
+    }
+
+    .contact-popup-phone-label {
+        font-size: 0.98rem;
+    }
+}
+
 @media (max-width: 640px) {
     .contact-popup-overlay {
         padding: 18px 10px;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
@@ -48,6 +48,15 @@ function Navbar({
         onCloseTutorials();
         onCloseContact();
         setIsLoginOpen(false);
+    };
+
+    const handlePageLinkClick = (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => {
+        handleCloseTransientUi();
+
+        if (location.pathname === path) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     };
 
     useEffect(() => {
@@ -116,8 +125,16 @@ function Navbar({
                         </button>
                     </div>
 
-                    <li><Link to="/" onClick={handleCloseTransientUi}>Inicio</Link></li>
-                    <li><Link to="/campus" onClick={handleCloseTransientUi}>Nuestro Campus</Link></li>
+                    <li>
+                        <Link to="/" onClick={(event) => handlePageLinkClick(event, "/")}>
+                            Inicio
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/campus" onClick={(event) => handlePageLinkClick(event, "/campus")}>
+                            Nuestro Campus
+                        </Link>
+                    </li>
 
                     {/* Programas Virtuales - desktop hover, mobile click */}
                     <li
@@ -205,7 +222,7 @@ function Navbar({
                             className="nav-link-with-icon"
                             onClick={() => setMobileExternalOpen(!mobileExternalOpen)}
                         >
-                            Enlaces Externos{" "}
+                            Sitios de Interés{" "}
                             <ChevronDown size={15} className={(isExternalOpen || mobileExternalOpen) ? "rotate" : ""} />
                         </span>
 

@@ -3,9 +3,10 @@
     inset: 0;
     z-index: 1200;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: clamp(96px, 10vw, 118px) 22px 32px;
+    min-height: 100dvh;
+    padding: 24px 22px;
     overflow-y: auto;
     animation: tutorials-overlay-in 0.46s ease forwards;
 }
@@ -84,7 +85,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 72px 14px;
+    padding: 14px 72px 12px;
     background: rgba(255, 255, 255, 0.96);
 }
 
@@ -122,7 +123,7 @@
 
 .tutorials-popup-body {
     position: relative;
-    padding: 12px 28px 18px;
+    padding: 8px 28px 14px;
 }
 
 .tutorials-popup-body::before {
@@ -140,11 +141,11 @@
 }
 
 .tutorials-option {
-    --visual-size: 360px;
+    --visual-size: 330px;
     display: grid;
     grid-template-rows: var(--visual-size) auto;
     justify-items: center;
-    row-gap: 10px;
+    row-gap: 8px;
     text-align: center;
 }
 
@@ -152,7 +153,7 @@
     position: relative;
     width: min(100%, var(--visual-size));
     height: var(--visual-size);
-    margin-top: -8px;
+    margin-top: -6px;
 }
 
 .tutorials-option-image {
@@ -234,7 +235,7 @@
 
 @media (max-width: 900px) {
     .tutorials-popup-overlay {
-        padding-top: 90px;
+        padding: 20px 18px;
     }
 
     .tutorials-popup {
@@ -266,7 +267,7 @@
 
 @media (max-width: 560px) {
     .tutorials-popup-overlay {
-        padding: 76px 12px 20px;
+        padding: 16px 12px;
     }
 
     .tutorials-popup-header {

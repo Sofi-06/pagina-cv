@@ -41,7 +41,9 @@ function QueHacemos() {
             />
             <div className="que-hacemos__wash" aria-hidden="true" />
             <span className="que-hacemos__corner" aria-hidden="true" />
-            <span className="que-hacemos__line que-hacemos__line--top" aria-hidden="true" />
+            <span className="que-hacemos__line que-hacemos__line--top-far-left" aria-hidden="true" />
+            <span className="que-hacemos__line que-hacemos__line--top-left" aria-hidden="true" />
+            <span className="que-hacemos__line que-hacemos__line--top-right" aria-hidden="true" />
             <span className="que-hacemos__line que-hacemos__line--bottom" aria-hidden="true" />
             <span className="que-hacemos__ring que-hacemos__ring--top-right" aria-hidden="true" />
             <span className="que-hacemos__ring que-hacemos__ring--pink" aria-hidden="true" />

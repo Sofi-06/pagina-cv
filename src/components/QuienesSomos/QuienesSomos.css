@@ -366,39 +366,40 @@
     transition-delay: var(--shape-delay);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__image {
+.quienes-somos-card.is-banner-visible .quienes-somos-card__image {
     transform: scale(1.02);
     filter: saturate(1.04);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__overlay {
+.quienes-somos-card.is-banner-visible .quienes-somos-card__overlay,
+.quienes-somos-card.is-compact-layout .quienes-somos-card__overlay {
     opacity: 0.12;
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .quienes-somos-card__letter,
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape {
+.quienes-somos-card.is-banner-visible .quienes-somos-card__letter,
+.quienes-somos-card.is-banner-visible .shape {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-far-left {
+.quienes-somos-card.is-banner-visible .shape--triangle-far-left {
     transform: translateY(0) scale(1) rotate(-14deg);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-top {
+.quienes-somos-card.is-banner-visible .shape--triangle-top {
     transform: translateY(0) scale(1) rotate(28deg);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-bottom {
+.quienes-somos-card.is-banner-visible .shape--triangle-bottom {
     transform: translateY(0) scale(1) rotate(28deg);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-right {
+.quienes-somos-card.is-banner-visible .shape--triangle-right {
     transform: translateY(0) scale(1) rotate(180deg);
 }
 
-.quienes-somos-card:is(:hover, :focus-visible, :focus-within) .shape--triangle-fill-right {
+.quienes-somos-card.is-banner-visible .shape--triangle-fill-right {
     transform: translateY(0) scale(1) rotate(90deg);
 }
 
@@ -472,11 +473,7 @@
     }
 }
 
-.quienes-somos-card.is-touch-layout .quienes-somos-card__overlay {
-    opacity: 0.12;
-}
-
-.quienes-somos-card.is-mobile-reveal .quienes-somos-card__letter {
+.quienes-somos-card.is-compact-layout.is-banner-visible .quienes-somos-card__letter {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
@@ -484,7 +481,7 @@
     animation-delay: var(--letter-delay);
 }
 
-.quienes-somos-card.is-mobile-reveal .shape {
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
@@ -492,23 +489,23 @@
     animation-delay: var(--shape-delay, 0ms);
 }
 
-.quienes-somos-card.is-mobile-reveal .shape--triangle-far-left {
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape--triangle-far-left {
     transform: translateY(0) scale(1) rotate(-14deg);
     animation-name: quienes-somos-mobile-reveal-tilt-left;
 }
 
-.quienes-somos-card.is-mobile-reveal .shape--triangle-top,
-.quienes-somos-card.is-mobile-reveal .shape--triangle-bottom {
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape--triangle-top,
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape--triangle-bottom {
     transform: translateY(0) scale(1) rotate(28deg);
     animation-name: quienes-somos-mobile-reveal-tilt;
 }
 
-.quienes-somos-card.is-mobile-reveal .shape--triangle-right {
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape--triangle-right {
     transform: translateY(0) scale(1) rotate(180deg);
     animation-name: quienes-somos-mobile-reveal-flip;
 }
 
-.quienes-somos-card.is-mobile-reveal .shape--triangle-fill-right {
+.quienes-somos-card.is-compact-layout.is-banner-visible .shape--triangle-fill-right {
     transform: translateY(0) scale(1) rotate(90deg);
     animation-name: quienes-somos-mobile-reveal-side;
 }

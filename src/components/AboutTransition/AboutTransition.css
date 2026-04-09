@@ -31,7 +31,11 @@
 .about-transition {
     width: 100%;
     min-height: 100vh;
-    background: #ffcd22;
+    background: color-mix(
+        in srgb,
+        var(--about-panel-bg, #ffcd22) var(--about-panel-alpha, 100%),
+        transparent
+    );
     position: relative;
     overflow: hidden;
     pointer-events: none;
@@ -58,8 +62,13 @@
     border-radius: 50%;
     transform: translateX(-50%);
     background:
-        radial-gradient(circle, rgba(255, 249, 228, 0.94) 0%, rgba(255, 244, 186, 0.84) 54%, rgba(255, 244, 186, 0) 76%);
-    opacity: calc(0.42 + (var(--about-entry-progress, 0) * 0.36) - (var(--about-exit-progress, 0) * 0.12));
+        radial-gradient(
+            circle,
+            color-mix(in srgb, var(--about-bottom-glow-core, #ffffff) 94%, transparent) 0%,
+            color-mix(in srgb, var(--about-bottom-glow-mid, #fff4ba) 84%, transparent) 54%,
+            transparent 76%
+        );
+    opacity: calc(var(--about-bottom-glow-opacity, 0.42) + (var(--about-entry-progress, 0) * 0.16) - (var(--about-exit-progress, 0) * 0.12));
     z-index: 1;
 }
 
@@ -284,6 +293,8 @@
     width: 0;
     height: 0;
     z-index: 4;
+    animation: about-transition-spin var(--about-rotation-duration, 8s) linear infinite;
+    transform-origin: center;
 }
 
 .about-transition__triangle::after {
@@ -297,7 +308,8 @@
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent;
     border-right: 30px solid #f54d76;
-    transform: rotate(24deg);
+    --about-rotation-duration: 8.8s;
+    --about-rotation-start: 24deg;
 }
 
 .about-transition__triangle--left::after {
@@ -314,6 +326,7 @@
     border-left: 18px solid transparent;
     border-right: 18px solid transparent;
     border-bottom: 30px solid #ffffff;
+    --about-rotation-duration: 7.8s;
 }
 
 .about-transition__triangle--top::after {
@@ -330,7 +343,8 @@
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     border-top: 28px solid #f54d76;
-    transform: rotate(-42deg);
+    --about-rotation-duration: 9.2s;
+    --about-rotation-start: -42deg;
 }
 
 .about-transition__triangle--bottom::after {
@@ -347,7 +361,8 @@
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent;
     border-left: 30px solid #ffffff;
-    transform: rotate(24deg);
+    --about-rotation-duration: 8.4s;
+    --about-rotation-start: 24deg;
 }
 
 .about-transition__triangle--right::after {
@@ -364,6 +379,7 @@
     border-left: 24px solid transparent;
     border-right: 24px solid transparent;
     border-top: 42px solid #f54d76;
+    --about-rotation-duration: 10s;
 }
 
 .about-transition__triangle--right-fill::after {
@@ -375,6 +391,16 @@
 }
 
 @keyframes about-transition-mobile-spin {
+    from {
+        transform: rotate(var(--about-rotation-start, 0deg));
+    }
+
+    to {
+        transform: rotate(calc(var(--about-rotation-start, 0deg) + 360deg));
+    }
+}
+
+@keyframes about-transition-spin {
     from {
         transform: rotate(var(--about-rotation-start, 0deg));
     }
@@ -554,8 +580,7 @@
 
     .about-transition__ring--top-right,
     .about-transition__ring--pink,
-    .about-transition__ring--copy-small,
-    .about-transition__triangle {
+    .about-transition__ring--copy-small {
         animation: about-transition-mobile-spin var(--about-rotation-duration, 8s) linear infinite;
         transform-origin: center;
     }

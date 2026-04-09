@@ -2,6 +2,16 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import studentImg from "../../assets/imag-02.png";
 import "./AboutTransition.css";
 
+const interpolateChannel = (start: number, end: number, progress: number) =>
+    Math.round(start + (end - start) * progress);
+
+const interpolateColor = (
+    start: [number, number, number],
+    end: [number, number, number],
+    progress: number,
+) =>
+    `rgb(${interpolateChannel(start[0], end[0], progress)}, ${interpolateChannel(start[1], end[1], progress)}, ${interpolateChannel(start[2], end[2], progress)})`;
+
 function AboutTransition() {
     const shellRef = useRef<HTMLElement>(null);
     const [entryRadius, setEntryRadius] = useState(0);
@@ -94,10 +104,17 @@ function AboutTransition() {
         };
     }, []);
 
+    const panelColorProgress = Math.min(Math.max((entryProgress - 0.18) / 0.6, 0), 1);
+    const circleColorProgress = Math.min(Math.max((entryProgress - 0.08) / 0.42, 0), 1);
     const stageStyle = {
         "--about-copy-opacity": contentOpacity,
         "--about-entry-progress": entryProgress,
         "--about-exit-progress": exitProgress,
+        "--about-panel-bg": interpolateColor([255, 255, 255], [255, 205, 34], panelColorProgress),
+        "--about-panel-alpha": `${Math.round((0.12 + panelColorProgress * 0.88) * 100)}%`,
+        "--about-bottom-glow-core": interpolateColor([255, 255, 255], [255, 244, 186], circleColorProgress),
+        "--about-bottom-glow-mid": interpolateColor([255, 255, 255], [255, 205, 34], circleColorProgress),
+        "--about-bottom-glow-opacity": `${0.38 + circleColorProgress * 0.3}`,
     } as CSSProperties;
     const entryStyle = isStaticReveal
         ? undefined

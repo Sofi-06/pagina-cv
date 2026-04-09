@@ -5,8 +5,8 @@ import "./QuienesSomos.css";
 const titulo = "\u00bfQUI\u00c9NES SOMOS?";
 
 function QuienesSomos() {
-    const [isTouchLayout, setIsTouchLayout] = useState(false);
-    const [mobileReveal, setMobileReveal] = useState(false);
+    const [isCompactLayout, setIsCompactLayout] = useState(false);
+    const [isBannerVisible, setIsBannerVisible] = useState(false);
     const [circleScale, setCircleScale] = useState(1.0);
     const [titleLift, setTitleLift] = useState(0);
     const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -24,7 +24,7 @@ function QuienesSomos() {
                 const percentScrolled = 1 - Math.max(0, Math.min(windowHeight, rect.bottom) - Math.max(0, rect.top)) / Math.min(windowHeight, rect.height);
                 scale = 1.0 + percentScrolled * 60.0;
 
-                if (!isTouchLayout) {
+                if (!isCompactLayout) {
                     lift = percentScrolled * 1000;
                 }
             }
@@ -36,40 +36,31 @@ function QuienesSomos() {
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [isTouchLayout]);
+    }, [isCompactLayout]);
 
     useEffect(() => {
         const compactLayoutMedia = window.matchMedia("(max-width: 1024px)");
-        let timeoutId: number | undefined;
+        let revealTimeoutId: number | undefined;
 
-        const updateTouchLayout = () => {
-            const nextIsTouchLayout = compactLayoutMedia.matches;
-
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
-            }
-
-            setIsTouchLayout(nextIsTouchLayout);
-            setMobileReveal(false);
-
-            if (nextIsTouchLayout) {
-                timeoutId = window.setTimeout(() => {
-                    setMobileReveal(true);
-                }, 500);
-            }
+        const updateLayout = () => {
+            setIsCompactLayout(compactLayoutMedia.matches);
         };
 
-        updateTouchLayout();
-        compactLayoutMedia.addEventListener("change", updateTouchLayout);
-        window.addEventListener("resize", updateTouchLayout);
+        updateLayout();
+        compactLayoutMedia.addEventListener("change", updateLayout);
+        window.addEventListener("resize", updateLayout);
+
+        revealTimeoutId = window.setTimeout(() => {
+            setIsBannerVisible(true);
+        }, 120);
 
         return () => {
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
+            if (revealTimeoutId) {
+                window.clearTimeout(revealTimeoutId);
             }
 
-            compactLayoutMedia.removeEventListener("change", updateTouchLayout);
-            window.removeEventListener("resize", updateTouchLayout);
+            compactLayoutMedia.removeEventListener("change", updateLayout);
+            window.removeEventListener("resize", updateLayout);
         };
     }, []);
 
@@ -77,9 +68,8 @@ function QuienesSomos() {
         <section className="quienes-somos-section" aria-labelledby="quienes-somos-title">
             <div
                 ref={sectionRef}
-                className={`quienes-somos-card${isTouchLayout ? " is-touch-layout" : ""}${mobileReveal ? " is-mobile-reveal" : ""}`}
-                tabIndex={0}
-                aria-label="Seccion interactiva Quienes Somos"
+                className={`quienes-somos-card${isCompactLayout ? " is-compact-layout" : ""}${isBannerVisible ? " is-banner-visible" : ""}`}
+                aria-label="Seccion Quienes Somos"
             >
                 <img
                     src={imagenInicial}
@@ -100,14 +90,14 @@ function QuienesSomos() {
                     <span className="shape shape--circle-outline shape--circle-outline-center" />
                     <span className="shape shape--circle-outline shape--circle-outline-large" />
                     <span className="shape shape--circle-fill shape--circle-fill-right" />
-                    {/* Círculo inferior central animado */}
                     <span
                         className="shape shape--circle-fill shape--circle-fill-bottom"
                         style={{
                             transform: `scale(${circleScale})`,
-                            transition: 'transform 0.8s cubic-bezier(0.2,1,0.2,1)',
+                            transition: "transform 0.8s cubic-bezier(0.2, 1, 0.2, 1)",
                         }}
                     />
+                    {/* Círculo inferior central animado */}
                     <span className="shape shape--triangle shape--triangle-far-left" />
                     <span className="shape shape--triangle shape--triangle-left" />
                     <span className="shape shape--triangle shape--triangle-top" />

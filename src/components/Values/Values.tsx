@@ -64,6 +64,12 @@ const ORBIT_POSITION_CLASS: Record<ValueId, string> = {
   cumplimiento: "values-orbit__label--right",
 };
 
+const VALUE_LABELS: Record<ValueId, string> = {
+  responsabilidad: "Responsabilidad",
+  equipo: "Trabajo en equipo",
+  cumplimiento: "Cumplimiento",
+};
+
 const Values: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const transitionTimeoutRef = useRef<number | null>(null);
@@ -128,8 +134,11 @@ const Values: React.FC = () => {
   const previousValue = previousIndex !== null ? VALUES[previousIndex] : null;
 
   const getOrbitItems = (value: ValueItem) =>
-    VALUES.map((item) => ({
-      label: item.title,
+    VALUES.map((item, index) => ({
+      id: item.id,
+      index,
+      label: VALUE_LABELS[item.id],
+      isActive: item.id === value.id,
       className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
         item.id === value.id ? " values-orbit__label--active" : ""
       }`,
@@ -155,9 +164,16 @@ const Values: React.FC = () => {
       <>
         <span className="values-orbit__outline" />
         {orbitItems.map((item) => (
-          <span key={`${value.id}-${item.label}-${item.className}`} className={item.className}>
+          <button
+            key={`${item.id}-${item.label}`}
+            type="button"
+            className={item.className}
+            onClick={() => swapValue(item.index)}
+            aria-label={`Ver valor ${item.label}`}
+            aria-pressed={item.isActive}
+          >
             {item.label}
-          </span>
+          </button>
         ))}
       </>
     );
@@ -225,7 +241,7 @@ const Values: React.FC = () => {
             <img src={nextButtonIcon} alt="" aria-hidden="true" className="values-arrow__icon values-arrow__icon--left" />
           </button>
 
-          <div className="values-orbit" aria-hidden="true">
+          <div className="values-orbit" aria-label="Valores de Campus Virtual">
             {renderOrbitContent(activeValue)}
           </div>
 
