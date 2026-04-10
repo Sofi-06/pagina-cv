@@ -124,14 +124,14 @@
 
 @media (min-width: 1600px) {
     .home-carousel-wrapper {
-        height: min(89vh, 1040px);
+        height: min(92vh, 1160px);
     }
 }
 
 @media (min-width: 1920px) and (min-height: 1080px) {
     .home-carousel-wrapper {
-        height: min(90vh, 1020px);
-        min-height: 800px;
+        height: min(93vh, 1260px);
+        min-height: 860px;
     }
 
     .carousel-slide {
@@ -149,8 +149,8 @@
 
 @media (min-width: 2560px) and (min-height: 1440px) {
     .home-carousel-wrapper {
-        height: min(88vh, 1240px);
-        min-height: 960px;
+        height: min(94vh, 1460px);
+        min-height: 1080px;
     }
 
     .carousel-slide {
