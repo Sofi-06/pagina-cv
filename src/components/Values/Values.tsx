@@ -115,6 +115,17 @@ const Values: React.FC = () => {
   const activeValue = VALUES[activeIndex];
   const previousValue = previousIndex === null ? null : VALUES[previousIndex];
   const isVisible = revealProgress > 0.02;
+
+  const [isLargeScreen, setIsLargeScreen] = useState(
+    typeof globalThis !== "undefined" ? globalThis.innerWidth >= 1800 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsLargeScreen(globalThis.innerWidth >= 1800);
+    globalThis.addEventListener("resize", handleResize);
+    return () => globalThis.removeEventListener("resize", handleResize);
+  }, []);
+
   const sectionStyle = {
     "--values-scroll-progress": revealProgress.toFixed(4),
   } as CSSProperties;
@@ -255,16 +266,28 @@ const Values: React.FC = () => {
   };
 
   const getOrbitItems = (value: ValueItem) =>
-    VALUES.map((item, index) => ({
-      id: item.id,
-      index,
-      label: VALUE_LABELS[item.id],
-      path: VALUE_LABEL_PATHS[item.id],
-      isActive: item.id === value.id,
-      className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
-        item.id === value.id ? " values-orbit__label--active" : ""
-      }`,
-    }));
+    VALUES.map((item, index) => {
+      let currentPath = VALUE_LABEL_PATHS[item.id];
+      
+      if (isLargeScreen && currentPath) {
+        if (item.id === "responsabilidad") {
+          currentPath = "M 54 162 A 220 220 0 0 1 150 30";
+        } else if (item.id === "cumplimiento") {
+          currentPath = "M 10 30 A 220 220 0 0 1 106 162";
+        }
+      }
+
+      return {
+        id: item.id,
+        index,
+        label: VALUE_LABELS[item.id],
+        path: currentPath,
+        isActive: item.id === value.id,
+        className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
+          item.id === value.id ? " values-orbit__label--active" : ""
+        }`,
+      };
+    });
 
   const renderHeaderContent = (value: ValueItem, isPrimary: boolean) => (
     <>

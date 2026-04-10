@@ -5,7 +5,7 @@
   --values-shadow: rgba(82, 11, 18, 0.24);
   --values-white: #fff;
   --values-soft-white: rgba(255, 255, 255, 0.92);
-  --values-section-height: 760px;
+  --values-section-height: 100vh;
   --values-section-padding-top: 66px;
   --values-arrow-top: 76%;
   --values-arrow-top-tablet: 81%;
@@ -460,7 +460,7 @@
 
 .values-orbit__label-text {
   fill: currentColor;
-  font-size: 16px;
+  font-size: clamp(16px, 1.28vw, 19.2px);
   font-style: italic;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -531,8 +531,8 @@
 
 @media (min-width: 1800px) {
   .values-section {
-    --values-section-height: 940px;
-    --values-section-padding-top: 72px;
+    --values-section-height: 100vh;
+    --values-section-padding-top: 160px;
     --values-stage-offset: -88px;
   }
 
@@ -555,17 +555,17 @@
   }
 
   .values-kicker p {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
   }
 
   .values-header h2 {
-    font-size: clamp(3.8rem, 4.1vw, 5.2rem);
+    font-size: clamp(5.4rem, 6vw, 7.2rem);
   }
 
   .values-description {
-    max-width: 760px;
-    margin-top: 20px;
-    font-size: 1.35rem;
+    max-width: 1100px;
+    margin-top: 36px;
+    font-size: 2.45rem;
   }
 
   .values-floating-card--left {
@@ -581,25 +581,25 @@
   }
 
   .values-stage {
-    min-height: 500px;
+    min-height: 700px;
   }
 
   .values-arrow {
-    width: 78px;
-    height: 78px;
+    width: 96px;
+    height: 96px;
   }
 
   .values-arrow--left {
-    left: clamp(56px, 6vw, 140px);
+    left: -80px;
   }
 
   .values-arrow--right {
-    right: clamp(56px, 6vw, 140px);
+    right: -80px;
   }
 
   .values-orbit {
-    top: 100px;
-    width: min(1160px, 71vw);
+    top: 180px;
+    width: min(1600px, 84vw);
   }
 
   .values-orbit__track,
@@ -608,46 +608,49 @@
   }
 
   .values-orbit__label {
-    font-size: 1.5rem;
+    font-size: 2.3rem;
+    /* Match new smaller SVG scale */
   }
 
   .values-orbit__label-text {
-    font-size: 22px;
+    font-size: 14px;
+    /* Reducido para evitar COMPLETAMENTE recorte de las palabras largas en el path SVG */
   }
 
   .values-orbit__label--left {
-    left: -8px;
-    bottom: 104px;
-    width: 212px;
-    height: 228px;
+    left: -40px;
+    bottom: 190px;
+    width: 410px;
+    height: 460px;
     transform: rotate(-16deg);
   }
 
   .values-orbit__label--top {
-    top: -14px;
+    top: -24px;
+    font-size: 2.3rem;
   }
 
   .values-orbit__label--right {
-    right: -8px;
-    bottom: 104px;
-    width: 212px;
-    height: 228px;
+    right: -40px;
+    bottom: 190px;
+    width: 410px;
+    height: 460px;
     transform: rotate(16deg);
   }
 
   .values-orbit__label--cumplimiento {
-    right: -18px;
-    bottom: 88px;
+    right: 70px;
+    bottom: 180px;
   }
 
   .values-orbit__label--responsabilidad {
-    left: -18px;
-    bottom: 88px;
+    left: 70px;
+    bottom: 180px;
   }
 
   .values-hero {
     bottom: -134px;
-    width: min(1160px, 74vw);
+    width: min(1400px, 80vw);
   }
 
 }
@@ -1064,3 +1067,14 @@
   }
 }
 
+@media (min-width: 2560px) {
+  .values-orbit__label--left {
+    left: -20px;
+    bottom: 160px;
+  }
+
+  .values-orbit__label--right {
+    right: -20px;
+    bottom: 160px;
+  }
+}
