@@ -199,14 +199,18 @@
     min-height: 100vh;
     margin: 0 auto;
     padding: clamp(96px, 10vw, 144px) clamp(24px, 5vw, 56px) clamp(56px, 7vw, 84px);
-    transition: transform 0.52s cubic-bezier(0.24, 0.72, 0.28, 1), opacity 0.45s ease;
-    will-change: transform, opacity;
+        transition:
+                transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.62s ease,
+                filter 0.62s ease;
+        will-change: transform, opacity, filter;
 }
 
 .que-hacemos--exit .que-hacemos__inner {
-  transform: translateY(-36px);
-  opacity: 0.18;
-  pointer-events: none;
+        transform: translateY(-92px) scale(0.985);
+        opacity: 0.04;
+        filter: blur(2px);
+        pointer-events: none;
 }
 
 .que-hacemos__copy {
@@ -520,6 +524,7 @@
     .que-hacemos__boy {
         left: 50%;
         right: auto;
+        bottom: -100px;
         transform: translateX(-50%);
         width: min(100%, 520px);
     }
@@ -655,6 +660,7 @@
 
     .que-hacemos__boy {
         width: min(100%, 340px);
+        bottom: 0;
     }
 
     .que-hacemos__triangle--left {

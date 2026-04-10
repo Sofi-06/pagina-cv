@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, type CSSProperties } from "react";
 import "./Values.css";
 import responsabilidadHero from "../../assets/Valores_ima-responsa.png";
 import trabajoHero from "../../assets/Valores_ima-traba-equipo.png";
@@ -57,6 +57,17 @@ const wrapIndex = (index: number, length: number) => {
 };
 
 const VALUES_TRANSITION_MS = 560;
+const ORBIT_ANIMATION_MS = 1200;
+const ORBIT_RADIUS = 42;
+const ORBIT_CENTER_X = 50;
+const ORBIT_CENTER_Y = 48;
+const ORBIT_PROGRESS_START = 0.12;
+const ORBIT_PROGRESS_END = 0.88;
+const ORBIT_STEP_MAP: Record<ValueId, number> = {
+  responsabilidad: 0,
+  equipo: 0.5,
+  cumplimiento: 1,
+};
 
 const ORBIT_POSITION_CLASS: Record<ValueId, string> = {
   responsabilidad: "values-orbit__label--left",
@@ -70,38 +81,151 @@ const VALUE_LABELS: Record<ValueId, string> = {
   cumplimiento: "Cumplimiento",
 };
 
+const VALUE_LABEL_PATHS: Partial<Record<ValueId, string>> = {
+  responsabilidad: "M 54 162 A 118 118 0 0 1 150 30",
+  cumplimiento: "M 10 30 A 118 118 0 0 1 106 162",
+};
+
+const getOrbitPoint = (progress: number) => {
+  const normalized = ORBIT_PROGRESS_START + ((ORBIT_PROGRESS_END - ORBIT_PROGRESS_START) * progress);
+  const angle = Math.PI - (Math.PI * normalized);
+
+  return {
+    x: ORBIT_CENTER_X + (ORBIT_RADIUS * Math.cos(angle)),
+    y: ORBIT_CENTER_Y - (ORBIT_RADIUS * Math.sin(angle)),
+  };
+};
+
+const ORBIT_PROGRESS_START_POINT = getOrbitPoint(0);
+const ORBIT_PROGRESS_END_POINT = getOrbitPoint(1);
+const ORBIT_PROGRESS_PATH = `M ${ORBIT_PROGRESS_START_POINT.x.toFixed(2)} ${ORBIT_PROGRESS_START_POINT.y.toFixed(2)} A ${ORBIT_RADIUS} ${ORBIT_RADIUS} 0 0 1 ${ORBIT_PROGRESS_END_POINT.x.toFixed(2)} ${ORBIT_PROGRESS_END_POINT.y.toFixed(2)}`;
+const ORBIT_TRACK_PATH = `M ${ORBIT_CENTER_X - ORBIT_RADIUS} ${ORBIT_CENTER_Y} A ${ORBIT_RADIUS} ${ORBIT_RADIUS} 0 0 1 ${ORBIT_CENTER_X + ORBIT_RADIUS} ${ORBIT_CENTER_Y}`;
+
 const Values: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const transitionTimeoutRef = useRef<number | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [revealProgress, setRevealProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [orbitLead, setOrbitLead] = useState(ORBIT_STEP_MAP[VALUES[0].id]);
+  const [orbitTrail, setOrbitTrail] = useState(ORBIT_STEP_MAP[VALUES[0].id]);
+  const orbitLeadRef = useRef(ORBIT_STEP_MAP[VALUES[0].id]);
+  const orbitTrailRef = useRef(ORBIT_STEP_MAP[VALUES[0].id]);
+  const orbitAnimationFrameRef = useRef<number | null>(null);
+  const activeValue = VALUES[activeIndex];
+  const previousValue = previousIndex === null ? null : VALUES[previousIndex];
+  const isVisible = revealProgress > 0.02;
+  const sectionStyle = {
+    "--values-scroll-progress": revealProgress.toFixed(4),
+  } as CSSProperties;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
+    const reducedMotionMedia = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
+    let frameId = 0;
+
+    const updateRevealProgress = () => {
+      const section = sectionRef.current;
+      if (!section) {
+        return;
+      }
+
+      if (reducedMotionMedia.matches) {
+        setRevealProgress(1);
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = globalThis.innerHeight;
+      const start = viewportHeight * 1.22;
+      const end = viewportHeight * 0.08;
+      const rawProgress = (start - rect.top) / (start - end);
+      const nextProgress = Math.min(1, Math.max(0, rawProgress));
+
+      setRevealProgress((currentProgress) => {
+        if (Math.abs(currentProgress - nextProgress) < 0.006) {
+          return currentProgress;
         }
-      },
-      { threshold: 0.2 }
-    );
+        return nextProgress;
+      });
+    };
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const requestUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = globalThis.requestAnimationFrame(updateRevealProgress);
+    };
 
-    return () => observer.disconnect();
+    requestUpdate();
+    globalThis.addEventListener("scroll", requestUpdate, { passive: true });
+    globalThis.addEventListener("resize", requestUpdate);
+    reducedMotionMedia.addEventListener("change", requestUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      globalThis.removeEventListener("scroll", requestUpdate);
+      globalThis.removeEventListener("resize", requestUpdate);
+      reducedMotionMedia.removeEventListener("change", requestUpdate);
+    };
   }, []);
 
   useEffect(() => {
     return () => {
       if (transitionTimeoutRef.current) {
-        window.clearTimeout(transitionTimeoutRef.current);
+        globalThis.clearTimeout(transitionTimeoutRef.current);
+      }
+
+      if (orbitAnimationFrameRef.current) {
+        globalThis.cancelAnimationFrame(orbitAnimationFrameRef.current);
       }
     };
   }, []);
+
+  useEffect(() => {
+    const reducedMotionMedia = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
+    const nextTarget = ORBIT_STEP_MAP[activeValue.id];
+
+    if (orbitAnimationFrameRef.current) {
+      globalThis.cancelAnimationFrame(orbitAnimationFrameRef.current);
+      orbitAnimationFrameRef.current = null;
+    }
+
+    if (reducedMotionMedia.matches) {
+      orbitLeadRef.current = nextTarget;
+      orbitTrailRef.current = nextTarget;
+      setOrbitLead(nextTarget);
+      setOrbitTrail(nextTarget);
+      return;
+    }
+
+    const startLead = orbitLeadRef.current;
+    const startTrail = orbitTrailRef.current;
+    const startTime = performance.now();
+
+    const animateOrbit = (time: number) => {
+      const elapsed = (time - startTime) / ORBIT_ANIMATION_MS;
+      const clamped = Math.min(elapsed, 1);
+      const eased = 1 - Math.pow(1 - clamped, 3);
+      const delayed = Math.max(0, eased - 0.16);
+      const nextLead = startLead + (nextTarget - startLead) * eased;
+      const nextTrail = startTrail + (nextTarget - startTrail) * delayed;
+
+      orbitLeadRef.current = nextLead;
+      orbitTrailRef.current = nextTrail;
+      setOrbitLead(nextLead);
+      setOrbitTrail(nextTrail);
+
+      if (clamped < 1) {
+        orbitAnimationFrameRef.current = globalThis.requestAnimationFrame(animateOrbit);
+      } else {
+        orbitLeadRef.current = nextTarget;
+        orbitTrailRef.current = nextTarget;
+        setOrbitLead(nextTarget);
+        setOrbitTrail(nextTarget);
+        orbitAnimationFrameRef.current = null;
+      }
+    };
+
+    orbitAnimationFrameRef.current = globalThis.requestAnimationFrame(animateOrbit);
+  }, [activeValue.id]);
 
   const swapValue = (nextIndex: number) => {
     if (nextIndex === activeIndex) {
@@ -109,14 +233,14 @@ const Values: React.FC = () => {
     }
 
     if (transitionTimeoutRef.current) {
-      window.clearTimeout(transitionTimeoutRef.current);
+      globalThis.clearTimeout(transitionTimeoutRef.current);
       transitionTimeoutRef.current = null;
     }
 
     setPreviousIndex(activeIndex);
     setActiveIndex(nextIndex);
 
-    transitionTimeoutRef.current = window.setTimeout(() => {
+    transitionTimeoutRef.current = globalThis.setTimeout(() => {
       setPreviousIndex(null);
       transitionTimeoutRef.current = null;
     }, VALUES_TRANSITION_MS);
@@ -130,14 +254,12 @@ const Values: React.FC = () => {
     swapValue(wrapIndex(activeIndex + 1, VALUES.length));
   };
 
-  const activeValue = VALUES[activeIndex];
-  const previousValue = previousIndex !== null ? VALUES[previousIndex] : null;
-
   const getOrbitItems = (value: ValueItem) =>
     VALUES.map((item, index) => ({
       id: item.id,
       index,
       label: VALUE_LABELS[item.id],
+      path: VALUE_LABEL_PATHS[item.id],
       isActive: item.id === value.id,
       className: `values-orbit__label ${ORBIT_POSITION_CLASS[item.id]} values-orbit__label--${item.id}${
         item.id === value.id ? " values-orbit__label--active" : ""
@@ -159,10 +281,23 @@ const Values: React.FC = () => {
 
   const renderOrbitContent = (value: ValueItem) => {
     const orbitItems = getOrbitItems(value);
+    const orbitDotPoint = getOrbitPoint(orbitLead);
+    const orbitStyle = {
+      "--values-orbit-progress": orbitTrail.toFixed(4),
+    } as CSSProperties;
 
     return (
       <>
-        <span className="values-orbit__outline" />
+        <svg
+          className="values-orbit__svg"
+          viewBox="0 0 100 56"
+          aria-hidden="true"
+          style={orbitStyle}
+        >
+          <path className="values-orbit__track" d={ORBIT_TRACK_PATH} pathLength="100" />
+          <path className="values-orbit__progress" d={ORBIT_PROGRESS_PATH} pathLength="100" />
+          <circle className="values-orbit__dot" cx={orbitDotPoint.x} cy={orbitDotPoint.y} r="2.6" />
+        </svg>
         {orbitItems.map((item) => (
           <button
             key={`${item.id}-${item.label}`}
@@ -172,7 +307,22 @@ const Values: React.FC = () => {
             aria-label={`Ver valor ${item.label}`}
             aria-pressed={item.isActive}
           >
-            {item.label}
+            {item.path ? (
+              <svg
+                className="values-orbit__label-svg"
+                viewBox="0 0 160 180"
+                aria-hidden="true"
+              >
+                <path id={`values-label-path-${item.id}`} d={item.path} fill="none" />
+                <text className="values-orbit__label-text">
+                  <textPath href={`#values-label-path-${item.id}`} startOffset="50%" textAnchor="middle">
+                    {item.label}
+                  </textPath>
+                </text>
+              </svg>
+            ) : (
+              item.label
+            )}
           </button>
         ))}
       </>
@@ -185,6 +335,7 @@ const Values: React.FC = () => {
       className={`values-section values-section--${activeValue.id}${
         isVisible ? " values-section--visible" : ""
       }`}
+      style={sectionStyle}
       aria-labelledby="values-title"
     >
       <span className="values-ring values-ring--top-left" aria-hidden="true" />
