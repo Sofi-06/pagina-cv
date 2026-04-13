@@ -193,7 +193,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 142px;
+    justify-self: center;
+    min-width: 172px;
     padding: 9px 28px;
     border-radius: 999px;
     border: 2px solid transparent;
@@ -219,18 +220,19 @@
 .tutorials-option-button--teacher {
     background: #34bfea;
     color: #1a1548;
+    margin-left: 55px;
 }
 
 .tutorials-option-button--student:hover {
     background: #ffffff;
     border-color: #f2b400;
-    color: #f2b400;
+    color: #201670;
 }
 
 .tutorials-option-button--teacher:hover {
     background: #ffffff;
     border-color: #36bce5;
-    color: #36bce5;
+    color: #201670;
 }
 
 @media (max-width: 900px) {
@@ -307,9 +309,13 @@
     }
 
     .tutorials-option-button {
-        min-width: 136px;
+        min-width: 150px;
         padding: 9px 18px;
         font-size: 0.9rem;
+    }
+
+    .tutorials-option-button--teacher {
+        margin-left: 10px;
     }
 }
 
