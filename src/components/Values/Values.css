@@ -5,7 +5,7 @@
   --values-shadow: rgba(82, 11, 18, 0.24);
   --values-white: #fff;
   --values-soft-white: rgba(255, 255, 255, 0.92);
-  --values-section-height: 100vh;
+  --values-section-height: 96vh;
   --values-section-padding-top: 66px;
   --values-arrow-top: 76%;
   --values-arrow-top-tablet: 81%;
@@ -143,7 +143,7 @@
 .values-header {
   position: relative;
   z-index: 3;
-  max-width: 760px;
+  max-width: 860px;
   margin: 0 auto;
   display: grid;
   text-align: center;
@@ -160,7 +160,7 @@
 }
 
 .values-layer,
-.values-layer-stack>.values-layer {
+.values-layer-stack > .values-layer {
   grid-area: 1 / 1;
 }
 
@@ -297,16 +297,17 @@
 
 .values-header h2 {
   margin: 0;
-  font-size: clamp(2.6rem, 5vw, 4.25rem);
-  line-height: 1;
+  font-size: clamp(2.2rem, 4vw, 3.95rem);
+  line-height: 0.98;
   font-weight: 800;
   font-style: italic;
+  white-space: nowrap;
 }
 
 .values-description {
-  max-width: 700px;
+  max-width: 640px;
   margin: 20px auto 0;
-  font-size: clamp(1.14rem, 1.8vw, 1.92rem);
+  font-size: clamp(1rem, 1.45vw, 1.45rem);
   line-height: 1.24;
   color: var(--values-soft-white);
 }
@@ -349,7 +350,7 @@
 .values-stage {
   --values-stage-progress: clamp(0, calc((var(--values-scroll-progress) - 0.14) * 3.2), 1);
   position: relative;
-  min-height: 300px;
+  min-height: 280px;
   margin-top: 0;
   transform: translateY(calc(var(--values-stage-offset) + var(--values-stage-variant-offset) + ((1 - var(--values-stage-progress)) * 140px)));
   opacity: var(--values-stage-progress);
@@ -396,10 +397,10 @@
 
 .values-orbit {
   position: absolute;
-  top: 38px;
+  top: 44px;
   left: 50%;
   z-index: 3;
-  width: min(860px, 70vw);
+  width: min(760px, 72vw);
   aspect-ratio: 2 / 1;
   transform: translateX(-50%);
   pointer-events: auto;
@@ -442,7 +443,7 @@
   border: 0;
   padding: 0;
   background: transparent;
-  font-size: clamp(1rem, 1.28vw, 1.2rem);
+  font-size: clamp(0.94rem, 1.08vw, 1.08rem);
   font-style: italic;
   font-weight: 800;
   color: rgba(255, 255, 255, 0.96);
@@ -460,7 +461,7 @@
 
 .values-orbit__label-text {
   fill: currentColor;
-  font-size: clamp(16px, 1.28vw, 19.2px);
+  font-size: clamp(14px, 1.08vw, 17px);
   font-style: italic;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -505,12 +506,12 @@
 }
 
 .values-orbit__label--cumplimiento {
-  right: -18px;
+  right: -28px;
   bottom: 72px;
 }
 
 .values-orbit__label--responsabilidad {
-  left: -18px;
+  left: -28px;
   bottom: 72px;
 }
 
@@ -519,7 +520,7 @@
   left: 50%;
   bottom: -110px;
   z-index: 1;
-  width: min(820px, 72vw);
+  width: min(720px, 66vw);
   transform: translateX(-50%);
 }
 
@@ -531,7 +532,7 @@
 
 @media (min-width: 1800px) {
   .values-section {
-    --values-section-height: 100vh;
+    --values-section-height: 92vh;
     --values-section-padding-top: 160px;
     --values-stage-offset: -88px;
   }
@@ -542,7 +543,7 @@
   }
 
   .values-header {
-    max-width: 860px;
+    max-width: 980px;
   }
 
   .values-kicker {
@@ -559,13 +560,13 @@
   }
 
   .values-header h2 {
-    font-size: clamp(5.4rem, 6vw, 7.2rem);
+    font-size: clamp(3.2rem, 3.6vw, 4.8rem);
   }
 
   .values-description {
-    max-width: 1100px;
-    margin-top: 36px;
-    font-size: 2.45rem;
+    max-width: 980px;
+    margin-top: 24px;
+    font-size: clamp(1.2rem, 1.55vw, 1.8rem);
   }
 
   .values-floating-card--left {
@@ -581,7 +582,7 @@
   }
 
   .values-stage {
-    min-height: 700px;
+    min-height: 560px;
   }
 
   .values-arrow {
@@ -598,8 +599,8 @@
   }
 
   .values-orbit {
-    top: 180px;
-    width: min(1600px, 84vw);
+    top: 132px;
+    width: min(1260px, 78vw);
   }
 
   .values-orbit__track,
@@ -608,49 +609,47 @@
   }
 
   .values-orbit__label {
-    font-size: 2.3rem;
-    /* Match new smaller SVG scale */
+    font-size: 1.2rem;
   }
 
   .values-orbit__label-text {
-    font-size: 14px;
-    /* Reducido para evitar COMPLETAMENTE recorte de las palabras largas en el path SVG */
+    font-size: 15px;
   }
 
   .values-orbit__label--left {
-    left: -40px;
-    bottom: 190px;
-    width: 410px;
-    height: 460px;
+    left: -20px;
+    bottom: 144px;
+    width: 300px;
+    height: 330px;
     transform: rotate(-16deg);
   }
 
   .values-orbit__label--top {
-    top: -24px;
-    font-size: 2.3rem;
+    top: -12px;
+    font-size: 1.8rem;
   }
 
   .values-orbit__label--right {
-    right: -40px;
-    bottom: 190px;
-    width: 410px;
-    height: 460px;
+    right: -20px;
+    bottom: 144px;
+    width: 300px;
+    height: 330px;
     transform: rotate(16deg);
   }
 
   .values-orbit__label--cumplimiento {
-    right: 70px;
-    bottom: 180px;
+    right: -16px;
+    bottom: 134px;
   }
 
   .values-orbit__label--responsabilidad {
-    left: 70px;
-    bottom: 180px;
+    left: -16px;
+    bottom: 134px;
   }
 
   .values-hero {
-    bottom: -134px;
-    width: min(1400px, 80vw);
+    bottom: -96px;
+    width: min(1020px, 70vw);
   }
 
 }
@@ -698,6 +697,7 @@
 
   .values-header h2 {
     font-size: clamp(2.25rem, 6.5vw, 3.3rem);
+    white-space: normal;
   }
 
   .values-description {
@@ -830,6 +830,7 @@
   /* Título contenido: usa word-break para palabras largas como "Responsabilidad" */
   .values-header h2 {
     font-size: clamp(2.1rem, 9.5vw, 2.8rem);
+    white-space: normal;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -970,6 +971,7 @@
 
   .values-header h2 {
     font-size: clamp(1.85rem, 8.8vw, 2.4rem);
+    white-space: normal;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -1068,6 +1070,20 @@
 }
 
 @media (min-width: 2560px) {
+  .values-header {
+    max-width: 1120px;
+  }
+
+  .values-header h2 {
+    font-size: clamp(3.7rem, 3.9vw, 5.4rem);
+    white-space: nowrap;
+  }
+
+  .values-description {
+    max-width: 1220px;
+    font-size: clamp(1.35rem, 1.25vw, 1.95rem);
+  }
+
   .values-orbit__label--left {
     left: -20px;
     bottom: 160px;

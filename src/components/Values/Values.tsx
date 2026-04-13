@@ -117,7 +117,7 @@ const Values: React.FC = () => {
   const isVisible = revealProgress > 0.02;
 
   const [isLargeScreen, setIsLargeScreen] = useState(
-    typeof globalThis !== "undefined" ? globalThis.innerWidth >= 1800 : false
+    typeof globalThis === "undefined" ? false : globalThis.innerWidth >= 1800
   );
 
   useEffect(() => {
@@ -202,8 +202,11 @@ const Values: React.FC = () => {
     if (reducedMotionMedia.matches) {
       orbitLeadRef.current = nextTarget;
       orbitTrailRef.current = nextTarget;
-      setOrbitLead(nextTarget);
-      setOrbitTrail(nextTarget);
+      orbitAnimationFrameRef.current = globalThis.requestAnimationFrame(() => {
+        setOrbitLead(nextTarget);
+        setOrbitTrail(nextTarget);
+        orbitAnimationFrameRef.current = null;
+      });
       return;
     }
 

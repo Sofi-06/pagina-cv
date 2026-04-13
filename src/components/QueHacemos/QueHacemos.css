@@ -524,7 +524,6 @@
     .que-hacemos__boy {
         left: 50%;
         right: auto;
-        bottom: -100px;
         transform: translateX(-50%);
         width: min(100%, 520px);
     }

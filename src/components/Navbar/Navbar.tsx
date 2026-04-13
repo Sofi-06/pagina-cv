@@ -152,6 +152,16 @@ function Navbar({
 
                         {(isDropdownOpen || mobileProgramsOpen) && (
                             <div className="mega-menu">
+                                <a
+                                    className="mega-menu-helpdesk-inline"
+                                    href="https://programasvirtuales.santototunja.edu.co/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={closeMobileMenu}
+                                >
+                                    Mesa de Ayuda
+                                </a>
+
                                 <div className="mega-menu-grid">
                                     <div className="mega-menu-column">
                                         <h4 className="column-title">Especializaciones</h4>
@@ -289,6 +299,7 @@ function Navbar({
                     </div>
                 </div>
             </div>
+
         </nav>
     );
 }
