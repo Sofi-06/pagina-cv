@@ -5,8 +5,8 @@
   isolation: isolate;
   color: #ffffff;
   opacity: 0;
-  transform: translateY(72px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(28px);
+  transition: opacity 0.42s ease, transform 0.42s ease;
 }
 
 .team-section--visible {
@@ -470,6 +470,59 @@
   .team-navigation__dot {
     width: 22px;
     height: 22px;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 1025px) {
+  .team-section {
+    min-height: 790px;
+  }
+
+  .team-section__background {
+    background-position: center 34%;
+  }
+
+  .team-shell {
+    min-height: 790px;
+    padding: 116px 26px 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(460px, 0.9fr);
+    gap: clamp(18px, 2.2vw, 34px);
+  }
+
+  .team-copy {
+    margin-top: 122px;
+  }
+
+  .team-copy h2 {
+    font-size: clamp(2.7rem, 3.6vw, 3.85rem);
+  }
+
+  .team-copy__role {
+    margin-top: 8px;
+    font-size: clamp(1.2rem, 1.55vw, 1.7rem);
+  }
+
+  .team-stage {
+    min-height: 560px;
+  }
+
+  .team-stage__cards {
+    min-height: 460px;
+    padding: 26px 156px 22px 0;
+    transform: translateY(52px);
+  }
+
+  .team-card--active {
+    width: min(100%, 330px);
+  }
+
+  .team-card--preview {
+    width: 186px;
+    right: -22px;
+  }
+
+  .team-navigation {
+    bottom: 10px;
   }
 }
 

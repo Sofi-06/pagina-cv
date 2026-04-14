@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./Team.css";
 import portrait01 from "../../assets/team-01.png";
 import portrait02 from "../../assets/team-02.png";
 import portrait03 from "../../assets/team-03.png";
 import portrait04 from "../../assets/team-04.png";
-import portrait05 from "../../assets/team-05.png";
+import portrait05 from "../../assets/5.jpg";
 import portrait06 from "../../assets/team-06.png";
 import portrait07 from "../../assets/team-07.png";
 import portrait08 from "../../assets/team-08.png";
@@ -195,15 +195,22 @@ const TEAM_MEMBERS: TeamMember[] = [
 ];
 
 const TEAM_TRANSITION_MS = 520;
+const TEAM_WHEEL_DELTA_STEP = 56;
+const TEAM_SCROLL_DESKTOP_BREAKPOINT = 1024;
+const TEAM_SCROLL_ACTIVATION_VISIBLE_RATIO = 0.92;
+const TEAM_SCROLL_ACTIVATION_TOP_OFFSET = 36;
 
 const wrapIndex = (index: number, length: number) => (index + length) % length;
 
 function Team() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const transitionTimeoutRef = useRef<number | null>(null);
+  const activeIndexRef = useRef(0);
+  const wheelDeltaAccumulatorRef = useRef(0);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [isDesktopScrollStory, setIsDesktopScrollStory] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -213,7 +220,10 @@ function Team() {
           observer.disconnect();
         }
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0,
+        rootMargin: "220px 0px -12% 0px",
+      }
     );
 
     if (sectionRef.current) {
@@ -226,9 +236,29 @@ function Team() {
   useEffect(() => {
     return () => {
       if (transitionTimeoutRef.current) {
-        window.clearTimeout(transitionTimeoutRef.current);
+        globalThis.clearTimeout(transitionTimeoutRef.current);
       }
     };
+  }, []);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const mediaQuery = globalThis.matchMedia(
+      `(min-width: ${TEAM_SCROLL_DESKTOP_BREAKPOINT}px)`
+    );
+
+    const syncMode = () => {
+      setIsDesktopScrollStory(mediaQuery.matches);
+      wheelDeltaAccumulatorRef.current = 0;
+    };
+
+    syncMode();
+    mediaQuery.addEventListener("change", syncMode);
+
+    return () => mediaQuery.removeEventListener("change", syncMode);
   }, []);
 
   useEffect(() => {
@@ -255,30 +285,91 @@ function Team() {
     };
   }, [activeIndex]);
 
-  const swapMember = (nextIndex: number) => {
-    if (nextIndex === activeIndex) {
+  const swapMember = useCallback((nextIndex: number) => {
+    const currentIndex = activeIndexRef.current;
+
+    if (nextIndex === currentIndex) {
       return;
     }
 
     if (transitionTimeoutRef.current) {
-      window.clearTimeout(transitionTimeoutRef.current);
+      globalThis.clearTimeout(transitionTimeoutRef.current);
     }
 
-    setPreviousIndex(activeIndex);
+    setPreviousIndex(currentIndex);
     setActiveIndex(nextIndex);
+    activeIndexRef.current = nextIndex;
+    wheelDeltaAccumulatorRef.current = 0;
 
-    transitionTimeoutRef.current = window.setTimeout(() => {
+    transitionTimeoutRef.current = globalThis.setTimeout(() => {
       setPreviousIndex(null);
       transitionTimeoutRef.current = null;
     }, TEAM_TRANSITION_MS);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktopScrollStory) {
+      return;
+    }
+
+    const onWheel = (event: WheelEvent) => {
+      const section = sectionRef.current;
+      if (!section) {
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = globalThis.innerHeight;
+      const visibleTop = Math.max(rect.top, 0);
+      const visibleBottom = Math.min(rect.bottom, viewportHeight);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      const requiredVisibleHeight =
+        Math.min(rect.height, viewportHeight) * TEAM_SCROLL_ACTIVATION_VISIBLE_RATIO;
+      const isSectionVisible = rect.bottom > 0 && rect.top < viewportHeight;
+      const isSectionReadyForStory =
+        isSectionVisible &&
+        visibleHeight >= requiredVisibleHeight &&
+        rect.top <= TEAM_SCROLL_ACTIVATION_TOP_OFFSET;
+
+      if (!isSectionReadyForStory) {
+        wheelDeltaAccumulatorRef.current = 0;
+        return;
+      }
+
+      const currentIndex = activeIndexRef.current;
+      const lastIndex = TEAM_MEMBERS.length - 1;
+      const isMovingDown = event.deltaY > 0;
+      const isMovingUp = event.deltaY < 0;
+
+      if ((isMovingDown && currentIndex >= lastIndex) || (isMovingUp && currentIndex <= 0)) {
+        wheelDeltaAccumulatorRef.current = 0;
+        return;
+      }
+
+      event.preventDefault();
+
+      wheelDeltaAccumulatorRef.current += event.deltaY;
+      if (Math.abs(wheelDeltaAccumulatorRef.current) < TEAM_WHEEL_DELTA_STEP) {
+        return;
+      }
+
+      const direction = wheelDeltaAccumulatorRef.current > 0 ? 1 : -1;
+      const nextIndex = Math.min(lastIndex, Math.max(0, currentIndex + direction));
+      wheelDeltaAccumulatorRef.current = 0;
+
+      swapMember(nextIndex);
+    };
+
+    globalThis.addEventListener("wheel", onWheel, { passive: false });
+    return () => globalThis.removeEventListener("wheel", onWheel);
+  }, [isDesktopScrollStory, swapMember]);
 
   const showNext = () => {
     swapMember(wrapIndex(activeIndex + 1, TEAM_MEMBERS.length));
   };
 
   const activeMember = TEAM_MEMBERS[activeIndex];
-  const previousMember = previousIndex !== null ? TEAM_MEMBERS[previousIndex] : null;
+  const previousMember = previousIndex === null ? null : TEAM_MEMBERS[previousIndex];
   const nextMember = activeIndex < TEAM_MEMBERS.length - 1 ? TEAM_MEMBERS[activeIndex + 1] : null;
 
   return (

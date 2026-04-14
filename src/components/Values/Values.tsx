@@ -101,6 +101,10 @@ const ORBIT_PROGRESS_END_POINT = getOrbitPoint(1);
 const ORBIT_PROGRESS_PATH = `M ${ORBIT_PROGRESS_START_POINT.x.toFixed(2)} ${ORBIT_PROGRESS_START_POINT.y.toFixed(2)} A ${ORBIT_RADIUS} ${ORBIT_RADIUS} 0 0 1 ${ORBIT_PROGRESS_END_POINT.x.toFixed(2)} ${ORBIT_PROGRESS_END_POINT.y.toFixed(2)}`;
 const ORBIT_TRACK_PATH = `M ${ORBIT_CENTER_X - ORBIT_RADIUS} ${ORBIT_CENTER_Y} A ${ORBIT_RADIUS} ${ORBIT_RADIUS} 0 0 1 ${ORBIT_CENTER_X + ORBIT_RADIUS} ${ORBIT_CENTER_Y}`;
 
+const is2560x1440Range = (width: number, height: number) => {
+  return width >= 2500 && width <= 2700 && height >= 1380 && height <= 1500;
+};
+
 const Values: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const transitionTimeoutRef = useRef<number | null>(null);
@@ -119,9 +123,19 @@ const Values: React.FC = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(
     typeof globalThis === "undefined" ? false : globalThis.innerWidth >= 1800
   );
+  const [is2560x1440Screen, setIs2560x1440Screen] = useState(
+    typeof globalThis === "undefined"
+      ? false
+      : is2560x1440Range(globalThis.innerWidth, globalThis.innerHeight)
+  );
 
   useEffect(() => {
-    const handleResize = () => setIsLargeScreen(globalThis.innerWidth >= 1800);
+    const handleResize = () => {
+      setIsLargeScreen(globalThis.innerWidth >= 1800);
+      setIs2560x1440Screen(is2560x1440Range(globalThis.innerWidth, globalThis.innerHeight));
+    };
+
+    handleResize();
     globalThis.addEventListener("resize", handleResize);
     return () => globalThis.removeEventListener("resize", handleResize);
   }, []);
@@ -273,10 +287,16 @@ const Values: React.FC = () => {
       let currentPath = VALUE_LABEL_PATHS[item.id];
       
       if (isLargeScreen && currentPath) {
-        if (item.id === "responsabilidad") {
-          currentPath = "M 54 162 A 220 220 0 0 1 150 30";
+        if (is2560x1440Screen) {
+          if (item.id === "responsabilidad") {
+            currentPath = "M 46 192 A 132 132 0 0 1 150 52";
+          } else if (item.id === "cumplimiento") {
+            currentPath = "M 10 52 A 132 132 0 0 1 114 192";
+          }
+        } else if (item.id === "responsabilidad") {
+          currentPath = "M 46 176 A 132 132 0 0 1 150 36";
         } else if (item.id === "cumplimiento") {
-          currentPath = "M 10 30 A 220 220 0 0 1 106 162";
+          currentPath = "M 10 36 A 132 132 0 0 1 114 176";
         }
       }
 

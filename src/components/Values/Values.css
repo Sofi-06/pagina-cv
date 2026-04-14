@@ -639,12 +639,10 @@
 
   .values-orbit__label--cumplimiento {
     right: -16px;
-    bottom: 134px;
   }
 
   .values-orbit__label--responsabilidad {
     left: -16px;
-    bottom: 134px;
   }
 
   .values-hero {
@@ -653,6 +651,8 @@
   }
 
 }
+
+
 
 @media (max-width: 1200px) {
   .values-stage {
