@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer";
 import TutorialsPopUp from "../components/TutorialsPopUp/TutorialsPopUp";
 import ContactPopUp from "../components/ContactPopUp/ContactPopUp";
 import LayoutUiContext from "../context/LayoutUiContext";
-import robotImage from "../assets/ekkant-robot-22566_512.gif";
+import robotImage from "../assets/Robot_final.gif";
 import "./MainLayout.css";
 
 interface Props {
