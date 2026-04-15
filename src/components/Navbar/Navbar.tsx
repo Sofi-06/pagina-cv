@@ -5,12 +5,12 @@ import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png"
 import "./Navbar.css";
 
 interface NavbarProps {
-    isTutorialsOpen: boolean;
-    isContactOpen: boolean;
-    onOpenTutorials: () => void;
-    onCloseTutorials: () => void;
-    onOpenContact: () => void;
-    onCloseContact: () => void;
+    readonly isTutorialsOpen: boolean;
+    readonly isContactOpen: boolean;
+    readonly onOpenTutorials: () => void;
+    readonly onCloseTutorials: () => void;
+    readonly onOpenContact: () => void;
+    readonly onCloseContact: () => void;
 }
 
 function Navbar({
@@ -20,7 +20,7 @@ function Navbar({
     onCloseTutorials,
     onOpenContact,
     onCloseContact,
-}: NavbarProps) {
+}: Readonly<NavbarProps>) {
     const location = useLocation();
     const navigate = useNavigate();
     const loginMenuRef = useRef<HTMLDivElement | null>(null);
@@ -28,6 +28,7 @@ function Navbar({
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isExternalOpen, setIsExternalOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isCompactNav, setIsCompactNav] = useState(false);
 
     // For mobile: toggle on click instead of hover
     const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
@@ -37,6 +38,8 @@ function Navbar({
         setIsMobileMenuOpen(false);
         setMobileProgramsOpen(false);
         setMobileExternalOpen(false);
+        setIsDropdownOpen(false);
+        setIsExternalOpen(false);
     };
 
     const toggleLoginMenu = () => {
@@ -81,6 +84,21 @@ function Navbar({
         };
     }, []);
 
+    useEffect(() => {
+        const mediaQuery = globalThis.matchMedia("(max-width: 1024px)");
+
+        const updateCompactNav = () => {
+            setIsCompactNav(mediaQuery.matches);
+        };
+
+        updateCompactNav();
+        mediaQuery.addEventListener("change", updateCompactNav);
+
+        return () => {
+            mediaQuery.removeEventListener("change", updateCompactNav);
+        };
+    }, []);
+
     const goToHomeTop = () => {
         handleCloseTransientUi();
 
@@ -88,8 +106,8 @@ function Navbar({
             navigate("/");
         }
 
-        window.requestAnimationFrame(() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+        globalThis.requestAnimationFrame(() => {
+            globalThis.scrollTo({ top: 0, behavior: "smooth" });
         });
     };
 
@@ -102,6 +120,9 @@ function Navbar({
         closeMobileMenu();
         onOpenContact();
     };
+
+    const isProgramsMenuOpen = isCompactNav ? mobileProgramsOpen : isDropdownOpen;
+    const isExternalMenuOpen = isCompactNav ? mobileExternalOpen : isExternalOpen;
 
     return (
         <nav className="navbar">
@@ -139,18 +160,31 @@ function Navbar({
                     {/* Programas Virtuales - desktop hover, mobile click */}
                     <li
                         className="dropdown-trigger"
-                        onMouseEnter={() => setIsDropdownOpen(true)}
-                        onMouseLeave={() => { setIsDropdownOpen(false); setMobileProgramsOpen(false); }}
+                        onMouseEnter={() => {
+                            if (!isCompactNav) {
+                                setIsDropdownOpen(true);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (!isCompactNav) {
+                                setIsDropdownOpen(false);
+                            }
+                        }}
                     >
-                        <span
+                        <button
+                            type="button"
                             className="nav-link-with-icon"
-                            onClick={() => setMobileProgramsOpen(!mobileProgramsOpen)}
+                            onClick={() => {
+                                if (isCompactNav) {
+                                    setMobileProgramsOpen((prev) => !prev);
+                                }
+                            }}
                         >
                             Programas Virtuales{" "}
-                            <ChevronDown size={15} className={(isDropdownOpen || mobileProgramsOpen) ? "rotate" : ""} />
-                        </span>
+                            <ChevronDown size={15} className={isProgramsMenuOpen ? "rotate" : ""} />
+                        </button>
 
-                        {(isDropdownOpen || mobileProgramsOpen) && (
+                        {isProgramsMenuOpen && (
                             <div className="mega-menu">
                                 <a
                                     className="mega-menu-helpdesk-inline"
@@ -225,18 +259,31 @@ function Navbar({
                     {/* Enlaces Externos - desktop hover, mobile click */}
                     <li
                         className="dropdown-trigger"
-                        onMouseEnter={() => setIsExternalOpen(true)}
-                        onMouseLeave={() => { setIsExternalOpen(false); setMobileExternalOpen(false); }}
+                        onMouseEnter={() => {
+                            if (!isCompactNav) {
+                                setIsExternalOpen(true);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (!isCompactNav) {
+                                setIsExternalOpen(false);
+                            }
+                        }}
                     >
-                        <span
+                        <button
+                            type="button"
                             className="nav-link-with-icon"
-                            onClick={() => setMobileExternalOpen(!mobileExternalOpen)}
+                            onClick={() => {
+                                if (isCompactNav) {
+                                    setMobileExternalOpen((prev) => !prev);
+                                }
+                            }}
                         >
                             Sitios de Interés{" "}
-                            <ChevronDown size={15} className={(isExternalOpen || mobileExternalOpen) ? "rotate" : ""} />
-                        </span>
+                            <ChevronDown size={15} className={isExternalMenuOpen ? "rotate" : ""} />
+                        </button>
 
-                        {(isExternalOpen || mobileExternalOpen) && (
+                        {isExternalMenuOpen && (
                             <div className="external-dropdown">
                                 <ul className="external-links">
                                     <li><a href="https://www.santototunja.edu.co/" target="_blank" rel="noopener noreferrer">Santototunja</a></li>

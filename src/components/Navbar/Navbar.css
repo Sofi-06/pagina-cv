@@ -209,6 +209,12 @@
     padding: 4px 0;
 }
 
+.nav-link-with-icon {
+    background: none;
+    border: none;
+    font: inherit;
+}
+
 .navbar-links a:hover,
 .nav-link-with-icon:hover,
 .navbar-link-button:hover {
