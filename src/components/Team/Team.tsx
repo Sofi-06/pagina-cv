@@ -197,8 +197,7 @@ const TEAM_MEMBERS: TeamMember[] = [
 const TEAM_TRANSITION_MS = 520;
 const TEAM_WHEEL_DELTA_STEP = 56;
 const TEAM_SCROLL_DESKTOP_BREAKPOINT = 1024;
-const TEAM_SCROLL_CONTROL_TOP_RATIO = 0.8;
-const TEAM_SCROLL_CONTROL_BOTTOM_RATIO = 0.2;
+const TEAM_SCROLL_EDGE_TOLERANCE = 2;
 
 const wrapIndex = (index: number, length: number) => (index + length) % length;
 
@@ -207,6 +206,9 @@ function Team() {
   const transitionTimeoutRef = useRef<number | null>(null);
   const activeIndexRef = useRef(0);
   const wheelDeltaAccumulatorRef = useRef(0);
+  const lastWheelStepTimeRef = useRef(0);
+  const lockedScrollYRef = useRef<number | null>(null);
+  const isScrollLockedRef = useRef(false);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
@@ -246,6 +248,10 @@ function Team() {
   }, [activeIndex]);
 
   useEffect(() => {
+    isScrollLockedRef.current = activeIndex > 0 && activeIndex < TEAM_MEMBERS.length - 1;
+  }, [activeIndex]);
+
+  useEffect(() => {
     const mediaQuery = globalThis.matchMedia(
       `(min-width: ${TEAM_SCROLL_DESKTOP_BREAKPOINT}px)`
     );
@@ -253,6 +259,7 @@ function Team() {
     const syncMode = () => {
       setIsDesktopScrollStory(mediaQuery.matches);
       wheelDeltaAccumulatorRef.current = 0;
+      lastWheelStepTimeRef.current = 0;
     };
 
     syncMode();
@@ -305,6 +312,17 @@ function Team() {
       return;
     }
 
+    const releaseScrollLock = () => {
+      isScrollLockedRef.current = false;
+      lockedScrollYRef.current = null;
+    };
+
+    const pinScroll = () => {
+      lockedScrollYRef.current ??= globalThis.scrollY;
+
+      globalThis.scrollTo({ top: lockedScrollYRef.current, behavior: "auto" });
+    };
+
     const onWheel = (event: WheelEvent) => {
       const section = sectionRef.current;
       if (!section) {
@@ -315,11 +333,14 @@ function Team() {
       const viewportHeight = globalThis.innerHeight;
       const isMovingDown = event.deltaY > 0;
       const isMovingUp = event.deltaY < 0;
-      const controlTop = viewportHeight * TEAM_SCROLL_CONTROL_TOP_RATIO;
-      const controlBottom = viewportHeight * TEAM_SCROLL_CONTROL_BOTTOM_RATIO;
-      const isSectionReadyForStory = rect.top < controlTop && rect.bottom > controlBottom;
+      const isSectionVisible = rect.bottom > 0 && rect.top < viewportHeight;
+      const isStartBoundaryReached = rect.top <= TEAM_SCROLL_EDGE_TOLERANCE;
+      const isEndBoundaryReached = rect.bottom >= viewportHeight - TEAM_SCROLL_EDGE_TOLERANCE;
+      const isSectionReadyForStory =
+        isSectionVisible && ((isMovingDown && isStartBoundaryReached) || (isMovingUp && isEndBoundaryReached));
 
       if (!isSectionReadyForStory) {
+        releaseScrollLock();
         wheelDeltaAccumulatorRef.current = 0;
         return;
       }
@@ -328,31 +349,59 @@ function Team() {
       const lastIndex = TEAM_MEMBERS.length - 1;
 
       if (isMovingDown && currentIndex >= lastIndex) {
+        releaseScrollLock();
         wheelDeltaAccumulatorRef.current = 0;
         return;
       }
 
       if (isMovingUp && currentIndex <= 0) {
+        releaseScrollLock();
         wheelDeltaAccumulatorRef.current = 0;
         return;
       }
 
+      isScrollLockedRef.current = true;
+      pinScroll();
+
+      const now = globalThis.performance.now();
+      if (now - lastWheelStepTimeRef.current < TEAM_TRANSITION_MS) {
+        event.preventDefault();
+        globalThis.requestAnimationFrame(pinScroll);
+        return;
+      }
+
       event.preventDefault();
+      globalThis.requestAnimationFrame(pinScroll);
 
       wheelDeltaAccumulatorRef.current += event.deltaY;
       if (Math.abs(wheelDeltaAccumulatorRef.current) < TEAM_WHEEL_DELTA_STEP) {
+        globalThis.requestAnimationFrame(pinScroll);
         return;
       }
 
       const direction = wheelDeltaAccumulatorRef.current > 0 ? 1 : -1;
       const nextIndex = Math.min(lastIndex, Math.max(0, currentIndex + direction));
       wheelDeltaAccumulatorRef.current = 0;
+      lastWheelStepTimeRef.current = now;
 
       swapMember(nextIndex);
     };
 
+    const onScroll = () => {
+      if (!isScrollLockedRef.current || lockedScrollYRef.current === null) {
+        return;
+      }
+
+      globalThis.scrollTo({ top: lockedScrollYRef.current, behavior: "auto" });
+    };
+
     globalThis.addEventListener("wheel", onWheel, { passive: false });
-    return () => globalThis.removeEventListener("wheel", onWheel);
+    globalThis.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      releaseScrollLock();
+      globalThis.removeEventListener("wheel", onWheel);
+      globalThis.removeEventListener("scroll", onScroll);
+    };
   }, [isDesktopScrollStory, swapMember]);
 
   const showNext = () => {
