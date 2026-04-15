@@ -197,8 +197,8 @@ const TEAM_MEMBERS: TeamMember[] = [
 const TEAM_TRANSITION_MS = 520;
 const TEAM_WHEEL_DELTA_STEP = 56;
 const TEAM_SCROLL_DESKTOP_BREAKPOINT = 1024;
-const TEAM_SCROLL_ACTIVATION_VISIBLE_RATIO = 0.92;
-const TEAM_SCROLL_ACTIVATION_TOP_OFFSET = 36;
+const TEAM_SCROLL_CONTROL_TOP_RATIO = 0.8;
+const TEAM_SCROLL_CONTROL_BOTTOM_RATIO = 0.2;
 
 const wrapIndex = (index: number, length: number) => (index + length) % length;
 
@@ -262,18 +262,11 @@ function Team() {
   }, []);
 
   useEffect(() => {
-    const preloadIndexes = [
-      activeIndex,
-      wrapIndex(activeIndex + 1, TEAM_MEMBERS.length),
-      wrapIndex(activeIndex + 2, TEAM_MEMBERS.length),
-    ];
-
-    const uniqueBackgrounds = Array.from(
-      new Set(preloadIndexes.map((index) => TEAM_MEMBERS[index].background))
-    );
-
-    const preloadImages = uniqueBackgrounds.map((source) => {
+    const preloadImages = Array.from(
+      new Set(TEAM_MEMBERS.map((member) => member.background))
+    ).map((source) => {
       const image = new Image();
+      image.decoding = "async";
       image.src = source;
       return image;
     });
@@ -320,16 +313,11 @@ function Team() {
 
       const rect = section.getBoundingClientRect();
       const viewportHeight = globalThis.innerHeight;
-      const visibleTop = Math.max(rect.top, 0);
-      const visibleBottom = Math.min(rect.bottom, viewportHeight);
-      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-      const requiredVisibleHeight =
-        Math.min(rect.height, viewportHeight) * TEAM_SCROLL_ACTIVATION_VISIBLE_RATIO;
-      const isSectionVisible = rect.bottom > 0 && rect.top < viewportHeight;
-      const isSectionReadyForStory =
-        isSectionVisible &&
-        visibleHeight >= requiredVisibleHeight &&
-        rect.top <= TEAM_SCROLL_ACTIVATION_TOP_OFFSET;
+      const isMovingDown = event.deltaY > 0;
+      const isMovingUp = event.deltaY < 0;
+      const controlTop = viewportHeight * TEAM_SCROLL_CONTROL_TOP_RATIO;
+      const controlBottom = viewportHeight * TEAM_SCROLL_CONTROL_BOTTOM_RATIO;
+      const isSectionReadyForStory = rect.top < controlTop && rect.bottom > controlBottom;
 
       if (!isSectionReadyForStory) {
         wheelDeltaAccumulatorRef.current = 0;
@@ -338,10 +326,13 @@ function Team() {
 
       const currentIndex = activeIndexRef.current;
       const lastIndex = TEAM_MEMBERS.length - 1;
-      const isMovingDown = event.deltaY > 0;
-      const isMovingUp = event.deltaY < 0;
 
-      if ((isMovingDown && currentIndex >= lastIndex) || (isMovingUp && currentIndex <= 0)) {
+      if (isMovingDown && currentIndex >= lastIndex) {
+        wheelDeltaAccumulatorRef.current = 0;
+        return;
+      }
+
+      if (isMovingUp && currentIndex <= 0) {
         wheelDeltaAccumulatorRef.current = 0;
         return;
       }

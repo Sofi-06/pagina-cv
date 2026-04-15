@@ -670,6 +670,34 @@
   }
 }
 
+@media (min-width: 901px) and (max-width: 1366px) {
+  .values-header {
+    max-width: 940px;
+    padding-top: 34px;
+  }
+
+  .values-kicker {
+    margin-bottom: 16px;
+  }
+
+  .values-kicker p {
+    font-size: clamp(1.06rem, 1.5vw, 1.26rem);
+  }
+
+  .values-header h2 {
+    font-size: clamp(2.45rem, 4.3vw, 3.7rem);
+    white-space: nowrap;
+    line-height: 1.02;
+  }
+
+  .values-description {
+    max-width: 760px;
+    margin-top: 22px;
+    font-size: clamp(1.1rem, 1.65vw, 1.42rem);
+    line-height: 1.28;
+  }
+}
+
 @media (max-width: 900px) {
   .values-section {
     --values-section-height: 600px;
@@ -1070,18 +1098,30 @@
 }
 
 @media (min-width: 2560px) {
+  .values-section {
+    --values-section-padding-top: 190px;
+  }
+
   .values-header {
     max-width: 1120px;
+    padding-top: 34px;
+  }
+
+  .values-kicker p {
+    font-size: 1.5rem;
   }
 
   .values-header h2 {
-    font-size: clamp(3.7rem, 3.9vw, 5.4rem);
+    font-size: clamp(4rem, 4.2vw, 5.8rem);
     white-space: nowrap;
+    line-height: 1.02;
   }
 
   .values-description {
     max-width: 1220px;
-    font-size: clamp(1.35rem, 1.25vw, 1.95rem);
+    margin-top: 26px;
+    font-size: clamp(1.5rem, 1.35vw, 2.1rem);
+    line-height: 1.3;
   }
 
   .values-orbit__label--left {
