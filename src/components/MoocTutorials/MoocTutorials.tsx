@@ -99,7 +99,7 @@ const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
                     <div className="tutoriales-text">
                         <h2>Tutoriales:</h2>
                         <p>
-                            Quieres saber mas sobre algunas herramientas digitales que pueden apoyar tu practica academica? En este espacio encontraras material de apoyo que te ayudara en tu proceso formativo.
+                           ¿Quieres saber más sobre algunas herramientas digitales que pueden apoyar tu práctica académica? En este espacio encontrarás material de apoyo que te ayudará en tu proceso formativo.
                         </p>
                         <button
                             type="button"

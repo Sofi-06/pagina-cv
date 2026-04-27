@@ -77,7 +77,7 @@ function ContactPopUp({
                 </button>
 
                 <div className="contact-popup-card">
-                    <p className="contact-popup-kicker">Necesitas ayuda o tienes alguna pregunta?</p>
+                    <p className="contact-popup-kicker">¿Necesitas ayuda o tienes alguna pregunta?</p>
                     <h1 className="contact-popup-title" id="contact-popup-title">
                         Contáctanos
                     </h1>

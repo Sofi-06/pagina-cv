@@ -173,11 +173,7 @@ function AboutTransition() {
                                     Nuestra esencia
                                 </h2>
                                 <p className="about-transition__text">
-                                    Somos la dependencia administrativa encargada de apoyar el desarrollo de
-                                    los servicios academicos en el marco de los procesos educativos de
-                                    Docencia, Investigacion y Proyeccion Social para programas en la
-                                    modalidad virtual y presencial; enfocados en el marco comunicativo,
-                                    tecnologico, pedagogico y digital.
+                                    Somos la dependencia administrativa encargada de apoyar el desarrollo de los servicios académicos en el marco de los procesos educativos de docencia, investigación y proyección social para programas en las modalidades virtual y presencial; enfocados en los ámbitos comunicativo, tecnológico, pedagógico y digital.
                                 </p>
                             </div>
                         </div>
