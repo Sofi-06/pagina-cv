@@ -79,8 +79,8 @@ export default function Footer() {
           </div>
 
           <div className="footer-legal">
-            <p>Institución de Educación Superior, reconocida mediante Resolucion 3645 del 06 de agosto de 1965 expedida por el Ministerio de Justicia.</p>
-            <p>Institución sujeta a inspección y vigilancia por el Ministerio de Educacion Nacional - SNIES 1732.</p>
+            <p>Institución de Educación Superior, reconocida mediante Resolución 3645 del 06 de agosto de 1965 expedida por el Ministerio de Justicia.</p>
+            <p>Institución sujeta a inspección y vigilancia por el Ministerio de Educación Nacional - SNIES 1732.</p>
             <p>Todos los derechos reservados.</p>
             <p><a href="#" className="legal-link">Políticas y condiciones de uso.</a></p>
           </div>
