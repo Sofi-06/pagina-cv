@@ -172,7 +172,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   },
     {
     id: "team-14",
-    name: "Nuevo",
+    name: "Nueva Persona",
     role: "Auxiliar",
     portrait: portrait12,
     background: background12,
