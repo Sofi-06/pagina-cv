@@ -1,0 +1,330 @@
+.tutorials-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 24px 22px;
+    overflow-y: auto;
+    animation: tutorials-overlay-in 0.46s ease forwards;
+}
+
+.tutorials-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    border: none;
+    background: rgba(226, 233, 238, 0.26);
+    cursor: pointer;
+}
+
+.tutorials-popup {
+    position: relative;
+    width: min(100%, 900px);
+    border-radius: 28px;
+    overflow: hidden;
+    background: rgba(231, 237, 241, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 18px 42px rgba(10, 33, 76, 0.18);
+    z-index: 1;
+    animation: tutorials-popup-in 0.52s cubic-bezier(0.16, 0.84, 0.2, 1) forwards;
+    transform-origin: top center;
+}
+
+.tutorials-popup-overlay.is-closing {
+    animation: tutorials-overlay-out 0.42s ease forwards;
+}
+
+.tutorials-popup-overlay.is-closing .tutorials-popup {
+    animation: tutorials-popup-out 0.46s cubic-bezier(0.4, 0.12, 0.56, 0.88) forwards;
+}
+
+@keyframes tutorials-popup-in {
+    from {
+        opacity: 0;
+        transform: translateY(-120px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes tutorials-popup-out {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-120px) scale(0.96);
+    }
+}
+
+@keyframes tutorials-overlay-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes tutorials-overlay-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.tutorials-popup-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 72px 12px;
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.tutorials-popup-title {
+    margin: 0;
+    color: #1a1548;
+    font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.tutorials-popup-close {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: #1a1548;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.tutorials-popup-close:hover {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(26, 21, 72, 0.08);
+}
+
+.tutorials-popup-body {
+    position: relative;
+    padding: 8px 28px 14px;
+}
+
+.tutorials-popup-body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(211, 220, 225, 0.7);
+}
+
+.tutorials-popup-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.tutorials-option {
+    --visual-size: 330px;
+    display: grid;
+    grid-template-rows: var(--visual-size) auto;
+    justify-items: center;
+    row-gap: 8px;
+    text-align: center;
+}
+
+.tutorials-option-visual {
+    position: relative;
+    width: min(100%, var(--visual-size));
+    height: var(--visual-size);
+    margin-top: -6px;
+}
+
+.tutorials-option-image {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    max-width: none;
+    user-select: none;
+    pointer-events: none;
+    transition: transform 0.26s ease, filter 0.26s ease;
+}
+
+.tutorials-option--student .tutorials-option-image {
+    width: min(100%, 316px);
+    transform: translateX(-50%);
+}
+
+.tutorials-option--teacher .tutorials-option-image {
+    width: min(100%, 312px);
+    transform: translateX(-50%);
+}
+
+@media (hover: hover) {
+    .tutorials-option--student:hover .tutorials-option-image {
+        transform: translateX(-50%) scale(1.08);
+        filter: drop-shadow(0 10px 18px rgba(16, 33, 76, 0.22));
+    }
+
+    .tutorials-option--teacher:hover .tutorials-option-image {
+        transform: translateX(-50%) scale(1.08);
+        filter: drop-shadow(0 10px 18px rgba(16, 33, 76, 0.22));
+    }
+}
+
+.tutorials-option-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    min-width: 172px;
+    padding: 9px 28px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 8px 16px rgba(20, 44, 92, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tutorials-option-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.98);
+}
+
+.tutorials-option-button--student {
+    background: #f5c20f;
+    color: #1a1548;
+}
+
+.tutorials-option-button--teacher {
+    background: #34bfea;
+    color: #1a1548;
+    margin-left: 55px;
+}
+
+.tutorials-option-button--student:hover {
+    background: #ffffff;
+    border-color: #f2b400;
+    color: #201670;
+}
+
+.tutorials-option-button--teacher:hover {
+    background: #ffffff;
+    border-color: #36bce5;
+    color: #201670;
+}
+
+@media (max-width: 900px) {
+    .tutorials-popup-overlay {
+        padding: 20px 18px;
+    }
+
+    .tutorials-popup {
+        border-radius: 24px;
+    }
+
+    .tutorials-popup-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .tutorials-option {
+        --visual-size: 320px;
+        gap: 14px;
+    }
+
+    .tutorials-option-visual {
+        margin-top: -6px;
+    }
+
+    .tutorials-option--student .tutorials-option-image {
+        width: min(100%, 278px);
+    }
+
+    .tutorials-option--teacher .tutorials-option-image {
+        width: min(100%, 274px);
+    }
+}
+
+@media (max-width: 560px) {
+    .tutorials-popup-overlay {
+        padding: 16px 12px;
+    }
+
+    .tutorials-popup-header {
+        padding: 14px 52px 12px;
+    }
+
+    .tutorials-popup-title {
+        font-size: 1.8rem;
+    }
+
+    .tutorials-popup-close {
+        right: 10px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .tutorials-popup-body {
+        padding: 12px 14px 16px;
+    }
+
+    .tutorials-option {
+        --visual-size: 280px;
+    }
+
+    .tutorials-option-visual {
+        margin-top: -4px;
+    }
+
+    .tutorials-option--student .tutorials-option-image {
+        width: min(100%, 246px);
+        transform: translateX(-50%);
+    }
+
+    .tutorials-option--teacher .tutorials-option-image {
+        width: min(100%, 242px);
+        transform: translateX(-50%);
+    }
+
+    .tutorials-option-button {
+        min-width: 150px;
+        padding: 9px 18px;
+        font-size: 0.9rem;
+    }
+
+    .tutorials-option-button--teacher {
+        margin-left: 10px;
+    }
+}
+
+@media (hover: hover) and (max-width: 560px) {
+    .tutorials-option--student:hover .tutorials-option-image {
+        transform: translateX(-50%) scale(1.06);
+    }
+
+    .tutorials-option--teacher:hover .tutorials-option-image {
+        transform: translateX(-50%) scale(1.06);
+    }
+}

@@ -1,10 +1,18 @@
 import "./AboutUs.css";
+import AboutTransition from "../../components/AboutTransition/AboutTransition";
+import QuienesSomos from "../../components/QuienesSomos/QuienesSomos";
+import QueHacemos from "../../components/QueHacemos/QueHacemos";
+import Team from "../../components/Team/Team";
+import Values from "../../components/Values/Values";
 
 function AboutUs() {
     return (
-        <div className="about-us">
-            <h1>About Us</h1>
-            <p>Welcome to our campus platform. We are dedicated to providing the best experience for our students.</p>
+        <div className="about-us-page">
+            <QuienesSomos />
+            <AboutTransition />
+            <QueHacemos />
+            <Values />
+            <Team />
         </div>
     );
 }

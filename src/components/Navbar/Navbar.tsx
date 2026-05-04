@@ -1,10 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, MapPin, Menu, X } from "lucide-react";
 import logo from "../../assets/Copia-de-FInal-Logo-campusprueba2-2-1-scaled.png";
 import "./Navbar.css";
 
-function Navbar() {
+interface NavbarProps {
+    readonly isTutorialsOpen: boolean;
+    readonly isContactOpen: boolean;
+    readonly onOpenTutorials: () => void;
+    readonly onCloseTutorials: () => void;
+    readonly onOpenContact: () => void;
+    readonly onCloseContact: () => void;
+}
+
+function Navbar({
+    isTutorialsOpen,
+    isContactOpen,
+    onOpenTutorials,
+    onCloseTutorials,
+    onOpenContact,
+    onCloseContact,
+}: Readonly<NavbarProps>) {
     const location = useLocation();
     const navigate = useNavigate();
     const loginMenuRef = useRef<HTMLDivElement | null>(null);
@@ -12,6 +28,7 @@ function Navbar() {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isExternalOpen, setIsExternalOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isCompactNav, setIsCompactNav] = useState(false);
 
     // For mobile: toggle on click instead of hover
     const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
@@ -21,10 +38,28 @@ function Navbar() {
         setIsMobileMenuOpen(false);
         setMobileProgramsOpen(false);
         setMobileExternalOpen(false);
+        setIsDropdownOpen(false);
+        setIsExternalOpen(false);
     };
 
     const toggleLoginMenu = () => {
         setIsLoginOpen((prev) => !prev);
+    };
+
+    const handleCloseTransientUi = () => {
+        closeMobileMenu();
+        onCloseTutorials();
+        onCloseContact();
+        setIsLoginOpen(false);
+    };
+
+    const handlePageLinkClick = (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => {
+        handleCloseTransientUi();
+
+        if (location.pathname === path) {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     };
 
     useEffect(() => {
@@ -49,17 +84,45 @@ function Navbar() {
         };
     }, []);
 
+    useEffect(() => {
+        const mediaQuery = globalThis.matchMedia("(max-width: 1024px)");
+
+        const updateCompactNav = () => {
+            setIsCompactNav(mediaQuery.matches);
+        };
+
+        updateCompactNav();
+        mediaQuery.addEventListener("change", updateCompactNav);
+
+        return () => {
+            mediaQuery.removeEventListener("change", updateCompactNav);
+        };
+    }, []);
+
     const goToHomeTop = () => {
-        closeMobileMenu();
+        handleCloseTransientUi();
 
         if (location.pathname !== "/") {
             navigate("/");
         }
 
-        window.requestAnimationFrame(() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+        globalThis.requestAnimationFrame(() => {
+            globalThis.scrollTo({ top: 0, behavior: "smooth" });
         });
     };
+
+    const handleOpenTutorials = () => {
+        closeMobileMenu();
+        onOpenTutorials();
+    };
+
+    const handleOpenContact = () => {
+        closeMobileMenu();
+        onOpenContact();
+    };
+
+    const isProgramsMenuOpen = isCompactNav ? mobileProgramsOpen : isDropdownOpen;
+    const isExternalMenuOpen = isCompactNav ? mobileExternalOpen : isExternalOpen;
 
     return (
         <nav className="navbar">
@@ -83,25 +146,56 @@ function Navbar() {
                         </button>
                     </div>
 
-                    <li><Link to="/" onClick={closeMobileMenu}>Inicio</Link></li>
-                    <li><Link to="/campus" onClick={closeMobileMenu}>Nuestro Campus</Link></li>
+                    <li>
+                        <Link to="/" onClick={(event) => handlePageLinkClick(event, "/")}>
+                            Inicio
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/campus" onClick={(event) => handlePageLinkClick(event, "/campus")}>
+                            Nuestro Campus
+                        </Link>
+                    </li>
 
                     {/* Programas Virtuales - desktop hover, mobile click */}
                     <li
                         className="dropdown-trigger"
-                        onMouseEnter={() => setIsDropdownOpen(true)}
-                        onMouseLeave={() => { setIsDropdownOpen(false); setMobileProgramsOpen(false); }}
+                        onMouseEnter={() => {
+                            if (!isCompactNav) {
+                                setIsDropdownOpen(true);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (!isCompactNav) {
+                                setIsDropdownOpen(false);
+                            }
+                        }}
                     >
-                        <span
+                        <button
+                            type="button"
                             className="nav-link-with-icon"
-                            onClick={() => setMobileProgramsOpen(!mobileProgramsOpen)}
+                            onClick={() => {
+                                if (isCompactNav) {
+                                    setMobileProgramsOpen((prev) => !prev);
+                                }
+                            }}
                         >
                             Programas Virtuales{" "}
-                            <ChevronDown size={15} className={(isDropdownOpen || mobileProgramsOpen) ? "rotate" : ""} />
-                        </span>
+                            <ChevronDown size={15} className={isProgramsMenuOpen ? "rotate" : ""} />
+                        </button>
 
-                        {(isDropdownOpen || mobileProgramsOpen) && (
+                        {isProgramsMenuOpen && (
                             <div className="mega-menu">
+                                <a
+                                    className="mega-menu-helpdesk-inline"
+                                    href="https://programasvirtuales.santototunja.edu.co/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={closeMobileMenu}
+                                >
+                                    Mesa de Ayuda
+                                </a>
+
                                 <div className="mega-menu-grid">
                                     <div className="mega-menu-column">
                                         <h4 className="column-title">Especializaciones</h4>
@@ -133,8 +227,24 @@ function Navbar() {
                         )}
                     </li>
 
-                    <li><Link to="/tutoriales" onClick={closeMobileMenu}>Tutoriales</Link></li>
-                    <li><Link to="/contacto" onClick={closeMobileMenu}>Contacto</Link></li>
+                    <li>
+                        <button
+                            type="button"
+                            className={`navbar-link-button${isTutorialsOpen ? " is-active" : ""}`}
+                            onClick={handleOpenTutorials}
+                        >
+                            Tutoriales
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            type="button"
+                            className={`navbar-link-button${isContactOpen ? " is-active" : ""}`}
+                            onClick={handleOpenContact}
+                        >
+                            Contacto
+                        </button>
+                    </li>
                     <li>
                         <a
                             href="https://campusvirtual.santototunja.edu.co/app/metaverso/"
@@ -149,18 +259,31 @@ function Navbar() {
                     {/* Enlaces Externos - desktop hover, mobile click */}
                     <li
                         className="dropdown-trigger"
-                        onMouseEnter={() => setIsExternalOpen(true)}
-                        onMouseLeave={() => { setIsExternalOpen(false); setMobileExternalOpen(false); }}
+                        onMouseEnter={() => {
+                            if (!isCompactNav) {
+                                setIsExternalOpen(true);
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (!isCompactNav) {
+                                setIsExternalOpen(false);
+                            }
+                        }}
                     >
-                        <span
+                        <button
+                            type="button"
                             className="nav-link-with-icon"
-                            onClick={() => setMobileExternalOpen(!mobileExternalOpen)}
+                            onClick={() => {
+                                if (isCompactNav) {
+                                    setMobileExternalOpen((prev) => !prev);
+                                }
+                            }}
                         >
-                            Enlaces Externos{" "}
-                            <ChevronDown size={15} className={(isExternalOpen || mobileExternalOpen) ? "rotate" : ""} />
-                        </span>
+                            Sitios de Interés{" "}
+                            <ChevronDown size={15} className={isExternalMenuOpen ? "rotate" : ""} />
+                        </button>
 
-                        {(isExternalOpen || mobileExternalOpen) && (
+                        {isExternalMenuOpen && (
                             <div className="external-dropdown">
                                 <ul className="external-links">
                                     <li><a href="https://www.santototunja.edu.co/" target="_blank" rel="noopener noreferrer">Santototunja</a></li>
@@ -223,6 +346,7 @@ function Navbar() {
                     </div>
                 </div>
             </div>
+
         </nav>
     );
 }

@@ -15,7 +15,7 @@
     border-bottom: 1px solid #e1e4e8;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1300;
     width: 100%;
     /* No overflow:hidden here — clips logo & dropdowns */
 }
@@ -47,7 +47,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.06rem;
     }
 
@@ -74,7 +75,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.18rem;
     }
 
@@ -116,7 +118,8 @@
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.52rem;
         font-weight: 600;
     }
@@ -191,7 +194,8 @@
 }
 
 .navbar-links a,
-.nav-link-with-icon {
+.nav-link-with-icon,
+.navbar-link-button {
     text-decoration: none;
     color: #24292e;
     font-weight: 500;
@@ -205,8 +209,26 @@
     padding: 4px 0;
 }
 
+.nav-link-with-icon {
+    background: none;
+    border: none;
+    font: inherit;
+}
+
 .navbar-links a:hover,
-.nav-link-with-icon:hover {
+.nav-link-with-icon:hover,
+.navbar-link-button:hover {
+    color: #201670;
+}
+
+.navbar-link-button {
+    appearance: none;
+    background: none;
+    border: none;
+    font: inherit;
+}
+
+.navbar-link-button.is-active {
     color: #201670;
 }
 
@@ -258,8 +280,39 @@
 .mega-menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 2rem 4.2rem;
     gap: 1.5rem;
+}
+
+.mega-menu-helpdesk-inline {
+    position: absolute;
+    right: 1.35rem;
+    bottom: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px 24px;
+    min-width: 180px;
+    border: 1.5px solid #201670;
+    border-radius: 8px;
+    background: transparent;
+    color: #201670;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+.mega-menu-helpdesk-inline:hover {
+    background: #201670;
+    color: #ffffff !important;
+}
+
+.mega-menu a.mega-menu-helpdesk-inline:hover,
+.mega-menu a.mega-menu-helpdesk-inline:focus-visible {
+    color: #ffffff !important;
 }
 
 .mega-menu-column {
@@ -271,6 +324,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     color: #586069;
+    padding-left: 12px;
     margin-bottom: 0.75rem;
     text-transform: uppercase;
 }
@@ -542,7 +596,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 0.95rem;
         /* Slightly smaller but still readable */
     }
@@ -564,7 +619,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 0.84rem;
     }
 
@@ -687,7 +743,8 @@ svg {
 
     /* inside sidebar links bigger */
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1rem;
         font-weight: 500;
         white-space: normal;
@@ -715,6 +772,15 @@ svg {
         grid-template-columns: 1fr;
         padding: 8px 0;
         gap: 0;
+    }
+
+    .mega-menu-helpdesk-inline {
+        position: static;
+        margin: 10px 0 2px 12px;
+        min-height: 34px;
+        padding: 8px 18px;
+        min-width: 160px;
+        font-size: 0.86rem;
     }
 
     .column-links a,
@@ -750,7 +816,8 @@ svg {
     }
 
     .navbar-links a,
-    .nav-link-with-icon {
+    .nav-link-with-icon,
+    .navbar-link-button {
         font-size: 1.04rem;
     }
 
@@ -786,4 +853,5 @@ svg {
         right: -8px;
         min-width: 200px;
     }
+
 }

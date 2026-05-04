@@ -1,37 +1,42 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import AboutUs from "../pages/AboutUs/AboutUs";
-import Contact from "../pages/Contact/Contact";
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+};
 
 const AppRouter = () => {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <MainLayout>
-            <Home />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/campus"
-        element={
-          <MainLayout>
-            <AboutUs />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/contacto"
-        element={
-          <MainLayout>
-            <Contact />
-          </MainLayout>
-        }
-      />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout showChatbot>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/campus"
+          element={
+            <MainLayout>
+              <AboutUs />
+            </MainLayout>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 

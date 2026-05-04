@@ -57,12 +57,12 @@ export default function Footer() {
 
           <div className="footer-addresses">
             <div className="address-item">
-              <strong>Campus Centro Historico:</strong>
+              <strong>Campus Centro Histórico:</strong>
               <p>Cll. 19 N 11 - 64 - Ofi. Campus Virtual, Segundo piso - Tunja, Colombia.</p>
             </div>
             <div className="address-item">
               <strong>Campus Avenida Universitaria:</strong>
-              <p>Av. Univ. #No. 45 - 202 - Ofi. Campus Virtual, Edif. Santo Domingo de Guzman, Tercer Piso, frente a Tic.</p>
+              <p>Av. Univ. #No. 45 - 202 - Ofi. Campus Virtual, Edif. Santo Domingo de Guzmán, Tercer Piso, frente a Tic.</p>
             </div>
           </div>
 
@@ -79,10 +79,10 @@ export default function Footer() {
           </div>
 
           <div className="footer-legal">
-            <p>Institucion de Educacion Superior, reconocida mediante Resolucion 3645 del 06 de agosto de 1965 expedida por el Ministerio de Justicia.</p>
-            <p>Institucion sujeta a inspeccion y vigilancia por el Ministerio de Educacion Nacional - SNIES 1732.</p>
+            <p>Institución de Educación Superior, reconocida mediante Resolución 3645 del 06 de agosto de 1965 expedida por el Ministerio de Justicia.</p>
+            <p>Institución sujeta a inspección y vigilancia por el Ministerio de Educación Nacional - SNIES 1732.</p>
             <p>Todos los derechos reservados.</p>
-            <p><a href="#" className="legal-link">Politicas y condiciones de uso.</a></p>
+            <p><a href="#" className="legal-link">Políticas y condiciones de uso.</a></p>
           </div>
         </div>
       </div>
