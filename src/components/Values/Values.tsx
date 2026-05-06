@@ -25,7 +25,7 @@ interface ValueItem {
 const VALUES: ValueItem[] = [
   {
     id: "responsabilidad",
-    title: "Responsabilidad",
+    title: "Responsabilidad.",
     description:
       "Porque siempre cumplimos y desarrollamos nuestro trabajo de la mejor manera",
     heroImage: responsabilidadHero,
@@ -34,7 +34,7 @@ const VALUES: ValueItem[] = [
   },
   {
     id: "equipo",
-    title: "Trabajo en equipo",
+    title: "Trabajo en equipo.",
     description:
       "Todos aportamos un granito de arena para obtener siempre los mejores resultados",
     heroImage: trabajoHero,
@@ -43,7 +43,7 @@ const VALUES: ValueItem[] = [
   },
   {
     id: "cumplimiento",
-    title: "Cumplimiento",
+    title: "Cumplimiento.",
     description:
       "Damos soluciones a las necesidades de toda la comunidad educativa",
     heroImage: cumplimientoHero,

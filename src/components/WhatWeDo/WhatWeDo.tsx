@@ -103,7 +103,7 @@ const WhatWeDo: React.FC = () => {
                 }} />
 
                 <div className="what-we-do-content" style={{ opacity, position: 'relative', zIndex: 1 }}>
-                    <h2>¿Qué Hacemos?</h2>
+                    <h2>¿Qué hacemos?</h2>
                     <p>
                         Trabajamos en el fortalecimiento de los procesos de enseñanza y aprendizaje de modalidad virtual con la incorporación de estrategias didácticas y evaluativas, y recursos educativos creativos e innovadores que permitan el desarrollo y el crecimiento del estudiante en todo su proceso de formación integral.
                     </p>

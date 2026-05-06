@@ -17,7 +17,7 @@ const toolsData: ToolData[] = [
   {
     name: 'FLIPHTML5',
     img: logoFlip,
-    desc: 'Convierte documentos estáticos (PDF, PPT, Word, imágenes) en revistas, catálogos y folletos interactivos.',
+    desc: 'Convierte documentos estáticos (PDF, PPTX, Word, imágenes) en revistas, catálogos y folletos interactivos.',
     color: '#4db8ff',
     href: 'https://fliphtml5.com/?gad_source=1&gad_campaignid=22431807734&gbraid=0AAAAACQRMaeWf4MkQxj1pJ3upXDTi7ZRd&gclid=CjwKCAjw687NBhB4EiwAQ645dpuDdxn8LL68K9LUvoj1rnUwb9PGxu5GwP6h0HjAF-IKBqFxdqBpPRoCH0YQAvD_BwE'
   },
@@ -72,7 +72,7 @@ export default function ToolsTeacher() {
         <div className="tools-header">
           <h2 className="tools-title">Herramientas TIC para Docentes</h2>
           <p className="tools-subtitle">
-            Conoce las herramientas que la Universidad tiene licenciadas para el uso de los docentes
+            Conoce las herramientas que la Santoto Tunja tiene licenciadas para el uso de los docentes
             Tomasinos dentro de sus procesos académicos y pedagógicos.
           </p>
         </div>

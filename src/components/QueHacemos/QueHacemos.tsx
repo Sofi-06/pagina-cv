@@ -58,7 +58,7 @@ function QueHacemos() {
                         recursos para el aprendizaje, los ambientes virtuales de aprendizaje
                         interactivos, la infraestructura tecnológica adecuada y suficiente,
                         partiendo de una gestión académica y administrativa que promueve la
-                        Educación virtual con impacto social, humanizante, de desarrollo y de
+                        educación virtual con impacto social, humanizante, de desarrollo y de
                         crecimiento.
                     </p>
                 </div>

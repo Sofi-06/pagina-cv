@@ -53,7 +53,7 @@ const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
                     <div className="mooc-text">
                         <h2>MOOC:</h2>
                         <p>
-                            Accede a la plataforma que tenemos disponible e impulsa tu carrera laboral con nuestros cursos masivos en linea y gratuitos. Puedes realizar los Mooc a tu ritmo y desde cualquier dispositivo y cualquier momento.
+                            Accede a la plataforma que tenemos disponible e impulsa tu carrera laboral con nuestros cursos masivos en línea y gratuitos. Realiza los MOOCs sin presiones: elige tu dispositivo, define tu horario y avanza a tu ritmo.
                         </p>
                         <a href="https://campusvirtual.santototunja.edu.co/moodle/login/index.php" target="_blank" rel="noopener noreferrer" className="mooc-tutorials-btn">Comienza ahora</a>
                     </div>
@@ -99,14 +99,14 @@ const MoocTutorials = ({ onOpenTutorials }: MoocTutorialsProps) => {
                     <div className="tutoriales-text">
                         <h2>Tutoriales:</h2>
                         <p>
-                           ¿Quieres saber más sobre algunas herramientas digitales que pueden apoyar tu práctica académica? En este espacio encontrarás material de apoyo que te ayudará en tu proceso formativo.
+                           ¿Quieres saber más sobre algunas herramientas digitales que pueden apoyar en tu práctica académica? En este espacio encontrarás material de apoyo que te ayudará en tu proceso formativo.
                         </p>
                         <button
                             type="button"
                             className="mooc-tutorials-btn"
                             onClick={onOpenTutorials ?? layoutUi?.openTutorials}
                         >
-                            Ver mas
+                            Ver más
                         </button>
                     </div>
                 </div>

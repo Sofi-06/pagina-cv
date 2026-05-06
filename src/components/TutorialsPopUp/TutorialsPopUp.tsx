@@ -65,9 +65,9 @@ function TutorialsPopUp({
         },
         {
             id: "teacher",
-            label: "Soy Profesor",
+            label: "Soy Docente",
             image: tutorialStudent,
-            imageAlt: "Acceso a tutoriales para profesores",
+            imageAlt: "Acceso a tutoriales para Docentes",
             href: teacherHref,
         },
     ];

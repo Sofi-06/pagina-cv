@@ -57,12 +57,12 @@ export default function Footer() {
 
           <div className="footer-addresses">
             <div className="address-item">
-              <strong>Campus Centro Histórico:</strong>
-              <p>Cll. 19 N 11 - 64 - Ofi. Campus Virtual, Segundo piso - Tunja, Colombia.</p>
+              <strong>OFICINAS CAMPUS VIRTUAL</strong>
+              <p>TUNJA - BOYACÁ - COLOMBIA</p> <br />
+              <p>Campus Centro Histórico: CL. 19 Nº 11 - 64 2do. piso</p>
             </div>
             <div className="address-item">
-              <strong>Campus Avenida Universitaria:</strong>
-              <p>Av. Univ. #No. 45 - 202 - Ofi. Campus Virtual, Edif. Santo Domingo de Guzmán, Tercer Piso, frente a Tic.</p>
+              <p>Campus Av. Universitaria: Av. Universitaria No. 45 - 202 Ed. Santo Domingo de Guzmán 3er. piso, frente a TIC.</p>
             </div>
           </div>
 
