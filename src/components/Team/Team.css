@@ -195,7 +195,7 @@
   position: relative;
   overflow: visible;
   border: 0;
-  border-radius: 26px;
+  border-radius: 14px;
   background: transparent;
   box-shadow: none;
 }
@@ -632,7 +632,7 @@
   }
 
   .team-card {
-    border-radius: 22px;
+    border-radius: 14px;
   }
 
   .team-card--active {

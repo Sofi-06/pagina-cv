@@ -170,11 +170,12 @@ const TEAM_MEMBERS: TeamMember[] = [
     overlayStrong: "rgba(11, 45, 51, 0.5)",
     overlaySoft: "rgba(47, 104, 114, 0.22)",
   },
+  /*
     {
     id: "team-14",
-    name: "Nueva Persona",
-    role: "Auxiliar",
-    portrait: portrait12,
+    name: "Angela Quintero",
+    role: "Auxiliar Administrativa",
+    portrait: "https://png.pngtree.com/png-vector/20250610/ourmid/pngtree-latino-female-developer-relations-evangelist-icon-clipart-png-image_16514083.png",
     background: background12,
     panel: "#2f6872",
     preview: "#15345a",
@@ -192,6 +193,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     overlayStrong: "rgba(11, 45, 51, 0.5)",
     overlaySoft: "rgba(47, 104, 114, 0.22)",
   }
+    */
 ];
 
 const TEAM_TRANSITION_MS = 520;
